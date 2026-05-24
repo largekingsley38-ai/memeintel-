@@ -6,75 +6,103 @@
 <title>MemeIntel</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;user-select:none}
-.nav{display:flex;align-items:center;background:#060a10;border-bottom:1px solid #ffffff0e;padding:0 10px;height:44px;gap:4px}
-.logo{color:#00e676;font-size:13px;font-weight:900;letter-spacing:2px;margin-right:8px}
+body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;user-select:none;overflow-x:hidden}
+.nav{display:flex;align-items:center;background:#060a10;border-bottom:1px solid #ffffff0e;padding:0 10px;height:44px;gap:6px}
+.logo{color:#00e676;font-size:13px;font-weight:900;letter-spacing:2px}
 .nb{background:none;border:1px solid #ffffff15;color:#ffffff50;font-size:9px;cursor:pointer;padding:4px 8px;border-radius:4px;touch-action:manipulation}
 .nb.on{background:#00e67620;border-color:#00e67650;color:#00e676}
 .tick{overflow:hidden;background:#00e67606;border-bottom:1px solid #00e67618;padding:4px 0;white-space:nowrap}
 .ti{display:inline-block;animation:tk 22s linear infinite}
 @keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.wrap{display:flex;height:calc(100vh - 82px)}
-.left{width:150px;background:#060a10;border-right:1px solid #ffffff08;overflow-y:auto;flex-shrink:0}
-.tr{display:flex;flex-direction:column;padding:8px 10px;border-bottom:1px solid #ffffff05;border-left:3px solid transparent;touch-action:manipulation;cursor:pointer;background:transparent;transition:background 0.1s}
-.tr.sel{background:#0d1f35;border-left-color:#00e676}
-.mid{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.ch{padding:8px 10px;border-bottom:1px solid #ffffff08;display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:44px}
-.bars{flex:1;display:flex;align-items:flex-end;padding:10px;gap:1px}
-.scan{flex:1;overflow-y:auto;padding:10px;display:none}
-.right{width:190px;background:#060a10;border-left:1px solid #ffffff08;padding:10px;overflow-y:auto;flex-shrink:0}
-.bs{display:flex;background:#0b1220;border-radius:6px;padding:2px;margin-bottom:8px}
-.bb{flex:1;padding:6px;border-radius:5px;border:none;font-size:11px;font-weight:900;cursor:pointer;text-transform:uppercase;touch-action:manipulation}
-.ab{flex:1;padding:5px 2px;border-radius:4px;font-size:9px;font-weight:700;cursor:pointer;border:1px solid #ffffff15;background:#0b1826;color:#ffffff50;touch-action:manipulation;min-width:32px}
-.ab.on{background:#00e67615;border-color:#00e67650;color:#00e676}
-.go{width:100%;padding:11px;border-radius:8px;border:none;font-size:12px;font-weight:900;cursor:pointer;margin-bottom:10px;touch-action:manipulation}
-.fl{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:999;font-size:28px;font-weight:900;animation:fo 1.5s forwards}
-@keyframes fo{0%,70%{opacity:1}100%{opacity:0}}
+
+/* TOKEN LIST - horizontal scrollable at top */
+.tokscroll{display:flex;overflow-x:auto;background:#060a10;border-bottom:1px solid #ffffff08;padding:8px;gap:8px;-webkit-overflow-scrolling:touch}
+.tokscroll::-webkit-scrollbar{display:none}
+.tokcard{flex-shrink:0;background:#0b1220;border:2px solid transparent;border-radius:8px;padding:8px 10px;cursor:pointer;touch-action:manipulation;min-width:90px;text-align:center}
+.tokcard.sel{border-color:#00e676;background:#0d1f35}
+.tokcard:active{opacity:0.7}
+
+/* MAIN CONTENT */
+.content{display:flex;flex-direction:column;height:calc(100vh - 130px);overflow:hidden}
+.topinfo{padding:10px 12px;border-bottom:1px solid #ffffff08;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#060a10;min-height:48px}
+.tabs{display:flex;gap:6px;padding:8px 10px;background:#060a10;border-bottom:1px solid #ffffff08}
+.tab{flex:1;padding:8px;border-radius:6px;border:1px solid #ffffff15;background:none;color:#ffffff50;font-size:10px;font-weight:700;cursor:pointer;touch-action:manipulation;font-family:'Courier New',monospace}
+.tab.on{background:#00e67615;border-color:#00e67650;color:#00e676}
+
+/* CHART */
+.chartview{flex:1;display:flex;align-items:flex-end;padding:12px;gap:1px;overflow:hidden}
+.bar{flex:1;border-radius:1px;min-width:2px}
+
+/* SCANNER */
+.scanview{flex:1;overflow-y:auto;padding:10px;display:none}
 .card{background:#0b1220;border-radius:8px;padding:10px;margin-bottom:8px}
-.row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #ffffff06;font-size:10px}
+.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #ffffff06;font-size:11px}
 .row:last-child{border:none}
-.wc{border-radius:6px;padding:6px;margin-bottom:5px}
+
+/* TRADE PANEL - fixed at bottom */
+.tradepanel{background:#060a10;border-top:1px solid #ffffff0e;padding:10px 12px}
+.bs{display:flex;background:#0b1220;border-radius:6px;padding:2px;margin-bottom:8px;gap:2px}
+.bsbtn{flex:1;padding:8px;border-radius:5px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;touch-action:manipulation;font-family:'Courier New',monospace}
+.amtrow{display:flex;gap:4px;margin-bottom:8px}
+.ab{flex:1;padding:6px 2px;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid #ffffff15;background:#0b1826;color:#ffffff50;touch-action:manipulation;font-family:'Courier New',monospace}
+.ab.on{background:#00e67615;border-color:#00e67650;color:#00e676}
+.gobtn{width:100%;padding:12px;border-radius:8px;border:none;font-size:14px;font-weight:900;cursor:pointer;touch-action:manipulation;font-family:'Courier New',monospace}
+.fl{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:999;font-size:32px;font-weight:900;animation:fo 1.5s forwards}
+@keyframes fo{0%,70%{opacity:1}100%{opacity:0}}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <div class="nav">
   <div class="logo">⚡ MEMEINTEL</div>
-  <button class="nb on" id="chartbtn" ontouchstart="" onclick="showChart()">📊 Chart</button>
-  <button class="nb" id="scanbtn" ontouchstart="" onclick="showScan()">🛡️ Scanner</button>
   <div style="flex:1"></div>
   <span style="color:#00e676;font-size:9px;font-weight:700" id="lb">● LIVE</span>
 </div>
 
+<!-- TICKER -->
 <div class="tick"><div class="ti" id="tk"></div></div>
 
-<div class="wrap">
-  <div class="left" id="tl"></div>
+<!-- TOKEN CARDS (horizontal scroll) -->
+<div class="tokscroll" id="tokscroll"></div>
 
-  <div class="mid">
-    <div class="ch" id="ch"><span style="color:#ffffff25;font-size:11px">← Select a token</span></div>
-    <div class="bars" id="bars"></div>
-    <div class="scan" id="scan"></div>
+<!-- CONTENT -->
+<div class="content">
+  <!-- Token Info Header -->
+  <div class="topinfo" id="topinfo">
+    <span style="color:#ffffff25;font-size:11px">👆 Select a token above</span>
   </div>
 
-  <div class="right">
-    <div style="color:#ffffff30;font-size:9px;letter-spacing:2px;margin-bottom:8px">⚡ TRADE</div>
-    <div class="bs">
-      <button class="bb" id="bb" ontouchstart="" onclick="setO('buy')" style="background:#00e676;color:#000">BUY</button>
-      <button class="bb" id="sb" ontouchstart="" onclick="setO('sell')" style="background:transparent;color:#ffffff40">SELL</button>
-    </div>
-    <div style="color:#ffffff30;font-size:9px;margin-bottom:5px">AMOUNT (SOL)</div>
-    <div style="display:flex;gap:3px;margin-bottom:8px;flex-wrap:wrap">
-      <button class="ab on" ontouchstart="" onclick="pickA(this)">0.1</button>
-      <button class="ab" ontouchstart="" onclick="pickA(this)">0.25</button>
-      <button class="ab" ontouchstart="" onclick="pickA(this)">0.5</button>
-      <button class="ab" ontouchstart="" onclick="pickA(this)">1</button>
-    </div>
-    <div style="color:#ffffff25;font-size:9px;margin-bottom:8px">Fee: 0.2% · Jupiter</div>
-    <button class="go" id="go" ontouchstart="" onclick="doT()" style="background:linear-gradient(135deg,#00e676,#00b85e);color:#000">⚡ BUY NOW</button>
-    <div style="color:#ffffff30;font-size:9px;letter-spacing:2px;margin-bottom:6px">🐋 WHALES</div>
-    <div id="wf"></div>
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab on" id="chartbtn" ontouchstart="" onclick="showChart()">📊 Chart</button>
+    <button class="tab" id="scanbtn" ontouchstart="" onclick="showScan()">🛡️ Scanner</button>
+    <button class="tab" id="whalebtn" ontouchstart="" onclick="showWhales()">🐋 Whales</button>
   </div>
+
+  <!-- Chart View -->
+  <div class="chartview" id="chartview"></div>
+
+  <!-- Scanner View -->
+  <div class="scanview" id="scanview"></div>
+
+  <!-- Whales View -->
+  <div class="scanview" id="whaleview"></div>
+</div>
+
+<!-- TRADE PANEL (fixed bottom) -->
+<div class="tradepanel">
+  <div class="bs">
+    <button class="bsbtn" id="bb" ontouchstart="" onclick="setO('buy')" style="background:#00e676;color:#000">BUY</button>
+    <button class="bsbtn" id="sb" ontouchstart="" onclick="setO('sell')" style="background:transparent;color:#ffffff40">SELL</button>
+  </div>
+  <div class="amtrow">
+    <button class="ab on" ontouchstart="" onclick="pickA(this)">0.1</button>
+    <button class="ab" ontouchstart="" onclick="pickA(this)">0.25</button>
+    <button class="ab" ontouchstart="" onclick="pickA(this)">0.5</button>
+    <button class="ab" ontouchstart="" onclick="pickA(this)">1 SOL</button>
+  </div>
+  <button class="gobtn" id="gobtn" ontouchstart="" onclick="doT()" style="background:linear-gradient(135deg,#00e676,#00b85e);color:#000">⚡ BUY NOW · Fee: 0.2%</button>
 </div>
 
 <script>
@@ -107,55 +135,59 @@ var sel=null,ot="buy",vw="chart";
 
 // Ticker
 var tk=document.getElementById("tk");
-tk.innerHTML=[...T,...T].map(function(t){return '<span style="margin-right:20px;color:'+(t.ch>0?'#00e676':'#ff1744')+';font-weight:700">'+t.icon+' '+t.name+' '+(t.ch>0?'+':'')+t.ch+'%</span>';}).join('');
+tk.innerHTML=[...T,...T].map(function(t){
+  return '<span style="margin-right:20px;color:'+(t.ch>0?'#00e676':'#ff1744')+';font-weight:700">'+t.icon+' '+t.name+' '+(t.ch>0?'+':'')+t.ch+'%</span>';
+}).join('');
 
-// Token list
-var tl=document.getElementById("tl");
-tl.innerHTML='<div style="padding:6px 8px;color:#ffffff25;font-size:9px;letter-spacing:2px;border-bottom:1px solid #ffffff08">TRENDING</div>';
+// Token Cards
+var ts=document.getElementById("tokscroll");
 T.forEach(function(tok){
   var d=document.createElement("div");
-  d.className="tr";
-  d.id="t"+tok.id;
-  d.setAttribute("ontouchstart","");
-  d.innerHTML='<div style="display:flex;align-items:center;gap:5px"><span style="font-size:14px">'+tok.icon+'</span><span style="color:#fff;font-weight:700;font-size:11px">'+tok.name+'</span><span style="color:'+RC[tok.risk]+';font-size:7px">●</span></div><div style="display:flex;justify-content:space-between;margin-top:3px"><span style="color:#ffffff50;font-size:9px">$'+fmt(tok.price)+'</span><span style="color:'+(tok.ch>0?'#00e676':'#ff1744')+';font-size:9px;font-weight:700">'+(tok.ch>0?'+':'')+tok.ch+'%</span></div>';
+  d.className="tokcard";
+  d.id="tc"+tok.id;
+  d.innerHTML='<div style="font-size:22px">'+tok.icon+'</div><div style="color:#fff;font-weight:700;font-size:11px;margin-top:3px">'+tok.name+'</div><div style="color:'+(tok.ch>0?'#00e676':'#ff1744')+';font-size:10px;font-weight:700;margin-top:2px">'+(tok.ch>0?'+':'')+tok.ch+'%</div><div style="color:'+RC[tok.risk]+';font-size:8px;margin-top:2px">●'+tok.risk+'</div>';
   d.addEventListener("click",function(){pick(tok);});
   d.addEventListener("touchend",function(e){e.preventDefault();pick(tok);});
-  tl.appendChild(d);
+  ts.appendChild(d);
 });
 
-// Whale feed
-var wf=document.getElementById("wf");
-[{t:"PEPE2",a:"BUY",amt:"$84k",w:"7xKp...3mNq",c:"#00e676"},
- {t:"BONK2",a:"BUY",amt:"$22k",w:"3nVx...9fAb",c:"#00e676"},
- {t:"RUGBAIT",a:"SELL",amt:"$89k",w:"DEV...wallet",c:"#ff1744"},
- {t:"MOON",a:"BUY",amt:"$41k",w:"9rTw...8bVz",c:"#00e676"},
+// Whale content
+var whtml='';
+[{t:"PEPE2",a:"BUY",amt:"$84,000",w:"7xKp...3mNq",c:"#00e676",icon:"🧠"},
+ {t:"BONK2",a:"BUY",amt:"$22,000",w:"3nVx...9fAb",c:"#00e676",icon:"🧠"},
+ {t:"RUGBAIT",a:"SELL",amt:"$89,000",w:"DEV...wallet",c:"#ff1744",icon:"🚨"},
+ {t:"MOON",a:"BUY",amt:"$41,000",w:"9rTw...8bVz",c:"#00e676",icon:"🧠"},
 ].forEach(function(w){
-  var d=document.createElement("div");
-  d.className="wc";
-  d.style.cssText="background:"+w.c+"10;border:1px solid "+w.c+"25";
-  d.innerHTML='<div style="color:'+w.c+';font-weight:700;font-size:10px">'+w.a+' '+w.amt+' · '+w.t+'</div><div style="color:#ffffff30;font-size:9px;margin-top:2px">'+w.w+'</div>';
-  wf.appendChild(d);
+  whtml+='<div style="background:'+w.c+'10;border:1px solid '+w.c+'25;border-radius:8px;padding:10px;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">'+w.icon+'</span><div><div style="color:'+w.c+';font-weight:700;font-size:12px">'+w.a+' '+w.amt+'</div><div style="color:#ffffff50;font-size:10px">'+w.t+' · '+w.w+'</div></div></div></div>';
 });
+document.getElementById("whaleview").innerHTML=whtml;
 
 function pick(tok){
   sel=tok;
-  document.querySelectorAll(".tr").forEach(function(r){r.classList.remove("sel");});
-  document.getElementById("t"+tok.id).classList.add("sel");
+  document.querySelectorAll(".tokcard").forEach(function(c){c.classList.remove("sel");});
+  document.getElementById("tc"+tok.id).classList.add("sel");
   document.getElementById("lb").textContent="● "+tok.name;
+
   var rc=RC[tok.risk];
+  document.getElementById("topinfo").innerHTML=
+    '<span style="font-size:18px">'+tok.icon+'</span>'+
+    '<span style="color:#fff;font-weight:800;font-size:14px">'+tok.name+'</span>'+
+    '<span style="color:'+(tok.ch>0?'#00e676':'#ff1744')+';font-weight:700;font-size:12px">'+(tok.ch>0?'+':'')+tok.ch+'%</span>'+
+    '<span style="color:#ffffff40;font-size:10px">$'+fmt(tok.price)+'</span>'+
+    '<span style="background:'+rc+'15;border:1px solid '+rc+'40;color:'+rc+';font-size:8px;font-weight:800;border-radius:4px;padding:2px 8px;margin-left:auto">'+tok.risk+'</span>';
 
-  document.getElementById("ch").innerHTML='<span style="font-size:16px">'+tok.icon+'</span><span style="color:#fff;font-weight:800;font-size:13px">'+tok.name+'</span><span style="color:'+(tok.ch>0?'#00e676':'#ff1744')+';font-weight:700;font-size:11px">'+(tok.ch>0?'+':'')+tok.ch+'%</span><span style="color:#ffffff40;font-size:9px">MC:$'+tok.mc+' Vol:$'+tok.vol+'</span><span style="background:'+rc+'15;border:1px solid '+rc+'40;color:'+rc+';font-size:8px;font-weight:800;border-radius:3px;padding:1px 6px;margin-left:auto">'+tok.risk+'</span>';
-
-  var bars=document.getElementById("bars");
-  bars.innerHTML="";
+  // Chart
+  var cv=document.getElementById("chartview");
+  cv.innerHTML="";
   for(var i=0;i<50;i++){
     var h=25+Math.sin(i*0.4+tok.id*2)*25+Math.random()*20;
     var bull=Math.random()>0.45;
     var b=document.createElement("div");
     b.style.cssText="flex:1;height:"+h+"%;background:"+(bull?'#00e676':'#ff1744')+";border-radius:1px;opacity:0.85;min-width:2px";
-    bars.appendChild(b);
+    cv.appendChild(b);
   }
 
+  // Scanner
   var ckOk=["Disabled ✅","Locked ✅","Yes ✅","Clean ✅","None ✅"];
   var ckBad=["ACTIVE 🚨","UNLOCKED 🚨","No ⚠️","DETECTED 🚨","DETECTED 🚨"];
   var rows=tok.chk.map(function(c,i){
@@ -163,44 +195,66 @@ function pick(tok){
     return '<div class="row"><span style="color:#ffffff45">'+c[0]+'</span><span style="color:'+(ok?'#00e676':'#ff1744')+'">'+(ok?ckOk[i]:ckBad[i])+'</span></div>';
   }).join('');
 
-  document.getElementById("scan").innerHTML=
-    '<div class="card" style="border:1px solid #a78bfa25"><div style="color:#a78bfa;font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:6px">📱 SOCIAL</div><div class="row"><span style="color:#ffffff45">Telegram</span><span style="color:#fff">'+tok.soc.tg+'</span></div><div class="row"><span style="color:#ffffff45">Twitter/X</span><span style="color:#fff">'+tok.soc.x+'</span></div><div class="row"><span style="color:#ffffff45">Engagement</span><span style="color:#fff">'+tok.soc.eng+'</span></div></div>'+
-    '<div class="card" style="border:1px solid #38bdf825"><div style="color:#38bdf8;font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:6px">⛓️ ON-CHAIN</div><div class="row"><span style="color:#ffffff45">Buy/Sell</span><span style="color:'+(tok.oc.bs>50?'#00e676':'#ff1744')+'">'+tok.oc.bs+'% buys</span></div><div class="row"><span style="color:#ffffff45">Holders</span><span style="color:#fff">'+tok.oc.h+'</span></div><div class="row"><span style="color:#ffffff45">Whale</span><span style="color:'+(tok.oc.w.includes('🚨')?'#ff1744':tok.oc.w.includes('🐋')?'#00e676':'#ffffff60')+'">'+tok.oc.w+'</span></div></div>'+
-    '<div class="card" style="border:1px solid '+rc+'25"><div style="color:'+rc+';font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:6px">🛡️ ANTI-RUG</div>'+rows+'</div>';
+  document.getElementById("scanview").innerHTML=
+    '<div class="card" style="border:1px solid #a78bfa25"><div style="color:#a78bfa;font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:8px">📱 SOCIAL SIGNALS</div>'+
+    '<div class="row"><span style="color:#ffffff45">Telegram</span><span style="color:#fff">'+tok.soc.tg+'</span></div>'+
+    '<div class="row"><span style="color:#ffffff45">Twitter/X</span><span style="color:#fff">'+tok.soc.x+'</span></div>'+
+    '<div class="row"><span style="color:#ffffff45">Engagement</span><span style="color:#fff">'+tok.soc.eng+'</span></div></div>'+
+    '<div class="card" style="border:1px solid #38bdf825"><div style="color:#38bdf8;font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:8px">⛓️ ON-CHAIN</div>'+
+    '<div class="row"><span style="color:#ffffff45">Buy/Sell Ratio</span><span style="color:'+(tok.oc.bs>50?'#00e676':'#ff1744')+'">'+tok.oc.bs+'% buys</span></div>'+
+    '<div class="row"><span style="color:#ffffff45">New Holders</span><span style="color:#fff">'+tok.oc.h+'</span></div>'+
+    '<div class="row"><span style="color:#ffffff45">Whale Activity</span><span style="color:'+(tok.oc.w.includes('🚨')?'#ff1744':tok.oc.w.includes('🐋')?'#00e676':'#ffffff60')+'">'+tok.oc.w+'</span></div></div>'+
+    '<div class="card" style="border:1px solid '+rc+'25"><div style="color:'+rc+';font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:8px">🛡️ ANTI-RUG CHECKS</div>'+rows+'</div>';
 
-  if(vw==="scanner") showScan(); else showChart();
+  if(vw==="chart") showChart();
+  else if(vw==="scanner") showScan();
+  else showWhales();
 }
 
 function showChart(){
   vw="chart";
-  document.getElementById("bars").style.display="flex";
-  document.getElementById("scan").style.display="none";
+  document.getElementById("chartview").style.display="flex";
+  document.getElementById("scanview").style.display="none";
+  document.getElementById("whaleview").style.display="none";
   document.getElementById("chartbtn").classList.add("on");
   document.getElementById("scanbtn").classList.remove("on");
+  document.getElementById("whalebtn").classList.remove("on");
 }
 
 function showScan(){
-  if(!sel){alert("Please select a token first!");return;}
+  if(!sel){alert("Select a token first!");return;}
   vw="scanner";
-  document.getElementById("bars").style.display="none";
-  document.getElementById("scan").style.display="block";
+  document.getElementById("chartview").style.display="none";
+  document.getElementById("scanview").style.display="block";
+  document.getElementById("whaleview").style.display="none";
   document.getElementById("scanbtn").classList.add("on");
   document.getElementById("chartbtn").classList.remove("on");
+  document.getElementById("whalebtn").classList.remove("on");
+}
+
+function showWhales(){
+  vw="whales";
+  document.getElementById("chartview").style.display="none";
+  document.getElementById("scanview").style.display="none";
+  document.getElementById("whaleview").style.display="block";
+  document.getElementById("whalebtn").classList.add("on");
+  document.getElementById("chartbtn").classList.remove("on");
+  document.getElementById("scanbtn").classList.remove("on");
 }
 
 function setO(t){
   ot=t;
-  var bb=document.getElementById("bb"),sb=document.getElementById("sb"),go=document.getElementById("go");
+  var bb=document.getElementById("bb"),sb=document.getElementById("sb"),go=document.getElementById("gobtn");
   if(t==="buy"){
-    bb.style.cssText="flex:1;padding:6px;border-radius:5px;border:none;font-size:11px;font-weight:900;cursor:pointer;text-transform:uppercase;background:#00e676;color:#000";
-    sb.style.cssText="flex:1;padding:6px;border-radius:5px;border:none;font-size:11px;font-weight:900;cursor:pointer;text-transform:uppercase;background:transparent;color:#ffffff40";
-    go.style.cssText="width:100%;padding:11px;border-radius:8px;border:none;font-size:12px;font-weight:900;cursor:pointer;margin-bottom:10px;background:linear-gradient(135deg,#00e676,#00b85e);color:#000";
-    go.textContent="⚡ BUY NOW";
+    bb.style.cssText="flex:1;padding:8px;border-radius:5px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;background:#00e676;color:#000;font-family:'Courier New',monospace";
+    sb.style.cssText="flex:1;padding:8px;border-radius:5px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;background:transparent;color:#ffffff40;font-family:'Courier New',monospace";
+    go.style.cssText="width:100%;padding:12px;border-radius:8px;border:none;font-size:14px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#00e676,#00b85e);color:#000;font-family:'Courier New',monospace";
+    go.textContent="⚡ BUY NOW · Fee: 0.2%";
   }else{
-    sb.style.cssText="flex:1;padding:6px;border-radius:5px;border:none;font-size:11px;font-weight:900;cursor:pointer;text-transform:uppercase;background:#ff1744;color:#fff";
-    bb.style.cssText="flex:1;padding:6px;border-radius:5px;border:none;font-size:11px;font-weight:900;cursor:pointer;text-transform:uppercase;background:transparent;color:#ffffff40";
-    go.style.cssText="width:100%;padding:11px;border-radius:8px;border:none;font-size:12px;font-weight:900;cursor:pointer;margin-bottom:10px;background:linear-gradient(135deg,#ff1744,#cc1036);color:#fff";
-    go.textContent="💸 SELL NOW";
+    sb.style.cssText="flex:1;padding:8px;border-radius:5px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;background:#ff1744;color:#fff;font-family:'Courier New',monospace";
+    bb.style.cssText="flex:1;padding:8px;border-radius:5px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;background:transparent;color:#ffffff40;font-family:'Courier New',monospace";
+    go.style.cssText="width:100%;padding:12px;border-radius:8px;border:none;font-size:14px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#ff1744,#cc1036);color:#fff;font-family:'Courier New',monospace";
+    go.textContent="💸 SELL NOW · Fee: 0.2%";
   }
 }
 
@@ -213,10 +267,10 @@ function doT(){
   if(!sel){alert("Select a token first!");return;}
   var f=document.createElement("div");
   f.className="fl";
-  f.style.cssText="background:"+(ot==="buy"?"#00e67620":"#ff174420")+";color:"+(ot==="buy"?"#00e676":"#ff1744");
+  f.style.cssText="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:999;font-size:32px;font-weight:900;animation:fo 1.5s forwards;background:"+(ot==="buy"?"#00e67620":"#ff174420")+";color:"+(ot==="buy"?"#00e676":"#ff1744");
   f.textContent=ot==="buy"?"⚡ BOUGHT!":"💸 SOLD!";
   document.body.appendChild(f);
-  setTimeout(function(){f.remove();},1500);
+  setTimeout(function(){if(f.parentNode)f.remove();},1500);
 }
 
 pick(T[0]);
