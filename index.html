@@ -1,5 +1,4 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -19,17 +18,21 @@ body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;overfl
 .tokrow{padding:10px 12px;border-bottom:1px solid #ffffff05;cursor:pointer;border-left:2px solid transparent}
 .tokrow:hover{background:#ffffff08}
 .tokrow.active{background:#0d1f35;border-left:2px solid #00e676}
-.chart{flex:1;background:#080c14;display:flex;flex-direction:column;overflow:hidden}
+.center{flex:1;background:#080c14;display:flex;flex-direction:column;overflow:hidden}
+.chartheader{padding:10px 14px;border-bottom:1px solid #ffffff08;display:flex;align-items:center;gap:12px}
 .chartbars{flex:1;display:flex;align-items:flex-end;padding:16px;gap:2px}
-.bar{flex:1;border-radius:1px;opacity:0.85;transition:height 0.3s}
+.bar{flex:1;border-radius:1px;opacity:0.85}
+.scanner{padding:12px;overflow-y:auto;border-top:1px solid #ffffff08}
 .orderpanel{width:220px;background:#060a10;border-left:1px solid #ffffff08;padding:12px;overflow-y:auto;flex-shrink:0}
 .buysell{display:flex;background:#0b1220;border-radius:8px;padding:3px;margin-bottom:10px}
 .bsbtn{flex:1;padding:7px;border-radius:6px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase}
-.amtbtn{flex:1;padding:6px;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer}
-.tradebtn{width:100%;padding:13px;border-radius:10px;border:none;font-size:14px;font-weight:900;cursor:pointer}
+.amtbtn{flex:1;padding:6px;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid #ffffff0e}
+.tradebtn{width:100%;padding:13px;border-radius:10px;border:none;font-size:14px;font-weight:900;cursor:pointer;margin-bottom:10px}
 .flash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:999;font-size:32px;font-weight:900;animation:fadeout 1.5s forwards}
 @keyframes fadeout{0%,70%{opacity:1}100%{opacity:0}}
-.riskbadge{font-size:9px;font-weight:800;border-radius:4px;padding:1px 6px;letter-spacing:1px}
+.scorerow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #ffffff06;font-size:11px}
+.section{background:#0b1220;border-radius:8px;padding:10px;margin-bottom:8px}
+.section-title{font-size:9px;letter-spacing:2px;font-weight:700;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -38,7 +41,7 @@ body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;overfl
   <div class="logo">⚡ MEMEINTEL</div>
   <button class="navbtn">Trending</button>
   <button class="navbtn">Whales</button>
-  <button class="navbtn">Scanner</button>
+  <button class="navbtn" onclick="toggleScanner()">Scanner</button>
   <div style="flex:1"></div>
   <div style="color:#00e676;font-size:10px;font-weight:700" id="livebadge">● LIVE</div>
 </div>
@@ -48,13 +51,21 @@ body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;overfl
 </div>
 
 <div class="main">
+  <!-- Token List -->
   <div class="tokenlist" id="tokenlist"></div>
-  <div class="chart">
-    <div style="padding:10px 14px;border-bottom:1px solid #ffffff08;display:flex;align-items:center;gap:12px" id="chartheader">
-      <span style="color:#ffffff20;font-size:13px">← Select a token</span>
+
+  <!-- Center: Chart + Scanner -->
+  <div class="center">
+    <div class="chartheader" id="chartheader">
+      <span style="color:#ffffff20;font-size:13px">← Select a token to view chart</span>
     </div>
     <div class="chartbars" id="chartbars"></div>
+    <div id="scannerarea" style="display:none">
+      <div class="scanner" id="scanner"></div>
+    </div>
   </div>
+
+  <!-- Order Panel -->
   <div class="orderpanel">
     <div style="color:#ffffff30;font-size:9px;letter-spacing:2px;margin-bottom:10px">ORDER PANEL</div>
     <div class="buysell">
@@ -63,27 +74,54 @@ body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;overfl
     </div>
     <div style="color:#ffffff30;font-size:9px;margin-bottom:6px">AMOUNT (SOL)</div>
     <div style="display:flex;gap:4px;margin-bottom:10px">
-      <button class="amtbtn" onclick="setAmt(this,'0.1')" style="background:#00e67614;border:1px solid #00e67640;color:#00e676">0.1</button>
-      <button class="amtbtn" onclick="setAmt(this,'0.25')" style="background:#0b1826;border:1px solid #ffffff0e;color:#ffffff40">0.25</button>
-      <button class="amtbtn" onclick="setAmt(this,'0.5')" style="background:#0b1826;border:1px solid #ffffff0e;color:#ffffff40">0.5</button>
-      <button class="amtbtn" onclick="setAmt(this,'1')" style="background:#0b1826;border:1px solid #ffffff0e;color:#ffffff40">1</button>
+      <button class="amtbtn" onclick="setAmt(this)" style="background:#00e67614;border-color:#00e67640;color:#00e676">0.1</button>
+      <button class="amtbtn" onclick="setAmt(this)" style="color:#ffffff40">0.25</button>
+      <button class="amtbtn" onclick="setAmt(this)" style="color:#ffffff40">0.5</button>
+      <button class="amtbtn" onclick="setAmt(this)" style="color:#ffffff40">1</button>
     </div>
     <div style="color:#ffffff25;font-size:10px;margin-bottom:12px">Fee: 0.2% · Via Jupiter</div>
     <button class="tradebtn" id="tradebtn" onclick="doTrade()" style="background:linear-gradient(135deg,#00e676,#00b85e);color:#000">⚡ BUY NOW</button>
+
+    <!-- Whale Feed -->
+    <div style="color:#ffffff30;font-size:9px;letter-spacing:2px;margin-bottom:8px;margin-top:4px">🐋 WHALE FEED</div>
+    <div id="whalefeed"></div>
   </div>
 </div>
 
 <script>
 const TOKENS=[
-  {id:1,name:"PEPE2",icon:"🐸",price:0.000042,change:182.4,vol:"890K",mcap:"2.4M",risk:"SAFE"},
-  {id:2,name:"BONK2",icon:"🔨",price:0.00213,change:34.2,vol:"1.1M",mcap:"5.6M",risk:"SAFE"},
-  {id:3,name:"DOGWIF3",icon:"🐶",price:0.0081,change:12.7,vol:"2.3M",mcap:"8.1M",risk:"CAUTION"},
-  {id:4,name:"MOON",icon:"🌙",price:0.00088,change:44.1,vol:"670K",mcap:"3.2M",risk:"SAFE"},
-  {id:5,name:"RUGBAIT",icon:"💀",price:0.00000091,change:-62.1,vol:"44K",mcap:"180K",risk:"DANGER"},
+  {id:1,name:"PEPE2",icon:"🐸",price:0.000042,change:182.4,vol:"890K",mcap:"2.4M",risk:"SAFE",
+   social:{tg:"+1.2k today",x:"4.5k mentions",eng:"Rising 📈"},
+   onchain:{buysell:72,holders:"+340",whale:"🐋 $84k bought 3m ago"},
+   checks:{mint:true,lock:true,renounced:true,honeypot:false,fakevol:false}},
+  {id:2,name:"BONK2",icon:"🔨",price:0.00213,change:34.2,vol:"1.1M",mcap:"5.6M",risk:"SAFE",
+   social:{tg:"+580 today",x:"2.2k mentions",eng:"Rising 📈"},
+   onchain:{buysell:63,holders:"+145",whale:"🐋 $22k bought 12m ago"},
+   checks:{mint:true,lock:true,renounced:true,honeypot:false,fakevol:false}},
+  {id:3,name:"DOGWIF3",icon:"🐶",price:0.0081,change:12.7,vol:"2.3M",mcap:"8.1M",risk:"CAUTION",
+   social:{tg:"+210 today",x:"1.1k mentions",eng:"Stable 📊"},
+   onchain:{buysell:51,holders:"+89",whale:"No major activity"},
+   checks:{mint:false,lock:true,renounced:false,honeypot:false,fakevol:false}},
+  {id:4,name:"MOON",icon:"🌙",price:0.00088,change:44.1,vol:"670K",mcap:"3.2M",risk:"SAFE",
+   social:{tg:"+380 today",x:"1.8k mentions",eng:"Rising 📈"},
+   onchain:{buysell:68,holders:"+198",whale:"🐋 $41k bought 8m ago"},
+   checks:{mint:true,lock:true,renounced:true,honeypot:false,fakevol:false}},
+  {id:5,name:"RUGBAIT",icon:"💀",price:0.00000091,change:-62.1,vol:"44K",mcap:"180K",risk:"DANGER",
+   social:{tg:"-400 today",x:"23 mentions",eng:"Dying 📉"},
+   onchain:{buysell:19,holders:"-210",whale:"🚨 Dev wallet selling!"},
+   checks:{mint:false,lock:false,renounced:false,honeypot:true,fakevol:true}},
 ];
+
 const RC={SAFE:"#00e676",CAUTION:"#ffab00",DANGER:"#ff1744"};
 const fmt=p=>p<0.0001?p.toFixed(9):p<0.001?p.toFixed(7):p.toFixed(4);
-let selected=null,orderType="buy";
+let selected=null,orderType="buy",scannerOpen=false;
+
+const WHALES=[
+  {token:"PEPE2",action:"BUY",amt:"$84,000",wallet:"7xKp...3mNq",time:"3m",type:"smart"},
+  {token:"BONK2",action:"BUY",amt:"$22,000",wallet:"3nVx...9fAb",time:"12m",type:"smart"},
+  {token:"RUGBAIT",action:"SELL",amt:"$89,000",wallet:"DEV...wallet",time:"8m",type:"danger"},
+  {token:"MOON",action:"BUY",amt:"$41,000",wallet:"9rTw...8bVz",time:"19m",type:"smart"},
+];
 
 // Ticker
 const ti=document.getElementById("ticker");
@@ -95,11 +133,20 @@ const tl=document.getElementById("tokenlist");
 tl.innerHTML='<div style="padding:8px 10px;border-bottom:1px solid #ffffff08;color:#ffffff30;font-size:10px;letter-spacing:2px">TRENDING</div>';
 TOKENS.forEach(tok=>{
   const d=document.createElement("div");
-  d.className="tokrow";
-  d.id="tok"+tok.id;
+  d.className="tokrow";d.id="tok"+tok.id;
   d.innerHTML=`<div style="display:flex;align-items:center;gap:6px"><span style="font-size:16px">${tok.icon}</span><span style="color:#fff;font-weight:700;font-size:12px">${tok.name}</span><span style="color:${RC[tok.risk]};font-size:8px">●</span></div><div style="display:flex;justify-content:space-between;margin-top:4px"><span style="color:#ffffff60;font-size:10px">$${fmt(tok.price)}</span><span style="color:${tok.change>0?'#00e676':'#ff1744'};font-size:10px;font-weight:700">${tok.change>0?'+':''}${tok.change}%</span></div>`;
   d.onclick=()=>selectToken(tok);
   tl.appendChild(d);
+});
+
+// Whale Feed
+const wf=document.getElementById("whalefeed");
+WHALES.forEach(w=>{
+  const wc=w.type==="danger"?"#ff1744":w.type==="smart"?"#00e676":"#ffab00";
+  const d=document.createElement("div");
+  d.style.cssText=`padding:7px;border-radius:6px;background:${wc}10;border:1px solid ${wc}25;margin-bottom:6px`;
+  d.innerHTML=`<div style="color:${wc};font-size:11px;font-weight:700">${w.action} ${w.amt} · ${w.token}</div><div style="color:#ffffff30;font-size:9px;margin-top:2px">${w.wallet} · ${w.time} ago</div>`;
+  wf.appendChild(d);
 });
 
 function selectToken(tok){
@@ -107,8 +154,16 @@ function selectToken(tok){
   document.querySelectorAll(".tokrow").forEach(r=>r.classList.remove("active"));
   document.getElementById("tok"+tok.id).classList.add("active");
   document.getElementById("livebadge").textContent="● "+tok.name;
+
   // Chart header
-  document.getElementById("chartheader").innerHTML=`<span style="font-size:20px">${tok.icon}</span><span style="color:#fff;font-weight:800;font-size:16px">${tok.name}</span><span style="color:${tok.change>0?'#00e676':'#ff1744'};font-weight:700">${tok.change>0?'+':''}${tok.change}%</span><span style="color:#ffffff40;font-size:11px">MC: $${tok.mcap} · Vol: $${tok.vol}</span>`;
+  const rc=RC[tok.risk];
+  document.getElementById("chartheader").innerHTML=`
+    <span style="font-size:20px">${tok.icon}</span>
+    <span style="color:#fff;font-weight:800;font-size:16px">${tok.name}</span>
+    <span style="color:${tok.change>0?'#00e676':'#ff1744'};font-weight:700">${tok.change>0?'+':''}${tok.change}%</span>
+    <span style="color:#ffffff40;font-size:11px">MC: $${tok.mcap} · Vol: $${tok.vol}</span>
+    <span style="background:${rc}15;border:1px solid ${rc}40;color:${rc};font-size:9px;font-weight:800;border-radius:4px;padding:1px 8px;margin-left:auto">${tok.risk}</span>`;
+
   // Chart bars
   const cb=document.getElementById("chartbars");
   cb.innerHTML="";
@@ -120,6 +175,45 @@ function selectToken(tok){
     b.style.cssText=`flex:1;height:${h}%;background:${bull?'#00e676':'#ff1744'};border-radius:1px;opacity:0.85`;
     cb.appendChild(b);
   }
+
+  // Scanner
+  updateScanner(tok);
+}
+
+function updateScanner(tok){
+  const rc=RC[tok.risk];
+  const s=document.getElementById("scanner");
+  s.innerHTML=`
+    <div class="section" style="border:1px solid ${rc}20">
+      <div class="section-title" style="color:${rc}">📱 SOCIAL SIGNALS</div>
+      <div class="scorerow"><span style="color:#ffffff40">Telegram</span><span style="color:#fff">${tok.social.tg}</span></div>
+      <div class="scorerow"><span style="color:#ffffff40">Twitter/X</span><span style="color:#fff">${tok.social.x}</span></div>
+      <div class="scorerow"><span style="color:#ffffff40">Engagement</span><span style="color:#fff">${tok.social.eng}</span></div>
+    </div>
+    <div class="section" style="border:1px solid #38bdf820">
+      <div class="section-title" style="color:#38bdf8">⛓️ ON-CHAIN</div>
+      <div class="scorerow"><span style="color:#ffffff40">Buy/Sell</span><span style="color:${tok.onchain.buysell>50?'#00e676':'#ff1744'}">${tok.onchain.buysell}% buys</span></div>
+      <div class="scorerow"><span style="color:#ffffff40">New Holders</span><span style="color:#fff">${tok.onchain.holders}</span></div>
+      <div class="scorerow"><span style="color:#ffffff40">Whale Activity</span><span style="color:${tok.onchain.whale.includes('🚨')?'#ff1744':tok.onchain.whale.includes('🐋')?'#00e676':'#ffffff60'}">${tok.onchain.whale}</span></div>
+    </div>
+    <div class="section" style="border:1px solid ${rc}20">
+      <div class="section-title" style="color:${rc}">🛡️ ANTI-RUG CHECKS</div>
+      ${[['Mint Authority',tok.checks.mint,'Disabled ✅','ACTIVE 🚨'],
+         ['Liquidity Lock',tok.checks.lock,'Locked ✅','UNLOCKED 🚨'],
+         ['Ownership',tok.checks.renounced,'Renounced ✅','NOT renounced ⚠️'],
+         ['Honeypot',!tok.checks.honeypot,'Clean ✅','DETECTED 🚨'],
+         ['Fake Volume',!tok.checks.fakevol,'None ✅','DETECTED 🚨']
+        ].map(([l,ok,g,b])=>`<div class="scorerow"><span style="color:#ffffff40">${l}</span><span style="color:${ok?'#00e676':'#ff1744'}">${ok?g:b}</span></div>`).join('')}
+    </div>`;
+}
+
+function toggleScanner(){
+  scannerOpen=!scannerOpen;
+  const sa=document.getElementById("scannerarea");
+  const cb=document.getElementById("chartbars");
+  sa.style.display=scannerOpen?"block":"none";
+  cb.style.display=scannerOpen?"none":"flex";
+  if(scannerOpen&&selected) updateScanner(selected);
 }
 
 function setOrder(type){
@@ -130,19 +224,19 @@ function setOrder(type){
   if(type==="buy"){
     bb.style.cssText="flex:1;padding:7px;border-radius:6px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;background:#00e676;color:#000";
     sb.style.cssText="flex:1;padding:7px;border-radius:6px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;background:transparent;color:#ffffff40";
-    tb.style.cssText="width:100%;padding:13px;border-radius:10px;border:none;font-size:14px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#00e676,#00b85e);color:#000";
+    tb.style.cssText="width:100%;padding:13px;border-radius:10px;border:none;font-size:14px;font-weight:900;cursor:pointer;margin-bottom:10px;background:linear-gradient(135deg,#00e676,#00b85e);color:#000";
     tb.textContent="⚡ BUY NOW";
-  } else {
+  }else{
     sb.style.cssText="flex:1;padding:7px;border-radius:6px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;background:#ff1744;color:#fff";
     bb.style.cssText="flex:1;padding:7px;border-radius:6px;border:none;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;background:transparent;color:#ffffff40";
-    tb.style.cssText="width:100%;padding:13px;border-radius:10px;border:none;font-size:14px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#ff1744,#cc1036);color:#fff";
+    tb.style.cssText="width:100%;padding:13px;border-radius:10px;border:none;font-size:14px;font-weight:900;cursor:pointer;margin-bottom:10px;background:linear-gradient(135deg,#ff1744,#cc1036);color:#fff";
     tb.textContent="💸 SELL NOW";
   }
 }
 
-function setAmt(btn,amt){
-  document.querySelectorAll(".amtbtn").forEach(b=>{b.style.background="#0b1826";b.style.color="#ffffff40";b.style.border="1px solid #ffffff0e"});
-  btn.style.background="#00e67614";btn.style.color="#00e676";btn.style.border="1px solid #00e67640";
+function setAmt(btn){
+  document.querySelectorAll(".amtbtn").forEach(b=>{b.style.background="#0b1826";b.style.color="#ffffff40";b.style.borderColor="#ffffff0e"});
+  btn.style.background="#00e67614";btn.style.color="#00e676";btn.style.borderColor="#00e67640";
 }
 
 function doTrade(){
@@ -156,7 +250,6 @@ function doTrade(){
   setTimeout(()=>f.remove(),1500);
 }
 
-// Select first token by default
 selectToken(TOKENS[0]);
 </script>
 </body>
