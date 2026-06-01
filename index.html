@@ -7,64 +7,55 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;user-select:none;overflow:hidden;height:100vh}
-.nav{display:flex;align-items:center;background:#060a10;border-bottom:1px solid #ffffff0e;padding:0 10px;height:44px;gap:6px;position:relative;z-index:100}
+.nav{display:flex;align-items:center;background:#060a10;border-bottom:1px solid #ffffff0e;padding:0 10px;height:44px;gap:6px;z-index:100}
 .logo{color:#00e676;font-size:13px;font-weight:900;letter-spacing:2px}
-.nb{background:none;border:1px solid #ffffff15;color:#ffffff50;font-size:9px;cursor:pointer;padding:4px 8px;border-radius:4px;touch-action:manipulation}
-.nb.on{background:#00e67620;border-color:#00e67650;color:#00e676}
 .tick{overflow:hidden;background:#00e67606;border-bottom:1px solid #00e67618;padding:4px 0;white-space:nowrap;height:22px}
 .ti{display:inline-block;animation:tk 22s linear infinite}
 @keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .container{display:flex;height:calc(100vh - 66px);gap:0;overflow:hidden}
 .lpanel{width:22%;background:#0a0f1a;border-right:1px solid #ffffff0e;overflow-y:auto;display:flex;flex-direction:column}
 .lpanel::-webkit-scrollbar{width:4px}
-.lpanel::-webkit-scrollbar-track{background:none}
-.lpanel::-webkit-scrollbar-thumb{background:#ffffff15;border-radius:2px}
-.tokhead{padding:8px;border-bottom:1px solid #ffffff08;font-size:9px;color:#ffffff40;font-weight:700;letter-spacing:1px}
-.tokhead input{width:100%;padding:4px 6px;background:#0b1220;border:1px solid #ffffff15;color:#fff;border-radius:4px;font-size:10px;font-family:'Courier New',monospace}
-.tokitem{padding:8px;border-bottom:1px solid #ffffff06;cursor:pointer;transition:0.15s;position:relative}
-.tokitem:active{opacity:0.7}
-.tokitem.sel{background:#00e67615;border-left:2px solid #00e676;padding-left:6px}
+.lpanel::-webkit-scrollbar-thumb{background:#ffffff15}
+.tokhead{padding:8px;border-bottom:1px solid #ffffff08;font-size:9px;color:#ffffff40;font-weight:700}
+.tokhead input{width:100%;padding:4px 6px;background:#0b1220;border:1px solid #ffffff15;color:#fff;border-radius:4px;font-size:10px;margin-top:4px}
+.tokitem{padding:8px;border-bottom:1px solid #ffffff06;cursor:pointer}
+.tokitem.sel{background:#00e67615;border-left:2px solid #00e676}
 .tokitem-ico{font-size:18px;margin-bottom:3px}
-.tokitem-name{color:#fff;font-weight:700;font-size:10px;margin-bottom:2px}
-.tokitem-price{color:#ffffff40;font-size:9px;margin-bottom:2px}
-.tokitem-ch{font-size:9px;font-weight:700;margin-bottom:2px}
+.tokitem-name{color:#fff;font-weight:700;font-size:10px}
+.tokitem-price{color:#ffffff40;font-size:9px}
+.tokitem-ch{font-size:9px;font-weight:700}
 .tokitem-risk{font-size:8px;display:inline-block;padding:2px 4px;border-radius:3px}
 .cpanel{flex:1;background:#0c1120;border-right:1px solid #ffffff0e;display:flex;flex-direction:column;overflow:hidden}
 .topinfo{padding:8px;border-bottom:1px solid #ffffff0e;background:#060a10;display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:9px}
-.topinfo-item{display:flex;align-items:center;gap:3px}
 .tabs{display:flex;gap:2px;padding:6px;background:#060a10;border-bottom:1px solid #ffffff08}
-.tab{flex:1;padding:6px;border-radius:4px;border:1px solid #ffffff15;background:none;color:#ffffff50;font-size:9px;font-weight:700;cursor:pointer;touch-action:manipulation;font-family:'Courier New',monospace}
+.tab{flex:1;padding:6px;border-radius:4px;border:1px solid #ffffff15;background:none;color:#ffffff50;font-size:9px;font-weight:700;cursor:pointer}
 .tab.on{background:#00e67615;border-color:#00e67650;color:#00e676}
 .cview{flex:1;overflow-y:auto;padding:8px;display:none}
 .cview.active{display:block}
-.chartview{display:flex;align-items:flex-end;padding:8px;gap:1px;height:100%;overflow:hidden}
+.chartview{display:flex;align-items:flex-end;padding:8px;gap:1px;height:100%}
 .bar{flex:1;border-radius:1px;min-width:2px;opacity:0.85}
 .card{background:#0b1220;border-radius:6px;padding:8px;margin-bottom:6px;border:1px solid #ffffff08}
 .row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #ffffff06;font-size:9px}
-.row:last-child{border:none}
 .rpanel{width:22%;background:#0a0f1a;border-left:1px solid #ffffff0e;display:flex;flex-direction:column;overflow-y:auto}
 .rpanel::-webkit-scrollbar{width:4px}
-.rpanel::-webkit-scrollbar-track{background:none}
-.rpanel::-webkit-scrollbar-thumb{background:#ffffff15;border-radius:2px}
+.rpanel::-webkit-scrollbar-thumb{background:#ffffff15}
 .section{padding:8px;border-bottom:1px solid #ffffff08}
-.section-title{font-size:8px;color:#ffffff40;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
+.section-title{font-size:8px;color:#ffffff40;font-weight:700;letter-spacing:2px;margin-bottom:6px}
 .bs{display:flex;background:#0b1220;border-radius:4px;padding:2px;margin-bottom:6px;gap:2px}
-.bsbtn{flex:1;padding:6px;border-radius:3px;border:none;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;touch-action:manipulation;font-family:'Courier New',monospace}
+.bsbtn{flex:1;padding:6px;border-radius:3px;border:none;font-size:10px;font-weight:700;cursor:pointer}
 .amtrow{display:flex;gap:3px;margin-bottom:6px;flex-wrap:wrap}
-.ab{flex:1;min-width:45%;padding:5px 2px;border-radius:3px;font-size:8px;font-weight:700;cursor:pointer;border:1px solid #ffffff15;background:#0b1826;color:#ffffff50;touch-action:manipulation;font-family:'Courier New',monospace}
+.ab{flex:1;min-width:45%;padding:5px 2px;border-radius:3px;font-size:8px;font-weight:700;cursor:pointer;border:1px solid #ffffff15;background:#0b1826;color:#ffffff50}
 .ab.on{background:#00e67615;border-color:#00e67650;color:#00e676}
-.gobtn{width:100%;padding:10px;border-radius:6px;border:none;font-size:11px;font-weight:900;cursor:pointer;touch-action:manipulation;font-family:'Courier New',monospace;margin-bottom:6px}
+.gobtn{width:100%;padding:10px;border-radius:6px;border:none;font-size:11px;font-weight:900;cursor:pointer;margin-bottom:6px}
 .comm-item{background:#0b1220;padding:6px;border-radius:4px;margin-bottom:4px;border:1px solid #ffffff08}
 .comm-label{font-size:8px;color:#ffffff40;margin-bottom:2px}
-.comm-val{font-size:10px;font-weight:700;color:#00e676;display:flex;justify-content:space-between;align-items:center}
+.comm-val{font-size:10px;font-weight:700;color:#00e676;display:flex;justify-content:space-between}
 .comm-badge{font-size:8px;background:#00e67615;padding:2px 4px;border-radius:2px;color:#00e676}
 .fl{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:999;font-size:28px;font-weight:900;animation:fo 1.5s forwards}
 @keyframes fo{0%,70%{opacity:1}100%{opacity:0}}
-.modal{position:fixed;inset:0;background:#000000aa;display:none;align-items:center;justify-content:center;z-index:1000;pointer-events:all}
+.modal{position:fixed;inset:0;background:#000000aa;display:none;align-items:center;justify-content:center;z-index:1000}
 .modal.show{display:flex}
-.modal-content{background:#0a0f1a;border:1px solid #ffffff15;border-radius:12px;padding:16px;width:90%;max-width:400px;max-height:70vh;overflow-y:auto;box-shadow:0 0 30px #00e67630}
-.modal-content::-webkit-scrollbar{width:4px}
-.modal-content::-webkit-scrollbar-thumb{background:#00e67650;border-radius:2px}
+.modal-content{background:#0a0f1a;border:1px solid #ffffff15;border-radius:12px;padding:16px;width:90%;max-width:400px;max-height:70vh;overflow-y:auto}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid #ffffff08;padding-bottom:12px}
 .modal-title{color:#00e676;font-weight:900;font-size:14px}
 .modal-close{background:none;border:none;color:#ffffff50;font-size:20px;cursor:pointer}
@@ -72,10 +63,10 @@ body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;user-s
 .whale-info{flex:1}
 .whale-name{color:#fff;font-weight:700;font-size:11px}
 .whale-stats{font-size:9px;color:#ffffff40;margin-top:4px}
-.whale-btn{padding:6px 12px;border-radius:4px;border:none;font-size:9px;font-weight:700;cursor:pointer;font-family:'Courier New',monospace}
+.whale-btn{padding:6px 12px;border-radius:4px;border:none;font-size:9px;font-weight:700;cursor:pointer}
 .whale-btn.follow{background:#00e67620;color:#00e676;border:1px solid #00e67650}
 .whale-btn.unfollow{background:#ff174420;color:#ff1744;border:1px solid #ff174450}
-.whale-notif{position:fixed;bottom:20px;right:20px;background:#0b1220;border:2px solid #00e676;border-radius:8px;padding:12px;max-width:280px;z-index:998;animation:slideIn 0.4s ease-out;cursor:pointer;box-shadow:0 0 20px #00e67640}
+.whale-notif{position:fixed;bottom:20px;right:20px;background:#0b1220;border:2px solid #00e676;border-radius:8px;padding:12px;max-width:280px;z-index:998;animation:slideIn 0.4s ease-out}
 @keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(400px);opacity:0}}
 .whale-notif-header{display:flex;align-items:center;gap:6px;margin-bottom:8px}
@@ -83,195 +74,152 @@ body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;user-s
 .whale-notif-name{color:#00e676;font-weight:900;font-size:10px}
 .whale-notif-action{color:#fff;font-size:9px;font-weight:700;margin:8px 0}
 .whale-notif-details{font-size:8px;color:#ffffff40;margin-bottom:8px}
-.whale-notif-copy{width:100%;padding:6px;background:#00e67620;border:1px solid #00e67650;color:#00e676;border-radius:4px;font-size:9px;font-weight:700;cursor:pointer;font-family:'Courier New',monospace}
+.whale-notif-copy{width:100%;padding:6px;background:#00e67620;border:1px solid #00e67650;color:#00e676;border-radius:4px;font-size:9px;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="nav">
-  <div class="logo">⚡ MEMEINTEL</div>
-  <div style="flex:1"></div>
-  <span style="color:#00e676;font-size:9px;font-weight:700" id="lb">● LIVE</span>
+<div class="logo">⚡ MEMEINTEL</div>
+<div style="flex:1"></div>
+<span style="color:#00e676;font-size:9px;font-weight:700" id="lb">● LIVE</span>
 </div>
 <div class="tick"><div class="ti" id="tk"></div></div>
 <div class="container">
-  <div class="lpanel">
-    <div class="tokhead">
-      TOKENS
-      <input type="text" id="search" placeholder="Search..." style="margin-top:4px"/>
-    </div>
-    <div id="toklist"></div>
-  </div>
-  <div class="cpanel">
-    <div class="topinfo" id="topinfo">
-      <span style="color:#ffffff25;font-size:8px">👆 Select a token</span>
-    </div>
-    <div class="tabs">
-      <button class="tab on" onclick="showChart()">📊 Chart</button>
-      <button class="tab" onclick="showScan()">🛡️ Scanner</button>
-      <button class="tab" onclick="showWhales()">🐋 Whales</button>
-    </div>
-    <div class="cview active" id="chartview"></div>
-    <div class="cview" id="scanview"></div>
-    <div class="cview" id="whaleview"></div>
-  </div>
-  <div class="rpanel">
-    <div class="section">
-      <div class="section-title">Order</div>
-      <div class="bs">
-        <button class="bsbtn" id="bb" onclick="setO('buy')" style="background:#00e676;color:#000">BUY</button>
-        <button class="bsbtn" id="sb" onclick="setO('sell')" style="background:transparent;color:#ffffff40">SELL</button>
-      </div>
-      <div class="amtrow">
-        <button class="ab on" onclick="pickA(this)">0.1</button>
-        <button class="ab" onclick="pickA(this)">0.25</button>
-        <button class="ab" onclick="pickA(this)">0.5</button>
-        <button class="ab" onclick="pickA(this)">1 SOL</button>
-      </div>
-      <button class="gobtn" id="gobtn" onclick="doT()" style="background:linear-gradient(135deg,#00e676,#00b85e);color:#000">⚡ BUY · 0.2%</button>
-    </div>
-    <div class="section">
-      <div class="section-title">Community</div>
-      <div class="comm-item">
-        <div class="comm-label">Discord</div>
-        <div class="comm-val">
-          <span id="discord">12.5k</span>
-          <span class="comm-badge" id="discord-growth">+8%</span>
-        </div>
-      </div>
-      <div class="comm-item">
-        <div class="comm-label">Twitter/X</div>
-        <div class="comm-val">
-          <span id="twitter">8.3k</span>
-          <span class="comm-badge" id="twitter-growth">+12%</span>
-        </div>
-      </div>
-      <div class="comm-item">
-        <div class="comm-label">Hype Momentum</div>
-        <div class="comm-val">
-          <span id="hype" style="color:#fff;font-size:12px;font-weight:900">🔥 RISING</span>
-        </div>
-      </div>
-      <div class="comm-item">
-        <div class="comm-label">Health Score</div>
-        <div class="comm-val" style="font-size:14px;color:#00e676">
-          <span id="health">78/100</span>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-title">Whale Tracker</div>
-      <button style="width:100%;padding:8px;background:#00e67615;border:1px solid #00e67650;color:#00e676;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Courier New',monospace;margin-bottom:8px" onclick="showWhaleModal()">🐋 FOLLOW WHALES</button>
-    </div>
-  </div>
+<div class="lpanel">
+<div class="tokhead">TOKENS<input type="text" id="search" placeholder="Search..."/></div>
+<div id="toklist"></div>
+</div>
+<div class="cpanel">
+<div class="topinfo" id="topinfo"><span style="color:#ffffff25;font-size:8px">👆 Select token</span></div>
+<div class="tabs">
+<button class="tab on" onclick="showChart()">📊 Chart</button>
+<button class="tab" onclick="showScan()">🛡️ Scanner</button>
+<button class="tab" onclick="showWhales()">🐋 Whales</button>
+</div>
+<div class="cview active" id="chartview"></div>
+<div class="cview" id="scanview"></div>
+<div class="cview" id="whaleview"></div>
+</div>
+<div class="rpanel">
+<div class="section">
+<div class="section-title">Order</div>
+<div class="bs">
+<button class="bsbtn" id="bb" onclick="setO('buy')" style="background:#00e676;color:#000">BUY</button>
+<button class="bsbtn" id="sb" onclick="setO('sell')" style="background:transparent;color:#ffffff40">SELL</button>
+</div>
+<div class="amtrow">
+<button class="ab on" onclick="pickA(this)">0.1</button>
+<button class="ab" onclick="pickA(this)">0.25</button>
+<button class="ab" onclick="pickA(this)">0.5</button>
+<button class="ab" onclick="pickA(this)">1 SOL</button>
+</div>
+<button class="gobtn" id="gobtn" onclick="doT()" style="background:linear-gradient(135deg,#00e676,#00b85e);color:#000">⚡ BUY · 0.2%</button>
+</div>
+<div class="section">
+<div class="section-title">Community</div>
+<div class="comm-item"><div class="comm-label">Discord</div><div class="comm-val"><span id="discord">12.5k</span><span class="comm-badge">+8%</span></div></div>
+<div class="comm-item"><div class="comm-label">Twitter/X</div><div class="comm-val"><span id="twitter">8.3k</span><span class="comm-badge">+12%</span></div></div>
+<div class="comm-item"><div class="comm-label">Hype</div><div class="comm-val"><span id="hype">🔥 RISING</span></div></div>
+<div class="comm-item"><div class="comm-label">Health</div><div class="comm-val"><span id="health">92/100</span></div></div>
+</div>
+<div class="section">
+<div class="section-title">Whale Tracker</div>
+<button onclick="showWhaleModal()" style="width:100%;padding:8px;background:#00e67615;border:1px solid #00e67650;color:#00e676;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer">🐋 FOLLOW WHALES</button>
+</div>
+</div>
 </div>
 <div class="modal" id="whaleModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-title">🐋 TOP WHALES</div>
-      <button class="modal-close" onclick="closeWhaleModal()">✕</button>
-    </div>
-    <div id="whaleList"></div>
-  </div>
+<div class="modal-content">
+<div class="modal-header">
+<div class="modal-title">🐋 TOP WHALES</div>
+<button class="modal-close" onclick="closeWhaleModal()">✕</button>
+</div>
+<div id="whaleList"></div>
+</div>
 </div>
 <script>
 var T=[
-  {id:1,name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,vol:"890K",mc:"2.4M",risk:"SAFE",discord:12500,twitterX:4500,hypeScore:85,healthScore:92,soc:{tg:"+1.2k today",x:"4.5k mentions",eng:"Rising 📈"},oc:{bs:72,h:"+340",w:"🐋 $84k bought 3m ago"},chk:[["Mint Auth",1],["Liq Lock",1],["Renounced",1],["Honeypot",0],["Fake Vol",0]]},
-  {id:2,name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,vol:"1.1M",mc:"5.6M",risk:"SAFE",discord:8300,twitterX:2200,hypeScore:72,healthScore:85,soc:{tg:"+580 today",x:"2.2k mentions",eng:"Rising 📈"},oc:{bs:63,h:"+145",w:"🐋 $22k bought 12m ago"},chk:[["Mint Auth",1],["Liq Lock",1],["Renounced",1],["Honeypot",0],["Fake Vol",0]]},
-  {id:3,name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,vol:"2.3M",mc:"8.1M",risk:"CAUTION",discord:5200,twitterX:1100,hypeScore:58,healthScore:68,soc:{tg:"+210 today",x:"1.1k mentions",eng:"Stable 📊"},oc:{bs:51,h:"+89",w:"No activity"},chk:[["Mint Auth",0],["Liq Lock",1],["Renounced",0],["Honeypot",0],["Fake Vol",0]]},
-  {id:4,name:"MOON",icon:"🌙",price:0.00088,ch:44.1,vol:"670K",mc:"3.2M",risk:"SAFE",discord:7800,twitterX:1800,hypeScore:68,healthScore:80,soc:{tg:"+380 today",x:"1.8k mentions",eng:"Rising 📈"},oc:{bs:68,h:"+198",w:"🐋 $41k bought 8m ago"},chk:[["Mint Auth",1],["Liq Lock",1],["Renounced",1],["Honeypot",0],["Fake Vol",0]]},
-  {id:5,name:"RUGBAIT",icon:"💀",price:0.00000091,ch:-62.1,vol:"44K",mc:"180K",risk:"DANGER",discord:230,twitterX:23,hypeScore:12,healthScore:18,soc:{tg:"-400 today",x:"23 mentions",eng:"Dying 📉"},oc:{bs:19,h:"-210",w:"🚨 Dev wallet selling!"},chk:[["Mint Auth",0],["Liq Lock",0],["Renounced",0],["Honeypot",1],["Fake Vol",1]]},
+{id:1,name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,vol:"890K",mc:"2.4M",risk:"SAFE",discord:12500,twitterX:4500,hypeScore:85,healthScore:92,soc:{tg:"+1.2k",x:"4.5k",eng:"Rising 📈"},oc:{bs:72,h:"+340",w:"🐋 $84k"}},
+{id:2,name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,vol:"1.1M",mc:"5.6M",risk:"SAFE",discord:8300,twitterX:2200,hypeScore:72,healthScore:85,soc:{tg:"+580",x:"2.2k",eng:"Rising 📈"},oc:{bs:63,h:"+145",w:"🐋 $22k"}},
+{id:3,name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,vol:"2.3M",mc:"8.1M",risk:"CAUTION",discord:5200,twitterX:1100,hypeScore:58,healthScore:68,soc:{tg:"+210",x:"1.1k",eng:"Stable"},oc:{bs:51,h:"+89",w:"None"}},
+{id:4,name:"MOON",icon:"🌙",price:0.00088,ch:44.1,vol:"670K",mc:"3.2M",risk:"SAFE",discord:7800,twitterX:1800,hypeScore:68,healthScore:80,soc:{tg:"+380",x:"1.8k",eng:"Rising"},oc:{bs:68,h:"+198",w:"🐋 $41k"}},
+{id:5,name:"RUGBAIT",icon:"💀",price:0.00000091,ch:-62.1,vol:"44K",mc:"180K",risk:"DANGER",discord:230,twitterX:23,hypeScore:12,healthScore:18,soc:{tg:"-400",x:"23",eng:"Dying"},oc:{bs:19,h:"-210",w:"🚨 Dev"}},
 ];
-var WHALES=[
-  {id:1,name:"MegaWhale",addr:"7xKp...3mNq",winRate:78,vol:"$4.2M",trades:342,icon:"🧠"},
-  {id:2,name:"SolanaBoss",addr:"3nVx...9fAb",winRate:72,vol:"$2.8M",trades:218,icon:"💎"},
-  {id:3,name:"CryptoKing",addr:"9rTw...8bVz",winRate:65,vol:"$1.9M",trades:156,icon:"👑"},
-  {id:4,name:"ProfitHunter",addr:"2bFm...4kLp",winRate:81,vol:"$5.1M",trades:421,icon:"🎯"},
-  {id:5,name:"RiskyRick",addr:"5vGh...7zWx",winRate:58,vol:"$890K",trades:89,icon:"⚡"},
-];
-var followedWhales=[];
-var RC={SAFE:"#00e676",CAUTION:"#ffab00",DANGER:"#ff1744"};
-function fmt(p){return p<0.0001?p.toFixed(9):p<0.001?p.toFixed(7):p.toFixed(4);}
+var WHALES=[{id:1,name:"MegaWhale",addr:"7xKp",winRate:78,vol:"$4.2M",trades:342,icon:"🧠"},{id:2,name:"SolanaBoss",addr:"3nVx",winRate:72,vol:"$2.8M",trades:218,icon:"💎"},{id:3,name:"CryptoKing",addr:"9rTw",winRate:65,vol:"$1.9M",trades:156,icon:"👑"},{id:4,name:"ProfitHunter",addr:"2bFm",winRate:81,vol:"$5.1M",trades:421,icon:"🎯"},{id:5,name:"RiskyRick",addr:"5vGh",winRate:58,vol:"$890K",trades:89,icon:"⚡"}];
+var followedWhales=[],RC={SAFE:"#00e676",CAUTION:"#ffab00",DANGER:"#ff1744"};
+function fmt(p){return p<0.0001?p.toFixed(9):p.toFixed(4);}
 function formatNum(n){return n>1000?(n/1000).toFixed(1)+'k':n;}
 var sel=null,ot="buy",vw="chart";
 var tk=document.getElementById("tk");
-tk.innerHTML=[...T,...T].map(function(t){return '<span style="margin-right:20px;color:'+(t.ch>0?'#00e676':'#ff1744')+';font-weight:700">'+t.icon+' '+t.name+' '+(t.ch>0?'+':'')+t.ch+'%</span>';}).join('');
+tk.innerHTML=[...T,...T].map(t=>'<span style="margin-right:20px;color:'+(t.ch>0?'#00e676':'#ff1744')+';font-weight:700">'+t.icon+' '+t.name+' '+(t.ch>0?'+':'')+t.ch+'%</span>').join('');
 var tl=document.getElementById("toklist");
-T.forEach(function(tok){
-  var d=document.createElement("div");
-  d.className="tokitem";
-  d.id="tc"+tok.id;
-  var chColor=tok.ch>0?'#00e676':'#ff1744';
-  d.innerHTML='<div class="tokitem-ico">'+tok.icon+'</div><div class="tokitem-name">'+tok.name+'</div><div class="tokitem-price">$'+fmt(tok.price)+'</div><div class="tokitem-ch" style="color:'+chColor+'">'+(tok.ch>0?'+':'')+tok.ch+'%</div><div class="tokitem-risk" style="background:'+RC[tok.risk]+'15;color:'+RC[tok.risk]+'">●'+tok.risk+'</div>';
-  d.addEventListener("click",function(){pick(tok);});
-  tl.appendChild(d);
+T.forEach(tok=>{
+var d=document.createElement("div");
+d.className="tokitem";d.id="tc"+tok.id;
+var chColor=tok.ch>0?'#00e676':'#ff1744';
+d.innerHTML='<div class="tokitem-ico">'+tok.icon+'</div><div class="tokitem-name">'+tok.name+'</div><div class="tokitem-price">$'+fmt(tok.price)+'</div><div class="tokitem-ch" style="color:'+chColor+'">'+(tok.ch>0?'+':'')+tok.ch+'%</div><div class="tokitem-risk" style="background:'+RC[tok.risk]+'15;color:'+RC[tok.risk]+'">●'+tok.risk+'</div>';
+d.addEventListener("click",()=>pick(tok));
+tl.appendChild(d);
 });
-document.getElementById("search").addEventListener("input",function(e){
-  var q=e.target.value.toLowerCase();
-  document.querySelectorAll(".tokitem").forEach(function(item){
-    var name=item.querySelector(".tokitem-name").textContent.toLowerCase();
-    item.style.display=name.includes(q)?"block":"none";
-  });
+document.getElementById("search").addEventListener("input",e=>{
+var q=e.target.value.toLowerCase();
+document.querySelectorAll(".tokitem").forEach(item=>{
+var name=item.querySelector(".tokitem-name").textContent.toLowerCase();
+item.style.display=name.includes(q)?"block":"none";
+});
 });
 var whtml='';
-[{t:"PEPE2",a:"BUY",amt:"$84,000",w:"7xKp...3mNq",c:"#00e676",icon:"🧠"},{t:"BONK2",a:"BUY",amt:"$22,000",w:"3nVx...9fAb",c:"#00e676",icon:"🧠"},{t:"RUGBAIT",a:"SELL",amt:"$89,000",w:"DEV...wallet",c:"#ff1744",icon:"🚨"},{t:"MOON",a:"BUY",amt:"$41,000",w:"9rTw...8bVz",c:"#00e676",icon:"🧠"},].forEach(function(w){
-  whtml+='<div class="card" style="border:1px solid '+w.c+'25;background:'+w.c+'08"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">'+w.icon+'</span><div><div style="color:'+w.c+';font-weight:700;font-size:10px">'+w.a+' '+w.amt+'</div><div style="color:#ffffff50;font-size:9px">'+w.t+' · '+w.w+'</div></div></div></div>';
+[{t:"PEPE2",a:"BUY",amt:"$84,000",w:"7xKp",c:"#00e676",icon:"🧠"},{t:"BONK2",a:"BUY",amt:"$22,000",w:"3nVx",c:"#00e676",icon:"🧠"},{t:"RUGBAIT",a:"SELL",amt:"$89,000",w:"DEV",c:"#ff1744",icon:"🚨"},{t:"MOON",a:"BUY",amt:"$41,000",w:"9rTw",c:"#00e676",icon:"🧠"}].forEach(w=>{
+whtml+='<div class="card" style="border:1px solid '+w.c+'25;background:'+w.c+'08"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">'+w.icon+'</span><div><div style="color:'+w.c+';font-weight:700;font-size:10px">'+w.a+' '+w.amt+'</div><div style="color:#ffffff50;font-size:9px">'+w.t+' · '+w.w+'</div></div></div></div>';
 });
 document.getElementById("whaleview").innerHTML=whtml;
 function pick(tok){
-  sel=tok;
-  document.querySelectorAll(".tokitem").forEach(function(c){c.classList.remove("sel");});
-  document.getElementById("tc"+tok.id).classList.add("sel");
-  document.getElementById("lb").textContent="● "+tok.name;
-  var rc=RC[tok.risk];
-  document.getElementById("topinfo").innerHTML='<div class="topinfo-item"><span style="font-size:16px">'+tok.icon+'</span></div><div class="topinfo-item" style="color:#fff;font-weight:700">'+tok.name+'</div><div class="topinfo-item" style="color:'+(tok.ch>0?'#00e676':'#ff1744')+';font-weight:700">'+(tok.ch>0?'+':'')+tok.ch+'%</div><div class="topinfo-item" style="color:#ffffff40">$'+fmt(tok.price)+'</div><div class="topinfo-item" style="background:'+rc+'15;border:1px solid '+rc+'40;color:'+rc+';font-weight:700;padding:2px 6px;border-radius:3px">'+tok.risk+'</div>';
-  var cv=document.getElementById("chartview");
-  cv.innerHTML="";
-  for(var i=0;i<60;i++){
-    var h=25+Math.sin(i*0.4+tok.id*2)*25+Math.random()*20;
-    var bull=Math.random()>0.45;
-    var b=document.createElement("div");
-    b.className="bar";
-    b.style.background=(bull?'#00e676':'#ff1744');
-    b.style.height=h+"%";
-    cv.appendChild(b);
-  }
-  var discGrowth=(tok.discord>5000)?'+8%':'+5%';
-  var twitterGrowth=(tok.twitterX>3000)?'+12%':'+7%';
-  var hypeIcon=tok.hypeScore>70?'🔥 RISING':tok.hypeScore>50?'📊 STABLE':'📉 FALLING';
-  document.getElementById("discord").textContent=formatNum(tok.discord);
-  document.getElementById("discord-growth").textContent=discGrowth;
-  document.getElementById("twitter").textContent=formatNum(tok.twitterX);
-  document.getElementById("twitter-growth").textContent=twitterGrowth;
-  document.getElementById("hype").textContent=hypeIcon;
-  document.getElementById("health").textContent=tok.healthScore+'/100';
-  var riskColor=RC[tok.risk];
-  document.getElementById("riskbadge").style.background=riskColor+'15';
-  document.getElementById("riskbadge").style.color=riskColor;
-  document.getElementById("riskbadge").textContent=tok.risk;
-  var ckOk=["Disabled ✅","Locked ✅","Yes ✅","Clean ✅","None ✅"];
-  var ckBad=["ACTIVE 🚨","UNLOCKED 🚨","No ⚠️","DETECTED 🚨","DETECTED 🚨"];
-  var rows=tok.chk.map(function(c,i){
-    var ok=(i<3)?c[1]:!c[1];
-    return '<div class="row"><span style="color:#ffffff45">'+c[0]+'</span><span style="color:'+(ok?'#00e676':'#ff1744')+';font-weight:700">'+(ok?ckOk[i]:ckBad[i])+'</span></div>';
-  }).join('');
-  document.getElementById("scanview").innerHTML='<div class="card" style="border:1px solid #a78bfa25"><div style="color:#a78bfa;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:6px">📱 SOCIAL</div><div class="row"><span>Telegram</span><span>'+tok.soc.tg+'</span></div><div class="row"><span>Twitter/X</span><span>'+tok.soc.x+'</span></div><div class="row"><span>Engagement</span><span>'+tok.soc.eng+'</span></div></div><div class="card" style="border:1px solid #38bdf825"><div style="color:#38bdf8;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:6px">⛓️ ON-CHAIN</div><div class="row"><span>Buy/Sell Ratio</span><span style="color:'+(tok.oc.bs>50?'#00e676':'#ff1744')+'">'+tok.oc.bs+'%</span></div><div class="row"><span>New Holders</span><span>'+tok.oc.h+'</span></div><div class="row"><span>Whale Activity</span><span style="color:'+(tok.oc.w.includes('🚨')?'#ff1744':tok.oc.w.includes('🐋')?'#00e676':'#ffffff60')+'">'+tok.oc.w+'</span></div></div><div class="card" style="border:1px solid '+rc+'25"><div style="color:'+rc+';font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:6px">🛡️ ANTI-RUG</div>'+rows+'</div>';
-  if(vw==="chart") showChart();
-  else if(vw==="scanner") showScan();
-  else showWhales();
+sel=tok;
+document.querySelectorAll(".tokitem").forEach(c=>c.classList.remove("sel"));
+document.getElementById("tc"+tok.id).classList.add("sel");
+document.getElementById("lb").textContent="● "+tok.name;
+var rc=RC[tok.risk];
+document.getElementById("topinfo").innerHTML='<span style="font-size:16px">'+tok.icon+'</span><span style="color:#fff;font-weight:700">'+tok.name+'</span><span style="color:'+(tok.ch>0?'#00e676':'#ff1744')+';font-weight:700">'+(tok.ch>0?'+':'')+tok.ch+'%</span>';
+var cv=document.getElementById("chartview");
+cv.innerHTML="";
+for(var i=0;i<60;i++){
+var h=25+Math.sin(i*0.4+tok.id*2)*25+Math.random()*20;
+var bull=Math.random()>0.45;
+var b=document.createElement("div");
+b.className="bar";
+b.style.background=(bull?'#00e676':'#ff1744');
+b.style.height=h+"%";
+cv.appendChild(b);
 }
-function showChart(){vw="chart";document.getElementById("chartview").classList.add("active");document.getElementById("scanview").classList.remove("active");document.getElementById("whaleview").classList.remove("active");document.querySelectorAll(".tab")[0].classList.add("on");document.querySelectorAll(".tab")[1].classList.remove("on");document.querySelectorAll(".tab")[2].classList.remove("on");}
-function showScan(){if(!sel){alert("Select a token first!");return;}vw="scanner";document.getElementById("chartview").classList.remove("active");document.getElementById("scanview").classList.add("active");document.getElementById("whaleview").classList.remove("active");document.querySelectorAll(".tab")[1].classList.add("on");document.querySelectorAll(".tab")[0].classList.remove("on");document.querySelectorAll(".tab")[2].classList.remove("on");}
-function showWhales(){vw="whales";document.getElementById("chartview").classList.remove("active");document.getElementById("scanview").classList.remove("active");document.getElementById("whaleview").classList.add("active");document.querySelectorAll(".tab")[2].classList.add("on");document.querySelectorAll(".tab")[0].classList.remove("on");document.querySelectorAll(".tab")[1].classList.remove("on");}
-function setO(t){ot=t;var bb=document.getElementById("bb"),sb=document.getElementById("sb"),go=document.getElementById("gobtn");if(t==="buy"){bb.style.cssText="flex:1;padding:6px;border-radius:3px;border:none;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;background:#00e676;color:#000;font-family:'Courier New',monospace";sb.style.cssText="flex:1;padding:6px;border-radius:3px;border:none;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;background:transparent;color:#ffffff40;font-family:'Courier New',monospace";go.style.cssText="width:100%;padding:10px;border-radius:6px;border:none;font-size:11px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#00e676,#00b85e);color:#000;font-family:'Courier New',monospace";go.textContent="⚡ BUY · 0.2%";}else{sb.style.cssText="flex:1;padding:6px;border-radius:3px;border:none;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;background:#ff1744;color:#fff;font-family:'Courier New',monospace";bb.style.cssText="flex:1;padding:6px;border-radius:3px;border:none;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;background:transparent;color:#ffffff40;font-family:'Courier New',monospace";go.style.cssText="width:100%;padding:10px;border-radius:6px;border:none;font-size:11px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#ff1744,#cc1036);color:#fff;font-family:'Courier New',monospace";go.textContent="💸 SELL · 0.2%";}}
-function pickA(btn){document.querySelectorAll(".ab").forEach(function(b){b.classList.remove("on");});btn.classList.add("on");}
-function doT(){if(!sel){alert("Select a token first!");return;}var f=document.createElement("div");f.className="fl";f.style.background=(ot==="buy"?"#00e67620":"#ff174420");f.style.color=(ot==="buy"?"#00e676":"#ff1744");f.textContent=ot==="buy"?"⚡ BOUGHT!":"💸 SOLD!";document.body.appendChild(f);setTimeout(function(){if(f.parentNode)f.remove();},1500);}
+document.getElementById("discord").textContent=formatNum(tok.discord);
+document.getElementById("twitter").textContent=formatNum(tok.twitterX);
+document.getElementById("hype").textContent=tok.hypeScore>70?'🔥 RISING':'📊 STABLE';
+document.getElementById("health").textContent=tok.healthScore+'/100';
+var rows='';
+var ckOk=["✅","✅","✅","✅","✅"];
+var ckBad=["🚨","🚨","⚠️","🚨","🚨"];
+for(var i=0;i<5;i++){
+var ok=(i<3)?tok.chk[i][1]:!tok.chk[i][1];
+rows+='<div class="row"><span>'+tok.chk[i][0]+'</span><span style="color:'+(ok?'#00e676':'#ff1744')+'">'+(ok?ckOk[i]:ckBad[i])+'</span></div>';
+}
+document.getElementById("scanview").innerHTML='<div class="card"><div style="color:#a78bfa;font-size:9px;font-weight:700;margin-bottom:6px">📱 SOCIAL</div><div class="row"><span>Telegram</span><span>'+tok.soc.tg+'</span></div><div class="row"><span>Twitter/X</span><span>'+tok.soc.x+'</span></div></div><div class="card"><div style="color:#38bdf8;font-size:9px;font-weight:700;margin-bottom:6px">⛓️ ON-CHAIN</div><div class="row"><span>BS Ratio</span><span style="color:'+(tok.oc.bs>50?'#00e676':'#ff1744')+'">'+tok.oc.bs+'%</span></div><div class="row"><span>Holders</span><span>'+tok.oc.h+'</span></div></div><div class="card"><div style="color:'+rc+';font-size:9px;font-weight:700;margin-bottom:6px">🛡️ ANTI-RUG</div>'+rows+'</div>';
+if(vw==="chart") showChart();
+else if(vw==="scanner") showScan();
+else showWhales();
+}
+function showChart(){vw="chart";document.querySelectorAll(".cview").forEach(v=>v.classList.remove("active"));document.getElementById("chartview").classList.add("active");document.querySelectorAll(".tab")[0].classList.add("on");document.querySelectorAll(".tab")[1].classList.remove("on");document.querySelectorAll(".tab")[2].classList.remove("on");}
+function showScan(){vw="scanner";document.querySelectorAll(".cview").forEach(v=>v.classList.remove("active"));document.getElementById("scanview").classList.add("active");document.querySelectorAll(".tab")[1].classList.add("on");document.querySelectorAll(".tab")[0].classList.remove("on");document.querySelectorAll(".tab")[2].classList.remove("on");}
+function showWhales(){vw="whales";document.querySelectorAll(".cview").forEach(v=>v.classList.remove("active"));document.getElementById("whaleview").classList.add("active");document.querySelectorAll(".tab")[2].classList.add("on");document.querySelectorAll(".tab")[0].classList.remove("on");document.querySelectorAll(".tab")[1].classList.remove("on");}
+function setO(t){ot=t;var bb=document.getElementById("bb"),sb=document.getElementById("sb"),go=document.getElementById("gobtn");if(t==="buy"){bb.style.background="#00e676";bb.style.color="#000";sb.style.background="transparent";sb.style.color="#ffffff40";go.style.background="linear-gradient(135deg,#00e676,#00b85e)";go.style.color="#000";go.textContent="⚡ BUY · 0.2%";}else{sb.style.background="#ff1744";sb.style.color="#fff";bb.style.background="transparent";bb.style.color="#ffffff40";go.style.background="linear-gradient(135deg,#ff1744,#cc1036)";go.style.color="#fff";go.textContent="💸 SELL · 0.2%";}}
+function pickA(btn){document.querySelectorAll(".ab").forEach(b=>b.classList.remove("on"));btn.classList.add("on");}
+function doT(){if(!sel){alert("Select token!");return;}var f=document.createElement("div");f.className="fl";f.style.background=(ot==="buy"?"#00e67620":"#ff174420");f.style.color=(ot==="buy"?"#00e676":"#ff1744");f.textContent=ot==="buy"?"⚡ BOUGHT!":"💸 SOLD!";document.body.appendChild(f);setTimeout(()=>{if(f.parentNode)f.remove();},1500);}
 pick(T[0]);
-function showWhaleModal(){var modal=document.getElementById("whaleModal");var list=document.getElementById("whaleList");list.innerHTML="";WHALES.forEach(function(w){var isFollowed=followedWhales.find(function(f){return f.id===w.id;});var btn=document.createElement("div");btn.className="whale-item";btn.innerHTML='<div class="whale-info"><div class="whale-name">'+w.icon+' '+w.name+'</div><div class="whale-stats">Win: '+w.winRate+'% · Vol: '+w.vol+' · Trades: '+w.trades+'</div></div><button class="whale-btn '+(isFollowed?'unfollow':'follow')+'" onclick="toggleWhaleFollow('+w.id+', this)">'+(isFollowed?'UNFOLLOW':'FOLLOW')+'</button>';list.appendChild(btn);});modal.classList.add("show");}
+function showWhaleModal(){var modal=document.getElementById("whaleModal");var list=document.getElementById("whaleList");list.innerHTML="";WHALES.forEach(w=>{var isFollowed=followedWhales.find(f=>f.id===w.id);var div=document.createElement("div");div.className="whale-item";div.innerHTML='<div class="whale-info"><div class="whale-name">'+w.icon+' '+w.name+'</div><div class="whale-stats">Win: '+w.winRate+'% Vol: '+w.vol+'</div></div><button class="whale-btn '+(isFollowed?'unfollow':'follow')+'" onclick="toggleWhaleFollow('+w.id+',this)">'+(isFollowed?'UNFOLLOW':'FOLLOW')+'</button>';list.appendChild(div);});modal.classList.add("show");}
 function closeWhaleModal(){document.getElementById("whaleModal").classList.remove("show");}
-function toggleWhaleFollow(whaleId, btn){var whale=WHALES.find(function(w){return w.id===whaleId;});var idx=followedWhales.findIndex(function(w){return w.id===whaleId;});if(idx>-1){followedWhales.splice(idx,1);btn.textContent="FOLLOW";btn.className="whale-btn follow";}else{followedWhales.push(whale);btn.textContent="UNFOLLOW";btn.className="whale-btn unfollow";}}
-function notifyWhaleActivity(){if(followedWhales.length===0) return;var whale=followedWhales[Math.floor(Math.random()*followedWhales.length)];var tokens=[T[0],T[1],T[2],T[3],T[4]];var token=tokens[Math.floor(Math.random()*tokens.length)];var action=Math.random()>0.5?"BUY":"SELL";var amount=["$12k","$24k","$45k","$78k","$120k"][Math.floor(Math.random()*5)];var notif=document.createElement("div");notif.className="whale-notif";notif.innerHTML='<div class="whale-notif-header"><span class="whale-notif-icon">'+whale.icon+'</span><span class="whale-notif-name">'+whale.name+'</span></div><div class="whale-notif-action">'+action+' '+amount+' '+token.name+'</div><div class="whale-notif-details">'+whale.addr+' · Just now</div><button class="whale-notif-copy" onclick="copyWhaleAction(\''+action+'\',\''+token.name+'\')">📋 COPY TRADE</button>';document.body.appendChild(notif);setTimeout(function(){notif.style.animation="slideOut 0.4s ease-out forwards";setTimeout(function(){if(notif.parentNode) notif.remove();},400);},5000);}
-function copyWhaleAction(action,tokenName){alert("✅ Copied: "+action+" "+tokenName);pick(T.find(function(t){return t.name===tokenName;}));setO(action.toLowerCase());}
-setInterval(notifyWhaleActivity, 8000);
+function toggleWhaleFollow(whaleId,btn){var whale=WHALES.find(w=>w.id===whaleId);var idx=followedWhales.findIndex(w=>w.id===whaleId);if(idx>-1){followedWhales.splice(idx,1);btn.textContent="FOLLOW";btn.className="whale-btn follow";}else{followedWhales.push(whale);btn.textContent="UNFOLLOW";btn.className="whale-btn unfollow";}}
+function notifyWhaleActivity(){if(followedWhales.length===0)return;var whale=followedWhales[Math.floor(Math.random()*followedWhales.length)];var token=T[Math.floor(Math.random()*T.length)];var action=Math.random()>0.5?"BUY":"SELL";var amount=["$12k","$45k","$78k"][Math.floor(Math.random()*3)];var notif=document.createElement("div");notif.className="whale-notif";notif.innerHTML='<div class="whale-notif-header"><span class="whale-notif-icon">'+whale.icon+'</span><span class="whale-notif-name">'+whale.name+'</span></div><div class="whale-notif-action">'+action+' '+amount+' '+token.name+'</div><div class="whale-notif-details">Just now</div><button class="whale-notif-copy" onclick="copyWhaleAction(\''+action+'\',\''+token.name+'\')">📋 COPY</button>';document.body.appendChild(notif);setTimeout(()=>{notif.style.animation="slideOut 0.4s ease-out";setTimeout(()=>{if(notif.parentNode)notif.remove();},400);},5000);}
+function copyWhaleAction(action,tokenName){alert("✅ Copied!");pick(T.find(t=>t.name===tokenName));setO(action.toLowerCase());}
+setInterval(notifyWhaleActivity,8000);
 </script>
 </body>
 </html>
