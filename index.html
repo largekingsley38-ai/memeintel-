@@ -1,1 +1,150 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>MemeIntel</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#080c14;color:#e0e8f0;font-family:'Courier New',monospace;height:100vh;overflow:hidden}.nav{display:flex;align-items:center;background:#060a10;border-bottom:1px solid #ffffff0e;padding:0 10px;height:44px}.logo{color:#00e676;font-size:13px;font-weight:900}.tick{background:#00e67606;border-bottom:1px solid #00e67618;padding:4px;height:22px;overflow:hidden}.ti{display:inline-block;animation:tk 20s linear infinite;white-space:nowrap}@keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}.main{display:flex;height:calc(100vh - 66px)}.left{width:20%;background:#0a0f1a;border-right:1px solid #ffffff0e;overflow-y:auto;padding:8px}.tok{padding:8px;cursor:pointer;border-bottom:1px solid #ffffff06;border-radius:4px}.tok.sel{background:#00e67615;border-left:2px solid #00e676}.tok-score{font-size:10px;font-weight:900;margin-top:4px;padding:3px 6px;border-radius:3px;display:inline-block}.center{flex:1;background:#0c1120;border-right:1px solid #ffffff0e;display:flex;flex-direction:column;overflow:hidden}.tabs{display:flex;gap:2px;padding:6px;background:#060a10;border-bottom:1px solid #ffffff08}.tab{flex:1;padding:6px;border:1px solid #ffffff15;background:none;color:#ffffff50;font-size:9px;font-weight:700;cursor:pointer;border-radius:4px}.tab.on{background:#00e67615;color:#00e676;border-color:#00e67650}.view-area{flex:1;overflow-y:auto;padding:8px}.card{background:#0b1220;border:1px solid #ffffff08;border-radius:6px;padding:8px;margin-bottom:6px}.row{display:flex;justify-content:space-between;padding:4px 0;font-size:9px;border-bottom:1px solid #ffffff06}.chart{display:flex;align-items:flex-end;gap:1px;height:100%}.bar{flex:1;border-radius:1px;opacity:0.85}.right{width:20%;background:#0a0f1a;border-left:1px solid #ffffff0e;overflow-y:auto;padding:8px}.sec{border-bottom:1px solid #ffffff08;padding:8px 0}.sec-title{font-size:7px;color:#ffffff40;font-weight:700;letter-spacing:2px;margin-bottom:6px}.bs{display:flex;gap:2px;margin-bottom:6px}.bsbtn{flex:1;padding:6px;border:none;border-radius:3px;font-size:10px;font-weight:700;cursor:pointer}.gobtn{width:100%;padding:10px;border:none;border-radius:6px;font-size:11px;font-weight:900;cursor:pointer;margin-bottom:6px}.info{background:#0b1220;padding:6px;border-radius:4px;margin-bottom:4px;border:1px solid #ffffff08;font-size:9px}</style></head><body><div class="nav"><div class="logo">⚡ MEMEINTEL</div><div style="flex:1"></div><span style="color:#00e676;font-size:9px">● LIVE</span></div><div class="tick"><div class="ti" id="tk"></div></div><div class="main"><div class="left"><input id="search" placeholder="Search..." style="width:100%;padding:4px;background:#0b1220;border:1px solid #ffffff15;color:#fff;border-radius:4px;font-size:9px;margin-bottom:8px"><div id="toks"></div></div><div class="center"><div style="padding:8px;border-bottom:1px solid #ffffff0e;background:#060a10;font-size:9px" id="info">👆 Select token</div><div class="tabs"><button class="tab on" onclick="switchTab(0)">📊 Chart</button><button class="tab" onclick="switchTab(1)">🛡️ Scanner</button><button class="tab" onclick="switchTab(2)">🐋 Whales</button></div><div class="view-area"><div id="view0"></div><div id="view1" style="display:none"></div><div id="view2" style="display:none"></div></div></div><div class="right"><div class="sec"><div class="sec-title">Order</div><div class="bs"><button class="bsbtn" id="bb" onclick="setO('buy')" style="background:#00e676;color:#000">BUY</button><button class="bsbtn" id="sb" onclick="setO('sell')" style="background:transparent;color:#ffffff40">SELL</button></div><button class="gobtn" id="go" onclick="exec()" style="background:linear-gradient(135deg,#00e676,#00b85e);color:#000">⚡ BUY</button></div><div class="sec"><div class="sec-title">Community</div><div class="info"><span style="color:#ffffff40">Discord</span> <span id="disc" style="color:#00e676;float:right">12.5k</span></div><div class="info"><span style="color:#ffffff40">Twitter</span> <span id="twit" style="color:#00e676;float:right">8.3k</span></div><div class="info"><span style="color:#ffffff40">Hype</span> <span id="hype" style="color:#00e676;float:right">🔥 UP</span></div></div><div class="sec"><div class="sec-title">Whales</div><button onclick="alert('Modal coming soon!')" style="width:100%;padding:8px;background:#00e67615;border:1px solid #00e67650;color:#00e676;border-radius:4px;font-size:9px;font-weight:700;cursor:pointer">🐋 FOLLOW</button></div></div></div><script>const T=[{id:1,name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,d:12500,tw:4500,h:"🔥 UP",score:95,checks:[["Mint Auth","✅"],["Liq Lock","✅"],["Renounced","✅"],["Utility Lock","✅"],["Freeze","✅"],["Transfer Tax","✅"],["LP Burned","✅"],["Dev Lock","✅"]]},{id:2,name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,d:8300,tw:2200,h:"STABLE",score:88,checks:[["Mint Auth","✅"],["Liq Lock","✅"],["Renounced","✅"],["Utility Lock","✅"],["Freeze","✅"],["Transfer Tax","⚠️"],["LP Burned","✅"],["Dev Lock","✅"]]},{id:3,name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,d:5200,tw:1100,h:"STABLE",score:62,checks:[["Mint Auth","⚠️"],["Liq Lock","✅"],["Renounced","⚠️"],["Utility Lock","✅"],["Freeze","⚠️"],["Transfer Tax","⚠️"],["LP Burned","✅"],["Dev Lock","⚠️"]]},{id:4,name:"MOON",icon:"🌙",price:0.00088,ch:44.1,d:7800,tw:1800,h:"🔥 UP",score:91,checks:[["Mint Auth","✅"],["Liq Lock","✅"],["Renounced","✅"],["Utility Lock","✅"],["Freeze","✅"],["Transfer Tax","✅"],["LP Burned","✅"],["Dev Lock","✅"]]},{id:5,name:"RUGBAIT",icon:"💀",price:0.00000091,ch:-62.1,d:230,tw:23,h:"DOWN",score:15,checks:[["Mint Auth","🚨"],["Liq Lock","🚨"],["Renounced","🚨"],["Utility Lock","🚨"],["Freeze","🚨"],["Transfer Tax","🚨"],["LP Burned","🚨"],["Dev Lock","🚨"]]}];function scoreColor(s){return s>=80?"#00e676":s>=60?"#ffab00":"#ff1744"}function fmt(p){return p<0.0001?p.toFixed(9):p.toFixed(4)}function fmt2(n){return n>1000?(n/1000).toFixed(1)+'k':n}let sel=null,ord="buy";const tl=document.getElementById("toks");T.forEach(t=>{const d=document.createElement("div");d.className="tok";d.id="t"+t.id;const ch=t.ch>0?'#00e676':'#ff1744';d.innerHTML=`<div style="font-size:16px;margin-bottom:2px">${t.icon}</div><div style="color:#fff;font-weight:700;font-size:10px">${t.name}</div><div style="color:${ch};font-size:8px;font-weight:700">${t.ch>0?'+':''}${t.ch}%</div><div class="tok-score" style="background:${scoreColor(t.score)}15;color:${scoreColor(t.score)}">🛡️ ${t.score}</div>`;d.onclick=()=>pick(t);tl.appendChild(d);});document.getElementById("tk").innerHTML=T.concat(T).map(t=>`<span style="margin-right:20px;color:${t.ch>0?'#00e676':'#ff1744'};font-weight:700">${t.icon} ${t.name}</span>`).join('');document.getElementById("search").addEventListener("input",e=>{const q=e.target.value.toLowerCase();document.querySelectorAll(".tok").forEach(t=>{const n=t.textContent.toLowerCase();t.style.display=n.includes(q)?"block":"none";});});function pick(t){sel=t;document.querySelectorAll(".tok").forEach(x=>x.classList.remove("sel"));document.getElementById("t"+t.id).classList.add("sel");document.getElementById("info").textContent=`${t.icon} ${t.name} ${t.ch>0?'+':''}${t.ch}% $${fmt(t.price)}`;let html0="<div class='chart'>";for(let i=0;i<60;i++){const h=25+Math.sin(i*0.4+t.id*2)*25+Math.random()*20;const col=Math.random()>0.45?'#00e676':'#ff1744';html0+=`<div class='bar' style='background:${col};height:${h}%'></div>`;}html0+="</div>";document.getElementById("view0").innerHTML=html0;let html1="<div class='card' style='background:"+scoreColor(t.score)+"08;border:1px solid "+scoreColor(t.score)+"25'><div style='color:"+scoreColor(t.score)+";font-size:11px;font-weight:900;margin-bottom:8px'>SAFETY SCORE: "+t.score+"/100</div><div style='font-size:10px;color:#ffffff60'>"+(t.score>=80?"✅ SAFE":t.score>=60?"⚠️ MODERATE":"🚨 RISK")+"</div></div>";html1+="<div class='card'><div style='color:#38bdf8;font-size:8px;font-weight:700;margin-bottom:6px'>🛡️ SECURITY CHECKS</div>";for(let i=0;i<t.checks.length;i++){const ok=t.checks[i][1]==="✅";const col=ok?"#00e676":t.checks[i][1]==="⚠️"?"#ffab00":"#ff1744";html1+=`<div class='row'><span style='color:#ffffff45'>${t.checks[i][0]}</span><span style='color:${col};font-weight:700'>${t.checks[i][1]}</span></div>`;}html1+="</div>";document.getElementById("view1").innerHTML=html1;document.getElementById("view2").innerHTML="<div class='card' style='display:flex;gap:8px'><span style='font-size:16px'>🧠</span><div><div style='color:#00e676;font-weight:700;font-size:10px'>BUY $84,000</div><div style='color:#ffffff50;font-size:9px'>"+t.name+"</div></div></div>";document.getElementById("disc").textContent=fmt2(t.d);document.getElementById("twit").textContent=fmt2(t.tw);document.getElementById("hype").textContent=t.h;}function switchTab(i){for(let j=0;j<3;j++){document.getElementById("view"+j).style.display=j===i?"block":"none";document.querySelectorAll(".tab")[j].classList.toggle("on",j===i);}if(sel)pick(sel);}function setO(t){ord=t;if(t==="buy"){document.getElementById("bb").style.background="#00e676";document.getElementById("sb").style.background="transparent";document.getElementById("go").style.background="linear-gradient(135deg,#00e676,#00b85e)";document.getElementById("go").textContent="⚡ BUY";}else{document.getElementById("bb").style.background="transparent";document.getElementById("sb").style.background="#ff1744";document.getElementById("go").style.background="linear-gradient(135deg,#ff1744,#cc1036)";document.getElementById("go").textContent="💸 SELL";}}function exec(){alert("✅ "+ord.toUpperCase()+" executed!");}pick(T[0]);</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MemeIntel</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080c14;color:#e0e8f0;font-family:monospace;height:100vh;overflow:hidden}
+.nav{background:#060a10;border-bottom:1px solid #ffffff0e;padding:10px;height:44px;display:flex;align-items:center}
+.logo{color:#00e676;font-size:13px;font-weight:900}
+.main{display:flex;height:calc(100vh - 44px)}
+.left{width:20%;background:#0a0f1a;border-right:1px solid #ffffff0e;overflow-y:auto;padding:8px}
+.tok{padding:8px;cursor:pointer;border-bottom:1px solid #ffffff06}
+.tok.sel{background:#00e67615;border-left:2px solid #00e676}
+.center{flex:1;background:#0c1120;border-right:1px solid #ffffff0e;display:flex;flex-direction:column;overflow:hidden}
+.topbar{background:#060a10;padding:8px;border-bottom:1px solid #ffffff0e;font-size:9px}
+.tabs{display:flex;gap:2px;padding:6px;background:#060a10}
+.tab{flex:1;padding:6px;border:1px solid #ffffff15;background:none;color:#ffffff50;font-size:9px;cursor:pointer}
+.tab.on{background:#00e67615;color:#00e676}
+.content{flex:1;overflow-y:auto;padding:8px}
+.card{background:#0b1220;border:1px solid #ffffff08;padding:8px;margin-bottom:6px;border-radius:4px}
+.row{display:flex;justify-content:space-between;padding:4px 0;font-size:9px;border-bottom:1px solid #ffffff06}
+.right{width:20%;background:#0a0f1a;border-left:1px solid #ffffff0e;overflow-y:auto;padding:8px}
+.info{background:#0b1220;padding:6px;border-radius:4px;margin-bottom:4px;border:1px solid #ffffff08;font-size:9px}
+</style>
+</head>
+<body>
+
+<div class="nav">
+<div class="logo">⚡ MEMEINTEL</div>
+<div style="flex:1"></div>
+<span style="color:#00e676;font-size:9px">● LIVE</span>
+</div>
+
+<div class="main">
+
+<div class="left" id="tokList"></div>
+
+<div class="center">
+<div class="topbar" id="topbar">Select a token</div>
+<div class="tabs">
+<button class="tab on" onclick="showView(0)">📊 Chart</button>
+<button class="tab" onclick="showView(1)">🛡️ Scanner</button>
+<button class="tab" onclick="showView(2)">🐋 Whales</button>
+</div>
+<div class="content" id="content"></div>
+</div>
+
+<div class="right">
+<div style="border-bottom:1px solid #ffffff08;padding:8px 0">
+<div style="font-size:7px;color:#ffffff40;letter-spacing:2px;margin-bottom:6px">ORDER</div>
+<div style="display:flex;gap:2px;margin-bottom:6px">
+<button style="flex:1;padding:6px;border:none;border-radius:3px;background:#00e676;color:#000;font-size:10px;font-weight:700;cursor:pointer">BUY</button>
+<button style="flex:1;padding:6px;border:none;border-radius:3px;background:transparent;color:#ffffff40;font-size:10px;font-weight:700;cursor:pointer">SELL</button>
+</div>
+<button style="width:100%;padding:10px;border:none;border-radius:4px;background:linear-gradient(135deg,#00e676,#00b85e);color:#000;font-size:11px;font-weight:900;cursor:pointer">⚡ BUY</button>
+</div>
+<div style="border-bottom:1px solid #ffffff08;padding:8px 0">
+<div style="font-size:7px;color:#ffffff40;letter-spacing:2px;margin-bottom:6px">COMMUNITY</div>
+<div class="info"><span style="color:#ffffff40">Discord</span> <span id="d" style="color:#00e676;float:right">12.5k</span></div>
+<div class="info"><span style="color:#ffffff40">Twitter</span> <span id="tw" style="color:#00e676;float:right">8.3k</span></div>
+</div>
+</div>
+
+</div>
+
+<script>
+const tokens = [
+{name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,score:95,d:12500,tw:4500,checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
+{name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,score:88,d:8300,tw:2200,checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","⚠️"],["LP","✅"],["Dev","✅"]]},
+{name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,score:62,d:5200,tw:1100,checks:[["Mint","⚠️"],["Liq","✅"],["Renounced","⚠️"],["Utility","✅"],["Freeze","⚠️"],["Transfer","⚠️"],["LP","✅"],["Dev","⚠️"]]},
+{name:"MOON",icon:"🌙",price:0.00088,ch:44.1,score:91,d:7800,tw:1800,checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
+{name:"RUGBAIT",icon:"💀",price:0.00000091,ch:-62.1,score:15,d:230,tw:23,checks:[["Mint","🚨"],["Liq","🚨"],["Renounced","🚨"],["Utility","🚨"],["Freeze","🚨"],["Transfer","🚨"],["LP","🚨"],["Dev","🚨"]]}
+];
+
+let sel = null;
+let currentView = 0;
+
+function color(s) {
+return s >= 80 ? "#00e676" : s >= 60 ? "#ffab00" : "#ff1744";
+}
+
+// Load tokens
+const tl = document.getElementById("tokList");
+tokens.forEach((t, i) => {
+const d = document.createElement("div");
+d.className = "tok";
+d.id = "tok" + i;
+const ch = t.ch > 0 ? '#00e676' : '#ff1744';
+d.innerHTML = `<div style="font-size:16px;margin-bottom:2px">${t.icon}</div><div style="color:#fff;font-weight:700;font-size:10px">${t.name}</div><div style="color:${ch};font-size:8px">${t.ch>0?'+':''}${t.ch}%</div><div style="background:${color(t.score)}15;color:${color(t.score)};font-size:8px;padding:2px 4px;border-radius:2px;display:inline-block;margin-top:4px">🛡️ ${t.score}</div>`;
+d.onclick = () => select(i);
+tl.appendChild(d);
+});
+
+function select(i) {
+sel = tokens[i];
+document.querySelectorAll(".tok").forEach(x => x.classList.remove("sel"));
+document.getElementById("tok" + i).classList.add("sel");
+document.getElementById("topbar").textContent = `${sel.icon} ${sel.name} ${sel.ch>0?'+':''}${sel.ch}% $${sel.price.toFixed(4)}`;
+document.getElementById("d").textContent = sel.d > 1000 ? (sel.d/1000).toFixed(1)+'k' : sel.d;
+document.getElementById("tw").textContent = sel.tw > 1000 ? (sel.tw/1000).toFixed(1)+'k' : sel.tw;
+showView(currentView);
+}
+
+function showView(v) {
+currentView = v;
+const content = document.getElementById("content");
+content.innerHTML = "";
+
+if(!sel) {
+content.innerHTML = "<div style='padding:20px;text-align:center;color:#ffffff40'>Select a token</div>";
+return;
+}
+
+if(v === 0) {
+// Chart
+let html = "<div style='display:flex;align-items:flex-end;gap:1px;height:100%'>";
+for(let j=0;j<60;j++){
+const h = 25 + Math.sin(j*0.4)*25 + Math.random()*20;
+const c = Math.random() > 0.45 ? '#00e676' : '#ff1744';
+html += `<div style='flex:1;height:${h}%;background:${c};border-radius:1px'></div>`;
+}
+html += "</div>";
+content.innerHTML = html;
+} else if(v === 1) {
+// Scanner
+let html = `<div class="card" style="background:${color(sel.score)}08;border:1px solid ${color(sel.score)}25"><div style="color:${color(sel.score)};font-size:11px;font-weight:900">SAFETY: ${sel.score}/100</div><div style="font-size:10px;color:#ffffff60">${sel.score>=80?"✅ SAFE":sel.score>=60?"⚠️ MODERATE":"🚨 RISK"}</div></div>`;
+html += "<div class='card'><div style='color:#38bdf8;font-size:8px;font-weight:700;margin-bottom:6px'>🛡️ SECURITY CHECKS</div>";
+for(let j=0;j<sel.checks.length;j++){
+const ok = sel.checks[j][1] === "✅";
+const col = ok ? "#00e676" : sel.checks[j][1] === "⚠️" ? "#ffab00" : "#ff1744";
+html += `<div class="row"><span style="color:#ffffff45">${sel.checks[j][0]}</span><span style="color:${col};font-weight:700">${sel.checks[j][1]}</span></div>`;
+}
+html += "</div>";
+content.innerHTML = html;
+} else if(v === 2) {
+// Whales
+content.innerHTML = `<div class="card"><div style="display:flex;gap:8px"><span style="font-size:18px">🧠</span><div><div style="color:#00e676;font-weight:700">BUY $84,000</div><div style="color:#ffffff50;font-size:9px">${sel.name}</div></div></div></div>`;
+}
+
+document.querySelectorAll(".tab").forEach(x => x.classList.remove("on"));
+document.querySelectorAll(".tab")[v].classList.add("on");
+}
+
+select(0);
+</script>
+
+</body>
+</html>
