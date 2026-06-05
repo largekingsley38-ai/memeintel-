@@ -1,127 +1,165 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel - Pro Trading App</title>
+<title>MemeIntel - Ultimate Trading Suite</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#080c14;color:#e0e8f0;font-family:monospace;height:100vh;overflow:hidden}
-.nav{background:#060a10;border-bottom:1px solid #ffffff0e;padding:10px;height:44px;display:flex;align-items:center;z-index:100}
+.nav{background:#060a10;border-bottom:1px solid #ffffff0e;padding:10px;height:44px;display:flex;align-items:center;z-index:100;justify-content:space-between}
 .logo{color:#00e676;font-size:13px;font-weight:900}
+.nav-btns{display:flex;gap:6px}
+.nav-btn{padding:4px 8px;background:#00e67615;border:1px solid #00e67650;color:#00e676;border-radius:3px;font-size:8px;cursor:pointer;font-weight:700}
+.nav-btn.active{background:#00e67650}
 .main{display:flex;height:calc(100vh - 44px);overflow:hidden}
-.left{width:22%;background:#0a0f1a;border-right:1px solid #ffffff0e;overflow-y:auto;padding:8px}
+.left{width:18%;background:#0a0f1a;border-right:1px solid #ffffff0e;overflow-y:auto;padding:8px;display:flex;flex-direction:column}
 .search{width:100%;padding:8px;background:#0b1220;border:1px solid #ffffff15;color:#fff;border-radius:4px;font-size:9px;margin-bottom:8px;font-family:monospace}
-.search::placeholder{color:#ffffff40}
-.tok{padding:8px;cursor:pointer;border-bottom:1px solid #ffffff06;border-radius:4px;transition:all 0.2s;display:none}
+.tok{padding:8px;cursor:pointer;border-bottom:1px solid #ffffff06;border-radius:4px;transition:all 0.2s;display:none;position:relative}
 .tok.show{display:block}
-.tok.sel{background:#00e67615;border-left:2px solid #00e676;animation:pulse 0.5s}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+.tok.sel{background:#00e67615;border-left:2px solid #00e676}
+.tok-star{position:absolute;right:8px;top:8px;cursor:pointer;font-size:12px}
 .center{flex:1;background:#0c1120;border-right:1px solid #ffffff0e;display:flex;flex-direction:column;overflow:hidden}
-.topbar{background:#060a10;padding:8px;border-bottom:1px solid #ffffff0e;font-size:9px;animation:fadeIn 0.3s}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.topbar{background:#060a10;padding:8px;border-bottom:1px solid #ffffff0e;font-size:9px;display:flex;justify-content:space-between;align-items:center}
 .tabs{display:flex;gap:2px;padding:6px;background:#060a10;overflow-x:auto}
-.tab{flex:1;min-width:80px;padding:6px;border:1px solid #ffffff15;background:none;color:#ffffff50;font-size:9px;cursor:pointer;transition:all 0.2s;border-radius:3px;white-space:nowrap}
-.tab:hover{background:#ffffff08}
+.tab{flex:1;min-width:70px;padding:6px;border:1px solid #ffffff15;background:none;color:#ffffff50;font-size:9px;cursor:pointer;transition:all 0.2s;border-radius:3px;white-space:nowrap}
 .tab.on{background:#00e67615;color:#00e676;border-color:#00e67650}
 .content{flex:1;overflow-y:auto;padding:8px}
-.card{background:#0b1220;border:1px solid #ffffff08;padding:8px;margin-bottom:6px;border-radius:4px;animation:slideIn 0.3s}
-@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:#0b1220;border:1px solid #ffffff08;padding:8px;margin-bottom:6px;border-radius:4px}
 .row{display:flex;justify-content:space-between;padding:4px 0;font-size:9px;border-bottom:1px solid #ffffff06}
-.right{width:22%;background:#0a0f1a;border-left:1px solid #ffffff0e;overflow-y:auto;padding:8px}
+.right{width:18%;background:#0a0f1a;border-left:1px solid #ffffff0e;overflow-y:auto;padding:8px}
+.sec{border-bottom:1px solid #ffffff08;padding:8px 0;font-size:8px}
+.sec-title{color:#ffffff40;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
 .info{background:#0b1220;padding:6px;border-radius:4px;margin-bottom:4px;border:1px solid #ffffff08;font-size:9px}
 .notif{position:fixed;bottom:20px;right:20px;background:#0b1220;border:2px solid #00e676;border-radius:8px;padding:12px;max-width:280px;z-index:999;animation:slideInRight 0.4s}
 @keyframes slideInRight{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
-@keyframes slideOutRight{from{transform:translateX(0);opacity:1}to{transform:translateX(400px);opacity:0}}
 .notif.out{animation:slideOutRight 0.4s}
-.notif-name{color:#00e676;font-weight:900;font-size:10px;margin-bottom:4px}
-.notif-action{color:#fff;font-size:9px;margin-bottom:6px;font-weight:700}
-.notif-btn{width:100%;padding:5px;background:#00e67620;border:1px solid #00e67650;color:#00e676;border-radius:4px;font-size:8px;font-weight:700;cursor:pointer}
+@keyframes slideOutRight{from{transform:translateX(0);opacity:1}to{transform:translateX(400px);opacity:0}}
 .chart{display:flex;align-items:flex-end;gap:1px;height:100%}
-.bar{flex:1;border-radius:1px;transition:all 0.1s}
+.bar{flex:1;border-radius:1px}
+.modal{position:fixed;inset:0;background:#000000aa;display:none;align-items:center;justify-content:center;z-index:1000}
+.modal.show{display:flex}
+.modal-box{background:#0a0f1a;border:1px solid #ffffff15;border-radius:12px;padding:16px;width:90%;max-width:400px;max-height:70vh;overflow-y:auto}
+.modal-close{position:absolute;top:10px;right:10px;background:none;border:none;color:#fff;cursor:pointer;font-size:20px}
+.input-group{margin-bottom:12px}
+.input-group input{width:100%;padding:8px;background:#0b1220;border:1px solid #ffffff15;color:#fff;border-radius:4px;font-size:9px;font-family:monospace}
+.btn{padding:8px 12px;background:#00e67620;border:1px solid #00e67650;color:#00e676;border-radius:4px;font-size:9px;font-weight:700;cursor:pointer;width:100%}
+.btn:hover{background:#00e67650}
 @media (max-width:768px) {
-.left{width:25%}.center{flex:1}.right{width:25%}
+.left{width:20%}.center{flex:1}.right{width:20%}
 .logo{font-size:11px}
 .tab{font-size:8px}
-.card{padding:6px}
 }
 @media (max-width:480px) {
 .main{flex-direction:column}
-.left{width:100%;height:25%;border-right:none;border-bottom:1px solid #ffffff0e}
-.center{width:100%;height:50%;border-right:none;border-bottom:1px solid #ffffff0e}
-.right{width:100%;height:25%;border-left:none}
+.left{width:100%;height:20%;border-right:none;border-bottom:1px solid #ffffff0e}
+.center{width:100%;height:60%;border-right:none;border-bottom:1px solid #ffffff0e}
+.right{width:100%;height:20%;border-left:none}
 }
 </style>
 </head>
 <body>
 
 <div class="nav">
-<div class="logo">⚡ MEMEINTEL PRO</div>
-<div style="flex:1"></div>
-<span style="color:#00e676;font-size:9px">● LIVE</span>
+<div class="logo">⚡ MEMEINTEL ULTIMATE</div>
+<div class="nav-btns">
+<button class="nav-btn active" onclick="showSection('trading')">Trading</button>
+<button class="nav-btn" onclick="showSection('portfolio')">Portfolio</button>
+<button class="nav-btn" onclick="showSection('news')">News</button>
+<button class="nav-btn" onclick="openWalletModal()">👛 Wallet</button>
+</div>
 </div>
 
-<div class="main">
-
+<div class="main" id="tradingSection">
 <div class="left">
-<input type="text" class="search" id="search" placeholder="🔍 Search tokens..." onkeyup="filterTokens()">
-<div id="tokList"></div>
+<input type="text" class="search" id="search" placeholder="🔍 Search..." onkeyup="filterTokens()">
+<div id="tokList" style="flex:1;overflow-y:auto"></div>
 </div>
 
 <div class="center">
-<div class="topbar" id="topbar">Select a token</div>
+<div class="topbar">
+<div id="topbar">Select a token</div>
+<div style="color:#ffffff40;font-size:8px">
+<span id="price">$0</span> | <span id="change" style="color:#00e676">+0%</span>
+</div>
+</div>
 <div class="tabs">
 <button class="tab on" onclick="showView(0)">📊 Chart</button>
 <button class="tab" onclick="showView(1)">🛡️ Scanner</button>
 <button class="tab" onclick="showView(2)">🐋 Whales</button>
 <button class="tab" onclick="showView(3)">💰 Trending</button>
+<button class="tab" onclick="showView(4)">📋 Copy</button>
 </div>
 <div class="content" id="content"></div>
 </div>
 
 <div class="right">
-<div style="border-bottom:1px solid #ffffff08;padding:8px 0">
-<div style="font-size:7px;color:#ffffff40;letter-spacing:2px;margin-bottom:6px">ORDER</div>
-<div style="display:flex;gap:2px;margin-bottom:6px">
-<button style="flex:1;padding:6px;border:none;border-radius:3px;background:#00e676;color:#000;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">BUY</button>
-<button style="flex:1;padding:6px;border:none;border-radius:3px;background:transparent;color:#ffffff40;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">SELL</button>
+<div class="sec">
+<div class="sec-title">⭐ Watchlist</div>
+<div id="watchlist" style="font-size:8px"></div>
 </div>
-<button style="width:100%;padding:10px;border:none;border-radius:4px;background:linear-gradient(135deg,#00e676,#00b85e);color:#000;font-size:11px;font-weight:900;cursor:pointer;transition:all 0.2s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">⚡ BUY</button>
+<div class="sec">
+<div class="sec-title">🔔 Price Alerts</div>
+<div class="input-group">
+<input type="number" id="alertPrice" placeholder="Alert price" style="width:100%;padding:4px;font-size:8px">
+<button class="btn" style="padding:4px;font-size:8px;margin-top:4px" onclick="setPriceAlert()">Set Alert</button>
 </div>
-<div style="border-bottom:1px solid #ffffff08;padding:8px 0">
-<div style="font-size:7px;color:#ffffff40;letter-spacing:2px;margin-bottom:6px">COMMUNITY</div>
-<div class="info"><span style="color:#ffffff40">Discord</span> <span id="d" style="color:#00e676;float:right">12.5k</span></div>
-<div class="info"><span style="color:#ffffff40">Twitter</span> <span id="tw" style="color:#00e676;float:right">8.3k</span></div>
-<div class="info"><span style="color:#ffffff40">Hype</span> <span id="hype" style="color:#00e676;float:right">🔥 UP</span></div>
+<div id="alerts" style="font-size:8px"></div>
+</div>
+<div class="sec">
+<div class="sec-title">💼 Holdings</div>
+<div id="holdings" style="font-size:8px"></div>
+</div>
 </div>
 </div>
 
+<div id="portfolioSection" style="display:none;flex:1;background:#0c1120;overflow-y:auto;padding:16px">
+<h2 style="color:#00e676;margin-bottom:12px">📊 Portfolio Tracker</h2>
+<div id="portfolioContent"></div>
+</div>
+
+<div id="newsSection" style="display:none;flex:1;background:#0c1120;overflow-y:auto;padding:16px">
+<h2 style="color:#00e676;margin-bottom:12px">📰 Crypto News</h2>
+<div id="newsContent"></div>
+</div>
+
+<div class="modal" id="walletModal">
+<div class="modal-box">
+<button class="modal-close" onclick="document.getElementById('walletModal').classList.remove('show')">✕</button>
+<h2 style="color:#00e676;margin-bottom:12px">👛 Connect Wallet</h2>
+<div class="input-group">
+<input type="text" id="walletAddress" placeholder="Wallet Address" style="font-size:9px">
+</div>
+<button class="btn" onclick="connectWallet()">Connect Phantom</button>
+<button class="btn" onclick="connectWallet()" style="margin-top:8px">Connect MetaMask</button>
+<div id="walletStatus" style="margin-top:12px;padding:8px;background:#0b1220;border-radius:4px;font-size:9px;color:#ffffff40">Not connected</div>
+</div>
 </div>
 
 <script>
 const tokens = [
-{name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,score:95,d:12500,tw:4500,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
-{name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,score:88,d:8300,tw:2200,h:"📈 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","⚠️"],["LP","✅"],["Dev","✅"]]},
-{name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,score:62,d:5200,tw:1100,h:"STABLE",checks:[["Mint","⚠️"],["Liq","✅"],["Renounced","⚠️"],["Utility","✅"],["Freeze","⚠️"],["Transfer","⚠️"],["LP","✅"],["Dev","⚠️"]]},
-{name:"MOON",icon:"🌙",price:0.00088,ch:44.1,score:91,d:7800,tw:1800,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
-{name:"RUGBAIT",icon:"💀",price:0.00000091,ch:-62.1,score:15,d:230,tw:23,h:"📉 DOWN",checks:[["Mint","🚨"],["Liq","🚨"],["Renounced","🚨"],["Utility","🚨"],["Freeze","🚨"],["Transfer","🚨"],["LP","🚨"],["Dev","🚨"]]},
-{name:"SHIB2",icon:"🐕",price:0.000089,ch:156.2,score:84,d:18900,tw:5600,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
-{name:"DOGE3",icon:"🪙",price:0.156,ch:45.8,score:79,d:9200,tw:3400,h:"📈 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","⚠️"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
-{name:"FLOKI",icon:"⚡",price:0.0000234,ch:267.3,score:92,d:16700,tw:7200,h:"🔥 RISING",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
-{name:"AKITA",icon:"🐺",price:0.000156,ch:89.4,score:71,d:6300,tw:2100,h:"📊 STABLE",checks:[["Mint","✅"],["Liq","✅"],["Renounced","⚠️"],["Utility","✅"],["Freeze","⚠️"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
-{name:"ELON",icon:"🚀",price:0.00000456,ch:523.7,score:87,d:14500,tw:6800,h:"🔥 ROCKET",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
-{name:"SAFE",icon:"🛡️",price:0.00000012,ch:78.2,score:69,d:4200,tw:1500,h:"📈 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","⚠️"],["Utility","⚠️"],["Freeze","✅"],["Transfer","⚠️"],["LP","✅"],["Dev","⚠️"]]},
-{name:"SAITAMA",icon:"🥋",price:0.0000089,ch:145.6,score:81,d:13400,tw:5900,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]]},
-{name:"USELESS",icon:"💩",price:0.00000001,ch:-95.2,score:8,d:120,tw:45,h:"📉 DEAD",checks:[["Mint","🚨"],["Liq","🚨"],["Renounced","🚨"],["Utility","🚨"],["Freeze","🚨"],["Transfer","🚨"],["LP","🚨"],["Dev","🚨"]]}
+{name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,score:95,d:12500,tw:4500,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Trending on Solana","Community grows 50k members","Partnership announced"]},
+{name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,score:88,d:8300,tw:2200,h:"📈 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","⚠️"],["LP","✅"],["Dev","✅"]],news:["Exchange listing soon","Dev team verified","Community vote passed"]},
+{name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,score:62,d:5200,tw:1100,h:"STABLE",checks:[["Mint","⚠️"],["Liq","✅"],["Renounced","⚠️"],["Utility","✅"],["Freeze","⚠️"],["Transfer","⚠️"],["LP","✅"],["Dev","⚠️"]],news:["Whale accumulating","Social growth 25%","Holder count increasing"]},
+{name:"MOON",icon:"🌙",price:0.00088,ch:44.1,score:91,d:7800,tw:1800,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Roadmap 2025 released","100k holders milestone","Marketing boost"]},
+{name:"RUGBAIT",icon:"💀",price:0.00000091,ch:-62.1,score:15,d:230,tw:23,h:"📉 DOWN",checks:[["Mint","🚨"],["Liq","🚨"],["Renounced","🚨"],["Utility","🚨"],["Freeze","🚨"],["Transfer","🚨"],["LP","🚨"],["Dev","🚨"]],news:["⚠️ Dev wallet dumping","⚠️ Liquidity concerns","⚠️ Community exodus"]},
+{name:"SHIB2",icon:"🐕",price:0.000089,ch:156.2,score:84,d:18900,tw:5600,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Metaverse integration","Gaming beta live","Community strong"]},
+{name:"FLOKI",icon:"⚡",price:0.0000234,ch:267.3,score:92,d:16700,tw:7200,h:"🔥 RISING",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Viral marketing campaign","Influencer endorsements","NFT launch coming"]},
+{name:"ELON",icon:"🚀",price:0.00000456,ch:523.7,score:87,d:14500,tw:6800,h:"🔥 ROCKET",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Space-themed dApp","Listing on major exchange","All-time high soon"]}
 ];
 
 const whales = [
-{name:"MegaWhale",icon:"🧠",win:78},{name:"SolanaBoss",icon:"💎",win:72},{name:"CryptoKing",icon:"👑",win:65},{name:"ProfitHunter",icon:"🎯",win:81},{name:"RiskyRick",icon:"⚡",win:58}
+{name:"MegaWhale",icon:"🧠",win:78,trades:["BUY 500k PEPE2","SELL 250k BONK2","BUY 1M FLOKI"]},{name:"SolanaBoss",icon:"💎",win:72,trades:["BUY 300k MOON","SELL 100k ELON","BUY 2M SHIB2"]},{name:"CryptoKing",icon:"👑",win:65,trades:["BUY 1M PEPE2","SELL 500k DOGWIF3","BUY 3M FLOKI"]}
 ];
 
 let sel = null;
 let currentView = 0;
 let followed = [];
+let watchlist = [];
+let portfolio = [];
+let alerts = [];
+let walletConnected = false;
 
 function color(s) {
 return s >= 80 ? "#00e676" : s >= 60 ? "#ffab00" : "#ff1744";
@@ -133,7 +171,7 @@ const d = document.createElement("div");
 d.className = "tok show";
 d.id = "tok" + i;
 const ch = t.ch > 0 ? '#00e676' : '#ff1744';
-d.innerHTML = `<div style="font-size:16px;margin-bottom:2px">${t.icon}</div><div style="color:#fff;font-weight:700;font-size:10px">${t.name}</div><div style="color:${ch};font-size:8px">${t.ch>0?'+':''}${t.ch}%</div><div style="background:${color(t.score)}15;color:${color(t.score)};font-size:8px;padding:2px 4px;border-radius:2px;display:inline-block;margin-top:4px">🛡️ ${t.score}</div>`;
+d.innerHTML = `<div style="font-size:16px;margin-bottom:2px">${t.icon}</div><div style="color:#fff;font-weight:700;font-size:10px">${t.name}</div><div style="color:${ch};font-size:8px">${t.ch>0?'+':''}${t.ch}%</div><div style="background:${color(t.score)}15;color:${color(t.score)};font-size:8px;padding:2px 4px;border-radius:2px;display:inline-block;margin-top:4px">🛡️ ${t.score}</div><span class="tok-star" onclick="toggleWatchlist(${i})">☆</span>`;
 d.onclick = () => select(i);
 tl.appendChild(d);
 });
@@ -141,19 +179,60 @@ tl.appendChild(d);
 function filterTokens() {
 const q = document.getElementById("search").value.toLowerCase();
 document.querySelectorAll(".tok").forEach(t => {
-const name = t.textContent.toLowerCase();
-t.style.display = name.includes(q) ? "block" : "none";
+t.style.display = t.textContent.toLowerCase().includes(q) ? "block" : "none";
 });
+}
+
+function toggleWatchlist(i) {
+const idx = watchlist.indexOf(i);
+if(idx > -1) {
+watchlist.splice(idx, 1);
+} else {
+watchlist.push(i);
+}
+updateWatchlist();
+}
+
+function updateWatchlist() {
+const wl = document.getElementById("watchlist");
+if(watchlist.length === 0) {
+wl.innerHTML = "<div style='color:#ffffff40'>No favorites yet</div>";
+return;
+}
+wl.innerHTML = watchlist.map(i => {
+const t = tokens[i];
+const ch = t.ch > 0 ? '#00e676' : '#ff1744';
+return `<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>${t.icon} ${t.name}</span><span style="color:${ch};font-weight:700">${t.ch>0?'+':''}${t.ch}%</span></div>`;
+}).join('');
+}
+
+function setPriceAlert() {
+if(!sel) return alert("Select token first");
+const price = document.getElementById("alertPrice").value;
+if(!price) return;
+alerts.push({token:sel.name,price:parseFloat(price)});
+document.getElementById("alertPrice").value = "";
+updateAlerts();
+}
+
+function updateAlerts() {
+const al = document.getElementById("alerts");
+if(alerts.length === 0) {
+al.innerHTML = "<div style='color:#ffffff40'>No alerts</div>";
+return;
+}
+al.innerHTML = alerts.map((a,i) => `<div style="margin-bottom:4px">${a.token} @ $${a.price}<button style="float:right;background:none;border:none;color:#ff1744;cursor:pointer;font-size:8px" onclick="alerts.splice(${i},1);updateAlerts()">✕</button></div>`).join('');
 }
 
 function select(i) {
 sel = tokens[i];
 document.querySelectorAll(".tok").forEach(x => x.classList.remove("sel"));
 document.getElementById("tok" + i).classList.add("sel");
-document.getElementById("topbar").textContent = `${sel.icon} ${sel.name} ${sel.ch>0?'+':''}${sel.ch}% $${sel.price.toFixed(6)}`;
-document.getElementById("d").textContent = sel.d > 1000 ? (sel.d/1000).toFixed(1)+'k' : sel.d;
-document.getElementById("tw").textContent = sel.tw > 1000 ? (sel.tw/1000).toFixed(1)+'k' : sel.tw;
-document.getElementById("hype").textContent = sel.h;
+document.getElementById("topbar").textContent = `${sel.icon} ${sel.name}`;
+document.getElementById("price").textContent = "$" + sel.price.toFixed(6);
+document.getElementById("change").textContent = (sel.ch>0?'+':'') + sel.ch + "%";
+document.getElementById("change").style.color = sel.ch > 0 ? '#00e676' : '#ff1744';
+updateWatchlist();
 showView(currentView);
 }
 
@@ -177,28 +256,38 @@ html += `<div class='bar' style='background:${c};height:${h}%'></div>`;
 html += "</div>";
 content.innerHTML = html;
 } else if(v === 1) {
-let html = `<div class="card" style="background:${color(sel.score)}08;border:1px solid ${color(sel.score)}25"><div style="color:${color(sel.score)};font-size:11px;font-weight:900">SAFETY: ${sel.score}/100</div><div style="font-size:10px;color:#ffffff60">${sel.score>=80?"✅ LEGIT":sel.score>=60?"⚠️ CAUTION":"🚨 RUG RISK"}</div></div>`;
+let html = `<div class="card" style="background:${color(sel.score)}08;border:1px solid ${color(sel.score)}25"><div style="color:${color(sel.score)};font-size:11px;font-weight:900">SAFETY: ${sel.score}/100</div></div>`;
 html += "<div class='card'><div style='color:#38bdf8;font-size:8px;font-weight:700;margin-bottom:6px'>🛡️ SECURITY</div>";
 for(let j=0;j<sel.checks.length;j++){
 const ok = sel.checks[j][1] === "✅";
 const col = ok ? "#00e676" : sel.checks[j][1] === "⚠️" ? "#ffab00" : "#ff1744";
-html += `<div class="row"><span style="color:#ffffff45">${sel.checks[j][0]}</span><span style="color:${col};font-weight:700">${sel.checks[j][1]}</span></div>`;
+html += `<div class="row"><span style="color:#ffffff45">${sel.checks[j][0]}</span><span style="color:${col}">${sel.checks[j][1]}</span></div>`;
 }
 html += "</div>";
 content.innerHTML = html;
 } else if(v === 2) {
 let html = "";
-whales.forEach(w => {
+whales.forEach((w,i) => {
 const isF = followed.find(x => x.name === w.name);
-html += `<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-weight:700;font-size:10px">${w.icon} ${w.name}</div><div style="color:#ffffff40;font-size:8px">Win: ${w.win}%</div></div><button style="padding:4px 8px;background:${isF?'#ff174420':'#00e67620'};color:${isF?'#ff1744':'#00e676'};border:1px solid ${isF?'#ff174450':'#00e67650'};border-radius:3px;font-size:8px;font-weight:700;cursor:pointer" onclick="toggleWhale(${whales.indexOf(w)})">${isF?'✓ Following':'Follow'}</button></div>`;
+html += `<div class="card"><div style="display:flex;justify-content:space-between"><div><div style="color:#fff;font-weight:700">${w.icon} ${w.name}</div><div style="color:#ffffff40;font-size:8px">Win: ${w.win}%</div></div><button style="padding:4px 8px;background:${isF?'#ff174420':'#00e67620'};color:${isF?'#ff1744':'#00e676'};border:1px solid ${isF?'#ff174450':'#00e67650'};border-radius:3px;font-size:8px;cursor:pointer" onclick="toggleWhale(${i})">${isF?'✓':'Follow'}</button></div></div>`;
 });
 content.innerHTML = html;
 } else if(v === 3) {
 let sorted = [...tokens].sort((a,b) => b.ch - a.ch);
-let html = "<div style='font-size:8px'>";
+let html = "";
 sorted.forEach(t => {
 const col = t.ch > 0 ? '#00e676' : '#ff1744';
-html += `<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:14px">${t.icon}</div><div style="color:#fff;font-weight:700;font-size:9px">${t.name}</div></div><div style="text-align:right"><div style="color:${col};font-weight:900">${t.ch>0?'+':''}${t.ch}%</div><div style="color:#ffffff40;font-size:8px">$${t.price.toFixed(6)}</div></div></div>`;
+html += `<div class="card" style="display:flex;justify-content:space-between"><div><div style="font-size:14px">${t.icon}</div><div style="color:#fff;font-weight:700;font-size:9px">${t.name}</div></div><div style="text-align:right"><div style="color:${col};font-weight:900">${t.ch>0?'+':''}${t.ch}%</div></div></div>`;
+});
+content.innerHTML = html;
+} else if(v === 4) {
+let html = "<div style='font-size:9px'>";
+whales.forEach(w => {
+html += `<div class="card"><div style="color:#00e676;font-weight:900;margin-bottom:8px">${w.icon} ${w.name}</div>`;
+w.trades.forEach(trade => {
+html += `<div style="margin-bottom:4px;padding:6px;background:#0a0f1a;border-radius:3px;cursor:pointer" onclick="copyTrade('${trade}')">${trade} <span style="color:#00e676">→ Copy</span></div>`;
+});
+html += "</div>";
 });
 html += "</div>";
 content.innerHTML = html;
@@ -214,36 +303,68 @@ if(idx > -1) {
 followed.splice(idx, 1);
 } else {
 followed.push(whales[i]);
-notify(whales[i]);
 }
 showView(2);
 }
 
-function notify(whale) {
-const tokens2 = tokens.filter(t => t.score > 50);
-const t = tokens2[Math.floor(Math.random() * tokens2.length)];
-const a = Math.random() > 0.5 ? "BUY" : "SELL";
-const amt = Math.floor(Math.random() * 100) + 10;
-
+function copyTrade(trade) {
 const n = document.createElement("div");
 n.className = "notif";
-n.innerHTML = `<div class="notif-name">${whale.icon} ${whale.name}</div><div class="notif-action">${a} $${amt}k ${t.name}</div><button class="notif-btn" onclick="this.parentNode.remove()">✓ NOTED</button>`;
+n.innerHTML = `<div style="color:#00e676;font-weight:900">✓ Trade Copied!</div><div style="font-size:8px;color:#ffffff60;margin-top:4px">${trade}</div><button class="btn" style="padding:4px;margin-top:8px" onclick="this.parentNode.remove()">Got it</button>`;
 document.body.appendChild(n);
-
-setTimeout(() => {
-n.classList.add("out");
-setTimeout(() => n.remove(), 400);
-}, 5000);
+setTimeout(() => n.classList.add("out"), 4000);
 }
 
-setInterval(() => {
-if(followed.length > 0) {
-const w = followed[Math.floor(Math.random() * followed.length)];
-notify(w);
+function showSection(sec) {
+document.getElementById("tradingSection").style.display = sec === "trading" ? "flex" : "none";
+document.getElementById("portfolioSection").style.display = sec === "portfolio" ? "flex" : "none";
+document.getElementById("newsSection").style.display = sec === "news" ? "flex" : "none";
+document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+event.target.classList.add("active");
+
+if(sec === "portfolio") {
+let html = "<div style='font-size:9px'>";
+html += "<div class='card'><div style='color:#00e676;font-weight:900'>Total Balance</div><div style='font-size:14px;color:#00e676;margin-top:6px'>$0.00</div></div>";
+html += "<div class='card'><div style='color:#00e676;font-weight:900;margin-bottom:8px'>Your Holdings</div>";
+if(portfolio.length === 0) {
+html += "<div style='color:#ffffff40'>No holdings yet</div>";
+} else {
+portfolio.forEach(p => {
+html += `<div style='margin-bottom:8px'><div style='display:flex;justify-content:space-between'><span>${p.token}</span><span style='color:#00e676'>${p.amount}</span></div><div style='color:#ffffff40;font-size:8px'>Avg: $${p.price}</div></div>`;
+});
 }
-}, 12000);
+html += "</div>";
+html += "</div>";
+document.getElementById("portfolioContent").innerHTML = html;
+} else if(sec === "news") {
+let html = "<div style='font-size:9px'>";
+tokens.forEach(t => {
+html += `<div class="card"><div style='color:#00e676;font-weight:900'>${t.icon} ${t.name}</div>`;
+t.news.forEach(n => {
+html += `<div style='margin-top:6px;padding:6px;background:#0a0f1a;border-radius:3px;border-left:2px solid ${n.includes('⚠️')?'#ffab00':'#00e676'}'>${n}</div>`;
+});
+html += "</div>";
+});
+document.getElementById("newsContent").innerHTML = html;
+}
+}
+
+function openWalletModal() {
+document.getElementById("walletModal").classList.add("show");
+}
+
+function connectWallet() {
+const addr = document.getElementById("walletAddress").value;
+if(addr) {
+walletConnected = true;
+document.getElementById("walletStatus").innerHTML = `<span style='color:#00e676'>✓ Connected</span><br><span style='color:#ffffff60'>${addr.slice(0,10)}...${addr.slice(-8)}</span>`;
+document.getElementById("walletModal").classList.remove("show");
+}
+}
 
 select(0);
+updateWatchlist();
+updateAlerts();
 </script>
 
 </body>
