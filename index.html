@@ -1,73 +1,75 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel - Ultimate Trading Suite</title>
+<title>MemeIntel MARKETCAP - Lightning Trading</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#080c14;color:#e0e8f0;font-family:monospace;height:100vh;overflow:hidden}
-.nav{background:#060a10;border-bottom:1px solid #ffffff0e;padding:10px;height:44px;display:flex;align-items:center;z-index:100;justify-content:space-between}
-.logo{color:#00e676;font-size:13px;font-weight:900}
+.nav{background:#060a10;border-bottom:2px solid #00e676;padding:10px;height:44px;display:flex;align-items:center;justify-content:space-between;z-index:100}
+.logo{color:#00e676;font-size:13px;font-weight:900;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
 .nav-btns{display:flex;gap:6px}
-.nav-btn{padding:4px 8px;background:#00e67615;border:1px solid #00e67650;color:#00e676;border-radius:3px;font-size:8px;cursor:pointer;font-weight:700}
+.nav-btn{padding:6px 12px;background:#00e67620;border:2px solid #00e676;color:#00e676;border-radius:4px;font-size:9px;cursor:pointer;font-weight:700;transition:all 0.1s}
+.nav-btn:hover{background:#00e67650;transform:scale(1.05)}
 .nav-btn.active{background:#00e67650}
-.main{display:flex;height:calc(100vh - 44px);overflow:hidden}
-.left{width:18%;background:#0a0f1a;border-right:1px solid #ffffff0e;overflow-y:auto;padding:8px;display:flex;flex-direction:column}
-.search{width:100%;padding:8px;background:#0b1220;border:1px solid #ffffff15;color:#fff;border-radius:4px;font-size:9px;margin-bottom:8px;font-family:monospace}
-.tok{padding:8px;cursor:pointer;border-bottom:1px solid #ffffff06;border-radius:4px;transition:all 0.2s;display:none;position:relative}
+.main{display:flex;height:calc(100vh - 44px);overflow:hidden;gap:4px;padding:4px}
+.left{width:15%;background:#0a0f1a;border:1px solid #00e67630;overflow-y:auto;padding:8px;border-radius:4px}
+.search{width:100%;padding:8px;background:#0b1220;border:1px solid #00e67650;color:#fff;border-radius:4px;font-size:9px;margin-bottom:8px;font-family:monospace}
+.tok{padding:6px;cursor:pointer;border-radius:3px;margin-bottom:2px;transition:all 0.1s;display:none;border-left:2px solid transparent}
 .tok.show{display:block}
-.tok.sel{background:#00e67615;border-left:2px solid #00e676}
-.tok-star{position:absolute;right:8px;top:8px;cursor:pointer;font-size:12px}
-.center{flex:1;background:#0c1120;border-right:1px solid #ffffff0e;display:flex;flex-direction:column;overflow:hidden}
-.topbar{background:#060a10;padding:8px;border-bottom:1px solid #ffffff0e;font-size:9px;display:flex;justify-content:space-between;align-items:center}
-.tabs{display:flex;gap:2px;padding:6px;background:#060a10;overflow-x:auto}
-.tab{flex:1;min-width:70px;padding:6px;border:1px solid #ffffff15;background:none;color:#ffffff50;font-size:9px;cursor:pointer;transition:all 0.2s;border-radius:3px;white-space:nowrap}
-.tab.on{background:#00e67615;color:#00e676;border-color:#00e67650}
+.tok:hover{background:#00e67610;border-left-color:#00e676}
+.tok.sel{background:#00e67630;border-left-color:#00e676}
+.center{flex:1;background:#0c1120;border:1px solid #00e67630;display:flex;flex-direction:column;border-radius:4px;overflow:hidden}
+.topbar{background:#060a10;padding:8px;border-bottom:1px solid #00e67630;display:flex;justify-content:space-between;align-items:center;font-size:9px}
+.price-display{display:flex;gap:12px}
+.price-item{display:flex;flex-direction:column}
+.price-label{color:#ffffff40;font-size:7px}
+.price-val{color:#00e676;font-weight:900;font-size:11px}
+.tabs{display:flex;gap:2px;padding:6px;background:#060a10;border-bottom:1px solid #00e67630;overflow-x:auto}
+.tab{flex:1;min-width:55px;padding:6px;border:1px solid #00e67630;background:none;color:#ffffff50;font-size:9px;cursor:pointer;transition:all 0.1s;border-radius:3px;white-space:nowrap}
+.tab.on{background:#00e67630;color:#00e676;border-color:#00e676}
 .content{flex:1;overflow-y:auto;padding:8px}
-.card{background:#0b1220;border:1px solid #ffffff08;padding:8px;margin-bottom:6px;border-radius:4px}
-.row{display:flex;justify-content:space-between;padding:4px 0;font-size:9px;border-bottom:1px solid #ffffff06}
-.right{width:18%;background:#0a0f1a;border-left:1px solid #ffffff0e;overflow-y:auto;padding:8px}
-.sec{border-bottom:1px solid #ffffff08;padding:8px 0;font-size:8px}
-.sec-title{color:#ffffff40;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
-.info{background:#0b1220;padding:6px;border-radius:4px;margin-bottom:4px;border:1px solid #ffffff08;font-size:9px}
-.notif{position:fixed;bottom:20px;right:20px;background:#0b1220;border:2px solid #00e676;border-radius:8px;padding:12px;max-width:280px;z-index:999;animation:slideInRight 0.4s}
-@keyframes slideInRight{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
-.notif.out{animation:slideOutRight 0.4s}
-@keyframes slideOutRight{from{transform:translateX(0);opacity:1}to{transform:translateX(400px);opacity:0}}
-.chart{display:flex;align-items:flex-end;gap:1px;height:100%}
+.card{background:#0b1220;border:1px solid #00e67630;padding:8px;margin-bottom:6px;border-radius:4px}
+.chart{display:flex;align-items:flex-end;gap:1px;height:100%;min-height:300px}
 .bar{flex:1;border-radius:1px}
-.modal{position:fixed;inset:0;background:#000000aa;display:none;align-items:center;justify-content:center;z-index:1000}
-.modal.show{display:flex}
-.modal-box{background:#0a0f1a;border:1px solid #ffffff15;border-radius:12px;padding:16px;width:90%;max-width:400px;max-height:70vh;overflow-y:auto}
-.modal-close{position:absolute;top:10px;right:10px;background:none;border:none;color:#fff;cursor:pointer;font-size:20px}
-.input-group{margin-bottom:12px}
-.input-group input{width:100%;padding:8px;background:#0b1220;border:1px solid #ffffff15;color:#fff;border-radius:4px;font-size:9px;font-family:monospace}
-.btn{padding:8px 12px;background:#00e67620;border:1px solid #00e67650;color:#00e676;border-radius:4px;font-size:9px;font-weight:700;cursor:pointer;width:100%}
+.right{width:20%;background:#0a0f1a;border:1px solid #00e67630;overflow-y:auto;padding:8px;border-radius:4px;display:flex;flex-direction:column}
+.sec{border-bottom:1px solid #00e67630;padding:8px 0;font-size:8px}
+.sec-title{color:#00e676;font-weight:900;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;font-size:7px}
+.mc-display{background:linear-gradient(135deg,#00e67620,#0b1220);border:2px solid #00e676;border-radius:6px;padding:12px;margin:6px 0;text-align:center}
+.mc-label{color:#ffffff40;font-size:7px;text-transform:uppercase}
+.mc-value{color:#00e676;font-size:16px;font-weight:900;font-family:'Courier New';margin:6px 0}
+.mc-progress{background:#0b1220;border:1px solid #00e67650;border-radius:3px;height:6px;overflow:hidden;margin:8px 0}
+.mc-bar{background:linear-gradient(90deg,#00e676,#00b85e);height:100%;transition:width 0.5s;border-radius:3px}
+.trigger{background:#0b1220;border-left:3px solid #00e676;padding:8px;margin-bottom:6px;border-radius:3px}
+.trigger-label{color:#00e676;font-weight:900;font-size:9px;margin-bottom:4px}
+.trigger-input{width:100%;padding:6px;background:#080c14;border:1px solid #00e67650;color:#fff;border-radius:3px;font-size:9px;margin-bottom:6px;font-family:monospace}
+.trigger-status{display:flex;justify-content:space-between;align-items:center;font-size:8px;color:#ffffff60}
+.trigger-status.active{color:#00e676}
+.quick-buy{background:linear-gradient(135deg,#00e676,#00b85e);color:#000;border:none;border-radius:4px;padding:10px;font-size:10px;font-weight:900;cursor:pointer;width:100%;margin:6px 0;transition:all 0.1s;font-family:monospace}
+.quick-buy:hover{transform:scale(1.02);box-shadow:0 0 20px #00e67650}
+.quick-exit{background:linear-gradient(135deg,#ff1744,#cc1036);color:#fff;border:none;border-radius:4px;padding:10px;font-size:10px;font-weight:900;cursor:pointer;width:100%;transition:all 0.1s;font-family:monospace}
+.quick-exit:hover{transform:scale(1.02);box-shadow:0 0 20px #ff174450}
+.notif{position:fixed;bottom:20px;right:20px;background:#0b1220;border:2px solid #00e676;border-radius:8px;padding:12px;max-width:320px;z-index:999;animation:slideInRight 0.3s;box-shadow:0 0 20px #00e67650}
+@keyframes slideInRight{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+.notif.buy{border-color:#00e676}
+.notif.sell{border-color:#ff1744}
+.input-group{margin-bottom:8px}
+.input-group input{width:100%;padding:6px;background:#0b1220;border:1px solid #00e67650;color:#fff;border-radius:3px;font-size:9px;font-family:monospace}
+.btn{width:100%;padding:6px;background:#00e67620;border:1px solid #00e67650;color:#00e676;border-radius:3px;font-size:9px;font-weight:700;cursor:pointer;transition:all 0.1s}
 .btn:hover{background:#00e67650}
-@media (max-width:768px) {
-.left{width:20%}.center{flex:1}.right{width:20%}
-.logo{font-size:11px}
-.tab{font-size:8px}
-}
-@media (max-width:480px) {
-.main{flex-direction:column}
-.left{width:100%;height:20%;border-right:none;border-bottom:1px solid #ffffff0e}
-.center{width:100%;height:60%;border-right:none;border-bottom:1px solid #ffffff0e}
-.right{width:100%;height:20%;border-left:none}
-}
 </style>
 </head>
 <body>
 
 <div class="nav">
-<div class="logo">⚡ MEMEINTEL ULTIMATE</div>
+<div class="logo">⚡ MEMEINTEL MARKETCAP</div>
 <div class="nav-btns">
-<button class="nav-btn active" onclick="showSection('trading')">Trading</button>
-<button class="nav-btn" onclick="showSection('portfolio')">Portfolio</button>
-<button class="nav-btn" onclick="showSection('news')">News</button>
-<button class="nav-btn" onclick="openWalletModal()">👛 Wallet</button>
+<button class="nav-btn active" onclick="showSection('trading')">⚡ TRADE</button>
+<button class="nav-btn" onclick="showSection('triggers')">🎯 TRIGGERS</button>
+<button class="nav-btn" onclick="showSection('history')">📊 HIST</button>
+<button class="nav-btn" onclick="showSection('portfolio')">💼 PORT</button>
 </div>
 </div>
 
@@ -79,91 +81,112 @@ body{background:#080c14;color:#e0e8f0;font-family:monospace;height:100vh;overflo
 
 <div class="center">
 <div class="topbar">
-<div id="topbar">Select a token</div>
-<div style="color:#ffffff40;font-size:8px">
-<span id="price">$0</span> | <span id="change" style="color:#00e676">+0%</span>
+<div id="topbar">Select token</div>
+<div class="price-display">
+<div class="price-item">
+<div class="price-label">PRICE</div>
+<div class="price-val" id="price">$0</div>
+</div>
+<div class="price-item">
+<div class="price-label">MC</div>
+<div class="price-val" id="mc">$0</div>
+</div>
+<div class="price-item">
+<div class="price-label">24H</div>
+<div class="price-val" id="change">+0%</div>
+</div>
 </div>
 </div>
 <div class="tabs">
 <button class="tab on" onclick="showView(0)">📊 Chart</button>
-<button class="tab" onclick="showView(1)">🛡️ Scanner</button>
-<button class="tab" onclick="showView(2)">🐋 Whales</button>
-<button class="tab" onclick="showView(3)">💰 Trending</button>
-<button class="tab" onclick="showView(4)">📋 Copy</button>
+<button class="tab" onclick="showView(1)">🎯 Triggers</button>
+<button class="tab" onclick="showView(2)">💰 Top</button>
 </div>
 <div class="content" id="content"></div>
 </div>
 
 <div class="right">
-<div class="sec">
-<div class="sec-title">⭐ Watchlist</div>
-<div id="watchlist" style="font-size:8px"></div>
+<div class="sec" style="flex:1">
+<div class="sec-title">💎 Market Cap</div>
+<div class="mc-display">
+<div class="mc-label">Current</div>
+<div class="mc-value" id="currentMC">$0M</div>
+</div>
+<div class="mc-progress">
+<div class="mc-bar" id="mcBar" style="width:0%"></div>
+</div>
+<div class="trigger">
+<div class="trigger-label">🚀 BUY @ MC</div>
+<input type="number" class="trigger-input" id="buyMC" placeholder="Buy at $2M" value="2">
+<div class="trigger-status" id="buyStatus">
+<span>Waiting...</span>
+<span id="buyDist">+$2.0M</span>
+</div>
+</div>
+<div class="trigger">
+<div class="trigger-label">⚡ SELL @ MC</div>
+<input type="number" class="trigger-input" id="sellMC" placeholder="Sell at $3M" value="3">
+<div class="trigger-status" id="sellStatus">
+<span>Waiting...</span>
+<span id="sellDist">+$3.0M</span>
+</div>
+</div>
 </div>
 <div class="sec">
-<div class="sec-title">🔔 Price Alerts</div>
-<div class="input-group">
-<input type="number" id="alertPrice" placeholder="Alert price" style="width:100%;padding:4px;font-size:8px">
-<button class="btn" style="padding:4px;font-size:8px;margin-top:4px" onclick="setPriceAlert()">Set Alert</button>
-</div>
-<div id="alerts" style="font-size:8px"></div>
-</div>
-<div class="sec">
-<div class="sec-title">💼 Holdings</div>
-<div id="holdings" style="font-size:8px"></div>
+<div class="sec-title">⚡ Quick Trade</div>
+<button class="quick-buy" onclick="quickBuy()">🚀 BUY NOW</button>
+<button class="quick-exit" onclick="quickExit()">⚡ EXIT</button>
 </div>
 </div>
 </div>
 
-<div id="portfolioSection" style="display:none;flex:1;background:#0c1120;overflow-y:auto;padding:16px">
-<h2 style="color:#00e676;margin-bottom:12px">📊 Portfolio Tracker</h2>
+<div id="triggersSection" style="display:none;background:#0c1120;overflow-y:auto;padding:16px;flex:1;border:1px solid #00e67630;border-radius:4px">
+<h2 style="color:#00e676;margin-bottom:12px">🎯 Market Cap Triggers</h2>
+<div style="background:#0b1220;border:1px solid #00e67630;border-radius:8px;padding:16px">
+<div class="input-group">
+<label style="color:#ffffff60;font-size:8px;display:block;margin-bottom:4px">BUY TRIGGER (Market Cap in $M)</label>
+<input type="number" id="triggerBuyMC" placeholder="2" value="2" style="font-size:10px;padding:8px">
+</div>
+<div class="input-group">
+<label style="color:#ffffff60;font-size:8px;display:block;margin-bottom:4px">SELL TRIGGER (Market Cap in $M)</label>
+<input type="number" id="triggerSellMC" placeholder="3" value="3" style="font-size:10px;padding:8px">
+</div>
+<div class="input-group">
+<label style="color:#ffffff60;font-size:8px;display:block;margin-bottom:4px">BUY AMOUNT (SOL)</label>
+<input type="number" id="triggerBuyAmt" placeholder="0.5" value="0.5" style="font-size:10px;padding:8px">
+</div>
+<button class="btn" onclick="saveTriggers()" style="padding:10px;margin-top:12px;background:#00e67620;font-size:10px">✓ Set Triggers</button>
+</div>
+<h3 style="color:#00e676;margin-top:20px;margin-bottom:12px">📋 Active Triggers</h3>
+<div id="activeTriggers"></div>
+</div>
+
+<div id="historySection" style="display:none;background:#0c1120;overflow-y:auto;padding:16px;flex:1;border:1px solid #00e67630;border-radius:4px">
+<h2 style="color:#00e676;margin-bottom:12px">📊 Trade History</h2>
+<div id="historyContent"></div>
+</div>
+
+<div id="portfolioSection" style="display:none;background:#0c1120;overflow-y:auto;padding:16px;flex:1;border:1px solid #00e67630;border-radius:4px">
+<h2 style="color:#00e676;margin-bottom:12px">💼 Portfolio</h2>
 <div id="portfolioContent"></div>
-</div>
-
-<div id="newsSection" style="display:none;flex:1;background:#0c1120;overflow-y:auto;padding:16px">
-<h2 style="color:#00e676;margin-bottom:12px">📰 Crypto News</h2>
-<div id="newsContent"></div>
-</div>
-
-<div class="modal" id="walletModal">
-<div class="modal-box">
-<button class="modal-close" onclick="document.getElementById('walletModal').classList.remove('show')">✕</button>
-<h2 style="color:#00e676;margin-bottom:12px">👛 Connect Wallet</h2>
-<div class="input-group">
-<input type="text" id="walletAddress" placeholder="Wallet Address" style="font-size:9px">
-</div>
-<button class="btn" onclick="connectWallet()">Connect Phantom</button>
-<button class="btn" onclick="connectWallet()" style="margin-top:8px">Connect MetaMask</button>
-<div id="walletStatus" style="margin-top:12px;padding:8px;background:#0b1220;border-radius:4px;font-size:9px;color:#ffffff40">Not connected</div>
-</div>
 </div>
 
 <script>
 const tokens = [
-{name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,score:95,d:12500,tw:4500,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Trending on Solana","Community grows 50k members","Partnership announced"]},
-{name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,score:88,d:8300,tw:2200,h:"📈 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","⚠️"],["LP","✅"],["Dev","✅"]],news:["Exchange listing soon","Dev team verified","Community vote passed"]},
-{name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,score:62,d:5200,tw:1100,h:"STABLE",checks:[["Mint","⚠️"],["Liq","✅"],["Renounced","⚠️"],["Utility","✅"],["Freeze","⚠️"],["Transfer","⚠️"],["LP","✅"],["Dev","⚠️"]],news:["Whale accumulating","Social growth 25%","Holder count increasing"]},
-{name:"MOON",icon:"🌙",price:0.00088,ch:44.1,score:91,d:7800,tw:1800,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Roadmap 2025 released","100k holders milestone","Marketing boost"]},
-{name:"RUGBAIT",icon:"💀",price:0.00000091,ch:-62.1,score:15,d:230,tw:23,h:"📉 DOWN",checks:[["Mint","🚨"],["Liq","🚨"],["Renounced","🚨"],["Utility","🚨"],["Freeze","🚨"],["Transfer","🚨"],["LP","🚨"],["Dev","🚨"]],news:["⚠️ Dev wallet dumping","⚠️ Liquidity concerns","⚠️ Community exodus"]},
-{name:"SHIB2",icon:"🐕",price:0.000089,ch:156.2,score:84,d:18900,tw:5600,h:"🔥 UP",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Metaverse integration","Gaming beta live","Community strong"]},
-{name:"FLOKI",icon:"⚡",price:0.0000234,ch:267.3,score:92,d:16700,tw:7200,h:"🔥 RISING",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Viral marketing campaign","Influencer endorsements","NFT launch coming"]},
-{name:"ELON",icon:"🚀",price:0.00000456,ch:523.7,score:87,d:14500,tw:6800,h:"🔥 ROCKET",checks:[["Mint","✅"],["Liq","✅"],["Renounced","✅"],["Utility","✅"],["Freeze","✅"],["Transfer","✅"],["LP","✅"],["Dev","✅"]],news:["Space-themed dApp","Listing on major exchange","All-time high soon"]}
-];
-
-const whales = [
-{name:"MegaWhale",icon:"🧠",win:78,trades:["BUY 500k PEPE2","SELL 250k BONK2","BUY 1M FLOKI"]},{name:"SolanaBoss",icon:"💎",win:72,trades:["BUY 300k MOON","SELL 100k ELON","BUY 2M SHIB2"]},{name:"CryptoKing",icon:"👑",win:65,trades:["BUY 1M PEPE2","SELL 500k DOGWIF3","BUY 3M FLOKI"]}
+{name:"PEPE2",icon:"🐸",price:0.000042,mc:1.2,ch:182.4,vol:"2.4M",score:95},
+{name:"BONK2",icon:"🔨",price:0.00213,mc:1.8,ch:34.2,vol:"1.1M",score:88},
+{name:"DOGWIF3",icon:"🐶",price:0.0081,mc:2.5,ch:12.7,vol:"2.3M",score:62},
+{name:"MOON",icon:"🌙",price:0.00088,mc:0.9,ch:44.1,vol:"670K",score:91},
+{name:"FLOKI",icon:"⚡",price:0.0000234,mc:4.2,ch:267.3,vol:"8.9M",score:92},
+{name:"ELON",icon:"🚀",price:0.00000456,mc:5.8,ch:523.7,vol:"12.3M",score:87},
+{name:"SHIB2",icon:"🐕",price:0.000089,mc:2.2,ch:156.2,vol:"5.2M",score:84},
+{name:"SAITAMA",icon:"🥋",price:0.0000089,mc:1.5,ch:145.6,vol:"4.5M",score:81}
 ];
 
 let sel = null;
-let currentView = 0;
-let followed = [];
-let watchlist = [];
+let triggers = {};
+let history = [];
 let portfolio = [];
-let alerts = [];
-let walletConnected = false;
-
-function color(s) {
-return s >= 80 ? "#00e676" : s >= 60 ? "#ffab00" : "#ff1744";
-}
 
 const tl = document.getElementById("tokList");
 tokens.forEach((t, i) => {
@@ -171,7 +194,7 @@ const d = document.createElement("div");
 d.className = "tok show";
 d.id = "tok" + i;
 const ch = t.ch > 0 ? '#00e676' : '#ff1744';
-d.innerHTML = `<div style="font-size:16px;margin-bottom:2px">${t.icon}</div><div style="color:#fff;font-weight:700;font-size:10px">${t.name}</div><div style="color:${ch};font-size:8px">${t.ch>0?'+':''}${t.ch}%</div><div style="background:${color(t.score)}15;color:${color(t.score)};font-size:8px;padding:2px 4px;border-radius:2px;display:inline-block;margin-top:4px">🛡️ ${t.score}</div><span class="tok-star" onclick="toggleWatchlist(${i})">☆</span>`;
+d.innerHTML = `<div><div style="font-size:14px">${t.icon}</div><div style="color:#fff;font-weight:700;font-size:9px">${t.name}</div><div style="color:${ch};font-size:8px">${t.ch>0?'+':''}${t.ch}%</div><div style="color:#00e676;font-size:8px;margin-top:3px">MC: $${t.mc}M</div></div>`;
 d.onclick = () => select(i);
 tl.appendChild(d);
 });
@@ -183,188 +206,171 @@ t.style.display = t.textContent.toLowerCase().includes(q) ? "block" : "none";
 });
 }
 
-function toggleWatchlist(i) {
-const idx = watchlist.indexOf(i);
-if(idx > -1) {
-watchlist.splice(idx, 1);
-} else {
-watchlist.push(i);
-}
-updateWatchlist();
-}
-
-function updateWatchlist() {
-const wl = document.getElementById("watchlist");
-if(watchlist.length === 0) {
-wl.innerHTML = "<div style='color:#ffffff40'>No favorites yet</div>";
-return;
-}
-wl.innerHTML = watchlist.map(i => {
-const t = tokens[i];
-const ch = t.ch > 0 ? '#00e676' : '#ff1744';
-return `<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>${t.icon} ${t.name}</span><span style="color:${ch};font-weight:700">${t.ch>0?'+':''}${t.ch}%</span></div>`;
-}).join('');
-}
-
-function setPriceAlert() {
-if(!sel) return alert("Select token first");
-const price = document.getElementById("alertPrice").value;
-if(!price) return;
-alerts.push({token:sel.name,price:parseFloat(price)});
-document.getElementById("alertPrice").value = "";
-updateAlerts();
-}
-
-function updateAlerts() {
-const al = document.getElementById("alerts");
-if(alerts.length === 0) {
-al.innerHTML = "<div style='color:#ffffff40'>No alerts</div>";
-return;
-}
-al.innerHTML = alerts.map((a,i) => `<div style="margin-bottom:4px">${a.token} @ $${a.price}<button style="float:right;background:none;border:none;color:#ff1744;cursor:pointer;font-size:8px" onclick="alerts.splice(${i},1);updateAlerts()">✕</button></div>`).join('');
-}
-
 function select(i) {
 sel = tokens[i];
 document.querySelectorAll(".tok").forEach(x => x.classList.remove("sel"));
 document.getElementById("tok" + i).classList.add("sel");
 document.getElementById("topbar").textContent = `${sel.icon} ${sel.name}`;
 document.getElementById("price").textContent = "$" + sel.price.toFixed(6);
+document.getElementById("mc").textContent = "$" + sel.mc.toFixed(1) + "M";
 document.getElementById("change").textContent = (sel.ch>0?'+':'') + sel.ch + "%";
 document.getElementById("change").style.color = sel.ch > 0 ? '#00e676' : '#ff1744';
-updateWatchlist();
-showView(currentView);
+document.getElementById("currentMC").textContent = "$" + sel.mc.toFixed(2) + "M";
+updateTriggerDisplay();
+showView(0);
+checkTriggers();
+}
+
+function updateTriggerDisplay() {
+if(!sel) return;
+const buyMC = parseFloat(document.getElementById("buyMC").value) || 2;
+const sellMC = parseFloat(document.getElementById("sellMC").value) || 3;
+const buyDist = buyMC - sel.mc;
+const sellDist = sellMC - sel.mc;
+
+document.getElementById("buyDist").textContent = buyDist > 0 ? '+$' + buyDist.toFixed(1) + 'M' : '✅ HIT';
+document.getElementById("sellDist").textContent = sellDist > 0 ? '+$' + sellDist.toFixed(1) + 'M' : '✅ HIT';
+
+document.getElementById("buyStatus").classList.toggle("active", sel.mc >= buyMC);
+document.getElementById("sellStatus").classList.toggle("active", sel.mc >= sellMC);
+
+const maxMC = Math.max(buyMC, sellMC, sel.mc) * 1.2;
+const barWidth = (sel.mc / maxMC) * 100;
+document.getElementById("mcBar").style.width = barWidth + "%";
 }
 
 function showView(v) {
-currentView = v;
-const content = document.getElementById("content");
-content.innerHTML = "";
-
-if(!sel) {
-content.innerHTML = "<div style='padding:20px;text-align:center;color:#ffffff40'>Select a token</div>";
-return;
-}
+const c = document.getElementById("content");
+c.innerHTML = "";
+if(!sel) return;
 
 if(v === 0) {
-let html = "<div class='chart'>";
-for(let j=0;j<60;j++){
-const h = 25 + Math.sin(j*0.4+sel.name.length)*25 + Math.random()*20;
-const c = Math.random() > 0.45 ? '#00e676' : '#ff1744';
-html += `<div class='bar' style='background:${c};height:${h}%'></div>`;
+let h = "<div class='chart'>";
+for(let j=0;j<80;j++){
+const ht = 20 + Math.sin(j*0.3+sel.name.length)*30 + Math.random()*25;
+const col = Math.random() > 0.4 ? '#00e676' : '#ff1744';
+h += `<div class='bar' style='background:${col};height:${ht}%'></div>`;
 }
-html += "</div>";
-content.innerHTML = html;
+h += "</div>";
+c.innerHTML = h;
 } else if(v === 1) {
-let html = `<div class="card" style="background:${color(sel.score)}08;border:1px solid ${color(sel.score)}25"><div style="color:${color(sel.score)};font-size:11px;font-weight:900">SAFETY: ${sel.score}/100</div></div>`;
-html += "<div class='card'><div style='color:#38bdf8;font-size:8px;font-weight:700;margin-bottom:6px'>🛡️ SECURITY</div>";
-for(let j=0;j<sel.checks.length;j++){
-const ok = sel.checks[j][1] === "✅";
-const col = ok ? "#00e676" : sel.checks[j][1] === "⚠️" ? "#ffab00" : "#ff1744";
-html += `<div class="row"><span style="color:#ffffff45">${sel.checks[j][0]}</span><span style="color:${col}">${sel.checks[j][1]}</span></div>`;
-}
-html += "</div>";
-content.innerHTML = html;
+const buyMC = parseFloat(document.getElementById("buyMC").value) || 2;
+const sellMC = parseFloat(document.getElementById("sellMC").value) || 3;
+c.innerHTML = `<div class="card"><div style="color:#00e676;font-weight:900;margin-bottom:12px">🎯 Triggers Active</div><div style="margin-bottom:12px"><div style="color:#00e676;font-weight:700;margin-bottom:4px">🚀 BUY @ $${buyMC}M MC</div><div style="font-size:8px;color:#ffffff60">Current: $${sel.mc.toFixed(2)}M</div><div style="font-size:8px;color:#00e676;margin-top:4px">${sel.mc >= buyMC ? '✅ TRIGGER READY' : 'Waiting ' + (buyMC - sel.mc).toFixed(2) + 'M more'}</div></div><div><div style="color:#ff1744;font-weight:700;margin-bottom:4px">⚡ SELL @ $${sellMC}M MC</div><div style="font-size:8px;color:#ffffff60">Current: $${sel.mc.toFixed(2)}M</div><div style="font-size:8px;color:#ff1744;margin-top:4px">${sel.mc >= sellMC ? '✅ TRIGGER READY' : 'Waiting ' + (sellMC - sel.mc).toFixed(2) + 'M more'}</div></div></div>`;
 } else if(v === 2) {
-let html = "";
-whales.forEach((w,i) => {
-const isF = followed.find(x => x.name === w.name);
-html += `<div class="card"><div style="display:flex;justify-content:space-between"><div><div style="color:#fff;font-weight:700">${w.icon} ${w.name}</div><div style="color:#ffffff40;font-size:8px">Win: ${w.win}%</div></div><button style="padding:4px 8px;background:${isF?'#ff174420':'#00e67620'};color:${isF?'#ff1744':'#00e676'};border:1px solid ${isF?'#ff174450':'#00e67650'};border-radius:3px;font-size:8px;cursor:pointer" onclick="toggleWhale(${i})">${isF?'✓':'Follow'}</button></div></div>`;
-});
-content.innerHTML = html;
-} else if(v === 3) {
 let sorted = [...tokens].sort((a,b) => b.ch - a.ch);
-let html = "";
-sorted.forEach(t => {
+let h = "";
+sorted.slice(0,8).forEach(t => {
 const col = t.ch > 0 ? '#00e676' : '#ff1744';
-html += `<div class="card" style="display:flex;justify-content:space-between"><div><div style="font-size:14px">${t.icon}</div><div style="color:#fff;font-weight:700;font-size:9px">${t.name}</div></div><div style="text-align:right"><div style="color:${col};font-weight:900">${t.ch>0?'+':''}${t.ch}%</div></div></div>`;
+h += `<div class="card" style="display:flex;justify-content:space-between"><div>${t.icon} ${t.name}</div><div style="color:${col};font-weight:900">${t.ch>0?'+':''}${t.ch}%</div></div>`;
 });
-content.innerHTML = html;
-} else if(v === 4) {
-let html = "<div style='font-size:9px'>";
-whales.forEach(w => {
-html += `<div class="card"><div style="color:#00e676;font-weight:900;margin-bottom:8px">${w.icon} ${w.name}</div>`;
-w.trades.forEach(trade => {
-html += `<div style="margin-bottom:4px;padding:6px;background:#0a0f1a;border-radius:3px;cursor:pointer" onclick="copyTrade('${trade}')">${trade} <span style="color:#00e676">→ Copy</span></div>`;
-});
-html += "</div>";
-});
-html += "</div>";
-content.innerHTML = html;
+c.innerHTML = h;
+}
 }
 
-document.querySelectorAll(".tab").forEach(x => x.classList.remove("on"));
-document.querySelectorAll(".tab")[v].classList.add("on");
+function quickBuy() {
+if(!sel) return alert("Select token!");
+notify(`🚀 BUY ${sel.name} @ $${sel.price.toFixed(6)}`, "buy");
+history.push({type:"BUY",token:sel.name,mc:sel.mc,time:new Date().toLocaleTimeString()});
 }
 
-function toggleWhale(i) {
-const idx = followed.findIndex(x => x.name === whales[i].name);
-if(idx > -1) {
-followed.splice(idx, 1);
-} else {
-followed.push(whales[i]);
-}
-showView(2);
+function quickExit() {
+if(!sel) return alert("Select token!");
+notify(`⚡ SOLD ${sel.name} @ $${sel.price.toFixed(6)}`, "sell");
+history.push({type:"SELL",token:sel.name,mc:sel.mc,time:new Date().toLocaleTimeString()});
 }
 
-function copyTrade(trade) {
+function saveTriggers() {
+if(!sel) return alert("Select token!");
+const buyMC = document.getElementById("triggerBuyMC").value;
+const sellMC = document.getElementById("triggerSellMC").value;
+const buyAmt = document.getElementById("triggerBuyAmt").value;
+if(!buyMC || !sellMC || !buyAmt) return;
+document.getElementById("buyMC").value = buyMC;
+document.getElementById("sellMC").value = sellMC;
+triggers[sel.name] = {buyMC:parseFloat(buyMC),sellMC:parseFloat(sellMC),buyAmt:parseFloat(buyAmt)};
+notify(`✓ Triggers saved for ${sel.name}`, "buy");
+updateActiveTriggers();
+updateTriggerDisplay();
+}
+
+function updateActiveTriggers() {
+const at = document.getElementById("activeTriggers");
+if(Object.keys(triggers).length === 0) {
+at.innerHTML = "<div style='color:#ffffff40'>No active triggers</div>";
+return;
+}
+at.innerHTML = Object.entries(triggers).map(([token,t]) => {
+const tok = tokens.find(x => x.name === token);
+const buyReady = tok && tok.mc >= t.buyMC;
+const sellReady = tok && tok.mc >= t.sellMC;
+return `<div class="card"><div style="font-weight:900;margin-bottom:8px">${tok?.icon} ${token}</div><div style="font-size:8px;margin-bottom:6px"><div style="color:${buyReady?'#00e676':'#ffffff60'}">🚀 BUY @ $${t.buyMC}M ${buyReady?'✅':''}</div><div style="color:${sellReady?'#ff1744':'#ffffff60'};margin-top:4px">⚡ SELL @ $${t.sellMC}M ${sellReady?'✅':''}</div></div></div>`;
+}).join('');
+}
+
+function checkTriggers() {
+if(!sel) return;
+const t = triggers[sel.name];
+if(!t) return;
+
+if(sel.mc >= t.buyMC && !history.find(h => h.type === "BUY" && h.token === sel.name && h.mc === sel.mc)) {
+notify(`🚀 AUTO BUY TRIGGERED! ${sel.name} hit $${t.buyMC}M MC`, "buy");
+history.push({type:"BUY",token:sel.name,mc:sel.mc,time:new Date().toLocaleTimeString(),auto:true});
+}
+
+if(sel.mc >= t.sellMC && !history.find(h => h.type === "SELL" && h.token === sel.name && h.mc === sel.mc)) {
+notify(`⚡ AUTO SELL TRIGGERED! ${sel.name} hit $${t.sellMC}M MC`, "sell");
+history.push({type:"SELL",token:sel.name,mc:sel.mc,time:new Date().toLocaleTimeString(),auto:true});
+}
+}
+
+function notify(msg, type) {
 const n = document.createElement("div");
-n.className = "notif";
-n.innerHTML = `<div style="color:#00e676;font-weight:900">✓ Trade Copied!</div><div style="font-size:8px;color:#ffffff60;margin-top:4px">${trade}</div><button class="btn" style="padding:4px;margin-top:8px" onclick="this.parentNode.remove()">Got it</button>`;
+n.className = "notif " + type;
+n.innerHTML = msg;
 document.body.appendChild(n);
-setTimeout(() => n.classList.add("out"), 4000);
+setTimeout(() => n.remove(), 5000);
 }
 
 function showSection(sec) {
 document.getElementById("tradingSection").style.display = sec === "trading" ? "flex" : "none";
+document.getElementById("triggersSection").style.display = sec === "triggers" ? "flex" : "none";
+document.getElementById("historySection").style.display = sec === "history" ? "flex" : "none";
 document.getElementById("portfolioSection").style.display = sec === "portfolio" ? "flex" : "none";
-document.getElementById("newsSection").style.display = sec === "news" ? "flex" : "none";
 document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
 event.target.classList.add("active");
 
-if(sec === "portfolio") {
-let html = "<div style='font-size:9px'>";
-html += "<div class='card'><div style='color:#00e676;font-weight:900'>Total Balance</div><div style='font-size:14px;color:#00e676;margin-top:6px'>$0.00</div></div>";
-html += "<div class='card'><div style='color:#00e676;font-weight:900;margin-bottom:8px'>Your Holdings</div>";
+if(sec === "history") {
+let h = "";
+history.forEach(tr => {
+const auto = tr.auto ? " (AUTO)" : "";
+h += `<div class="card"><div style="color:${tr.type==='BUY'?'#00e676':'#ff1744'};font-weight:900">${tr.type} ${tr.token}${auto}</div><div style="color:#ffffff60;font-size:8px">MC: $${tr.mc.toFixed(2)}M @ ${tr.time}</div></div>`;
+});
+if(h === "") h = "<div style='color:#ffffff40'>No trades yet</div>";
+document.getElementById("historyContent").innerHTML = h;
+} else if(sec === "portfolio") {
+let h = "";
 if(portfolio.length === 0) {
-html += "<div style='color:#ffffff40'>No holdings yet</div>";
-} else {
-portfolio.forEach(p => {
-html += `<div style='margin-bottom:8px'><div style='display:flex;justify-content:space-between'><span>${p.token}</span><span style='color:#00e676'>${p.amount}</span></div><div style='color:#ffffff40;font-size:8px'>Avg: $${p.price}</div></div>`;
-});
+h = "<div style='color:#ffffff40'>Portfolio empty</div>";
 }
-html += "</div>";
-html += "</div>";
-document.getElementById("portfolioContent").innerHTML = html;
-} else if(sec === "news") {
-let html = "<div style='font-size:9px'>";
-tokens.forEach(t => {
-html += `<div class="card"><div style='color:#00e676;font-weight:900'>${t.icon} ${t.name}</div>`;
-t.news.forEach(n => {
-html += `<div style='margin-top:6px;padding:6px;background:#0a0f1a;border-radius:3px;border-left:2px solid ${n.includes('⚠️')?'#ffab00':'#00e676'}'>${n}</div>`;
-});
-html += "</div>";
-});
-document.getElementById("newsContent").innerHTML = html;
+document.getElementById("portfolioContent").innerHTML = h;
+} else if(sec === "triggers") {
+updateActiveTriggers();
 }
 }
 
-function openWalletModal() {
-document.getElementById("walletModal").classList.add("show");
+// Update every second
+setInterval(() => {
+if(sel) {
+sel.mc = sel.mc + (Math.random() - 0.45) * 0.1;
+document.getElementById("currentMC").textContent = "$" + sel.mc.toFixed(2) + "M";
+updateTriggerDisplay();
+checkTriggers();
 }
-
-function connectWallet() {
-const addr = document.getElementById("walletAddress").value;
-if(addr) {
-walletConnected = true;
-document.getElementById("walletStatus").innerHTML = `<span style='color:#00e676'>✓ Connected</span><br><span style='color:#ffffff60'>${addr.slice(0,10)}...${addr.slice(-8)}</span>`;
-document.getElementById("walletModal").classList.remove("show");
-}
-}
+}, 1000);
 
 select(0);
-updateWatchlist();
-updateAlerts();
+updateActiveTriggers();
 </script>
 
 </body>
