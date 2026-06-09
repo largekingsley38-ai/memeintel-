@@ -3,326 +3,312 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel - Professional Trading</title>
+<title>MemeIntel Pro - Axiom Alternative</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;overflow:hidden}
-.app{display:flex;flex-direction:column;height:100vh}
-.navbar{background:linear-gradient(90deg,#0f1629 0%,#1a2847 100%);border-bottom:1px solid #ffffff10;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;height:70px;box-shadow:0 2px 8px #00000030}
-.logo{font-size:20px;font-weight:900;color:#00d4aa;letter-spacing:2px}
-.nav-right{display:flex;gap:32px;align-items:center}
-.stat{display:flex;flex-direction:column;align-items:flex-end}
-.stat-label{font-size:10px;color:#7a8ba8;text-transform:uppercase;letter-spacing:1px}
-.stat-value{font-size:14px;font-weight:700;color:#00d4aa;margin-top:2px}
-.content{display:flex;flex:1;overflow:hidden;gap:0}
-.sidebar{width:280px;background:#0f1629;border-right:1px solid #ffffff10;overflow-y:auto;padding:20px}
-.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#0a0e1a}
-.tokens-container{padding:0}
-.token-search{width:100%;padding:12px 16px;background:#1a2847;border:1px solid #ffffff15;border-radius:10px;color:#fff;font-size:13px;margin-bottom:16px}
-.tokens-list{display:flex;flex-direction:column;gap:8px}
-.token-btn{width:100%;padding:12px 14px;background:#1a2847;border:2px solid #ffffff10;border-radius:10px;cursor:pointer;transition:all 0.3s;text-align:left}
-.token-btn:hover{background:#253857;border-color:#00d4aa40}
-.token-btn.active{background:#253857;border-color:#00d4aa;box-shadow:0 0 20px #00d4aa20}
-.token-btn-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.token-name{font-weight:700;color:#fff;font-size:13px}
-.token-change{font-size:13px;font-weight:700}
-.token-change.up{color:#00d4aa}
-.token-change.down{color:#ff4757}
-.token-details{display:flex;justify-content:space-between;font-size:11px;color:#7a8ba8}
-.token-price{font-weight:600}
-.token-mc{color:#00d4aa;font-weight:700}
-.main-content{flex:1;display:flex;flex-direction:column;overflow-y:auto;padding:24px}
-.hero-section{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
-.token-display{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:16px;padding:24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 24px #00000020}
-.token-icon{font-size:56px}
-.token-info h1{font-size:28px;color:#fff;margin-bottom:8px}
-.token-info-price{font-size:24px;color:#00d4aa;font-weight:700;margin-bottom:12px}
-.token-meta{display:flex;gap:16px;font-size:12px;color:#7a8ba8}
-.quick-trade{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:16px;padding:24px;box-shadow:0 8px 24px #00000020}
-.trade-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}
-.trade-btns{display:flex;gap:12px;margin-bottom:16px}
-.trade-btn{flex:1;padding:14px;border:none;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.3s;font-family:monospace}
-.btn-buy{background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;box-shadow:0 4px 12px #00d4aa20}
-.btn-buy:hover{transform:translateY(-2px);box-shadow:0 6px 16px #00d4aa30}
-.btn-sell{background:linear-gradient(135deg,#ff4757,#ff1744);color:#fff;box-shadow:0 4px 12px #ff475720}
-.btn-sell:hover{transform:translateY(-2px);box-shadow:0 6px 16px #ff475730}
-.input-row{margin-bottom:12px}
-.input-label{display:block;font-size:11px;color:#7a8ba8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
-.input-field{width:100%;padding:12px 14px;background:#0f1629;border:1px solid #ffffff15;border-radius:8px;color:#fff;font-size:13px;font-family:monospace;transition:all 0.3s}
-.input-field:focus{outline:none;border-color:#00d4aa;box-shadow:0 0 12px #00d4aa15}
-.presets{display:flex;gap:8px;margin-bottom:16px}
-.preset-btn{flex:1;padding:10px;background:#0f1629;border:1px solid #ffffff15;border-radius:8px;color:#00d4aa;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.3s}
-.preset-btn:hover{background:#1a2847;border-color:#00d4aa}
-.execute-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 12px #00d4aa20}
-.execute-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px #00d4aa30}
-.features-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:24px}
-.feature-card{background:#1a2847;border:1px solid #ffffff15;border-radius:12px;padding:16px;box-shadow:0 4px 12px #00000020}
-.feature-title{font-size:12px;font-weight:700;color:#00d4aa;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
-.feature-content{font-size:11px;color:#7a8ba8;line-height:1.6}
-.feature-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ffffff08}
-.feature-row:last-child{border:none}
-.feature-label{color:#7a8ba8}
-.feature-value{color:#fff;font-weight:700}
-.chart-placeholder{width:100%;height:200px;background:#0f1629;border:1px solid #ffffff15;border-radius:12px;margin-top:24px;display:flex;align-items:center;justify-content:center;color:#7a8ba8;font-size:13px}
-::-webkit-scrollbar{width:8px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:4px}
-::-webkit-scrollbar-thumb:hover{background:#3a4f6d}
-.notif{position:fixed;bottom:24px;right:24px;background:#1a2847;border:2px solid #00d4aa;border-radius:12px;padding:16px 20px;max-width:360px;z-index:999;animation:slideIn 0.4s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 8px 24px #00d4aa20;font-size:13px}
-@keyframes slideIn{from{transform:translateX(400px) translateY(20px);opacity:0}to{transform:translateX(0) translateY(0);opacity:1}}
-@media(max-width:1400px){
-.features-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:1000px){
-.sidebar{width:240px}
-.hero-section{grid-template-columns:1fr}
-}
+body{background:#0a0e27;color:#e0e8f0;font-family:'Segoe UI',monospace;height:100vh;overflow:hidden}
+.header{background:#0f1328;border-bottom:1px solid #1a2744;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;height:56px;z-index:100}
+.logo{color:#00d4aa;font-size:14px;font-weight:900;letter-spacing:1px}
+.header-right{display:flex;gap:16px;align-items:center;font-size:12px}
+.header-stat{display:flex;flex-direction:column;color:#ffffff60}
+.header-val{color:#00d4aa;font-weight:700}
+.container{display:flex;height:calc(100vh - 56px);gap:1px;background:#0a0e27}
+.left-panel{width:22%;background:#0f1328;border-right:1px solid #1a2744;overflow-y:auto;padding:16px}
+.chart-section{flex:1;background:#0f1328;border-right:1px solid #1a2744;overflow-y:auto;padding:16px;display:flex;flex-direction:column}
+.right-panel{width:26%;background:#0f1328;border-left:1px solid #1a2744;overflow-y:auto;padding:16px;display:flex;flex-direction:column}
+.search-box{width:100%;padding:10px 12px;background:#1a2744;border:1px solid #2a3854;border-radius:6px;color:#fff;font-size:12px;margin-bottom:16px;font-family:monospace}
+.token-item{padding:12px;background:#1a2744;border:1px solid #2a3854;border-radius:6px;margin-bottom:8px;cursor:pointer;transition:all 0.2s;border-left:3px solid transparent}
+.token-item:hover{background:#253654;border-left-color:#00d4aa}
+.token-item.active{background:#253654;border-left-color:#00d4aa;border-color:#00d4aa}
+.token-name{color:#fff;font-weight:700;font-size:13px;margin-bottom:4px}
+.token-price{color:#ffffff60;font-size:11px}
+.token-change{color:#00d4aa;font-size:12px;font-weight:700;margin-top:4px}
+.token-mc{color:#00d4aa;font-size:11px;margin-top:2px}
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #1a2744}
+.chart-info{display:flex;gap:24px}
+.chart-item{display:flex;flex-direction:column}
+.chart-label{color:#ffffff60;font-size:10px;text-transform:uppercase}
+.chart-value{color:#00d4aa;font-size:14px;font-weight:700;margin-top:4px}
+.candlesticks{flex:1;display:flex;align-items:flex-end;gap:2px;min-height:200px}
+.candle{flex:1;min-width:3px}
+.candle-body{background:#00d4aa;border-radius:1px;width:100%;transition:all 0.1s}
+.candle-body.down{background:#ff4757}
+.tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid #1a2744;padding-bottom:12px}
+.tab{padding:8px 16px;background:none;border:none;color:#ffffff60;font-size:12px;cursor:pointer;font-weight:600;border-bottom:2px solid transparent;transition:all 0.2s}
+.tab.active{color:#00d4aa;border-bottom-color:#00d4aa}
+.trading-panel{background:#1a2744;border:1px solid #2a3854;border-radius:8px;padding:16px;margin-bottom:16px}
+.input-group{margin-bottom:12px}
+.input-label{color:#ffffff60;font-size:10px;text-transform:uppercase;margin-bottom:6px;display:block}
+.input-field{width:100%;padding:10px 12px;background:#0f1328;border:1px solid #2a3854;border-radius:6px;color:#fff;font-size:12px;font-family:monospace}
+.buttons-row{display:flex;gap:8px;margin-bottom:12px}
+.btn{flex:1;padding:10px;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:monospace}
+.btn-buy{background:#00d4aa;color:#000}
+.btn-buy:hover{background:#00e5ba;transform:translateY(-2px)}
+.btn-sell{background:#ff4757;color:#fff}
+.btn-sell:hover{background:#ff6575;transform:translateY(-2px)}
+.btn-preset{background:#2a3854;color:#00d4aa;font-size:11px;padding:8px}
+.btn-preset:hover{background:#3a4864}
+.presets{display:flex;gap:6px;margin-bottom:12px}
+.btn-execute{width:100%;padding:12px;background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;border-radius:6px;font-weight:700;cursor:pointer;font-size:13px;font-family:monospace}
+.btn-execute:hover{opacity:0.9;transform:translateY(-2px)}
+.info-section{background:#1a2744;border:1px solid #2a3854;border-radius:8px;padding:12px;margin-bottom:12px}
+.info-title{color:#00d4aa;font-size:11px;font-weight:700;text-transform:uppercase;margin-bottom:12px}
+.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #2a3854;font-size:12px}
+.info-row:last-child{border:none}
+.info-label{color:#ffffff60}
+.info-value{color:#fff;font-weight:700}
+.badge{display:inline-block;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700}
+.badge-safe{background:#00d4aa20;color:#00d4aa}
+.badge-caution{background:#ffb30020;color:#ffb300}
+.badge-danger{background:#ff475720;color:#ff4757}
+.scroll{max-height:200px;overflow-y:auto}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0e27}
+::-webkit-scrollbar-thumb{background:#2a3854;border-radius:3px}
+.notif{position:fixed;bottom:20px;right:20px;background:#1a2744;border:2px solid #00d4aa;border-radius:8px;padding:16px;max-width:300px;z-index:999;animation:slideIn 0.3s}
+@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
 </style>
 </head>
 <body>
 
-<div class="app">
-<div class="navbar">
-<div class="logo">⚡ MEMEINTEL</div>
-<div class="nav-right">
-<div class="stat">
-<span class="stat-label">24H Vol</span>
-<span class="stat-value" id="vol">$2.4M</span>
+<div class="header">
+<div class="logo">⚡ MEMEINTEL PRO</div>
+<div class="header-right">
+<div class="header-stat">
+<span class="header-label">24H VOL</span>
+<span class="header-val" id="headerVol">$0</span>
 </div>
-<div class="stat">
-<span class="stat-label">Buys</span>
-<span class="stat-value">5/$935.2</span>
+<div class="header-stat">
+<span class="header-label">BUYS</span>
+<span class="header-val">5/$935.2</span>
 </div>
-<div class="stat">
-<span class="stat-label">Sells</span>
-<span class="stat-value">4/$1.2K</span>
+<div class="header-stat">
+<span class="header-label">SELLS</span>
+<span class="header-val">4/$1.2K</span>
 </div>
-</div>
-</div>
-
-<div class="content">
-<div class="sidebar">
-<input type="text" class="token-search" id="search" placeholder="Search tokens..." onkeyup="filterTokens()">
-<div class="tokens-list" id="tokensList"></div>
-</div>
-
-<div class="main-area">
-<div class="main-content">
-<div class="hero-section">
-<div class="token-display">
-<div class="token-icon" id="tokenIcon">🐸</div>
-<div class="token-info">
-<h1 id="tokenName">PEPE2</h1>
-<div class="token-info-price" id="tokenPrice">$0.000042</div>
-<div class="token-meta">
-<div>24H: <span class="token-change up" id="change">+182.4%</span></div>
-<div>MC: <span style="color:#00d4aa" id="mc">$1.2M</span></div>
+<div class="header-stat">
+<span class="header-label">NET VOL</span>
+<span class="header-val">+260.4</span>
 </div>
 </div>
 </div>
 
-<div class="quick-trade">
-<div class="trade-title">💚 Quick Trade</div>
-<div class="trade-btns">
-<button class="trade-btn btn-buy" onclick="setMode('buy')">BUY</button>
-<button class="trade-btn btn-sell" onclick="setMode('sell')">SELL</button>
+<div class="container">
+<div class="left-panel">
+<input type="text" class="search-box" id="search" placeholder="🔍 Search tokens..." onkeyup="filterTokens()">
+<div id="tokenList"></div>
 </div>
 
-<div class="input-row">
+<div class="chart-section">
+<div class="chart-header">
+<div>
+<div class="token-name" id="tokenName">Select Token</div>
+<div class="token-price" id="tokenPrice" style="margin-top:6px">$0</div>
+</div>
+<div class="chart-info">
+<div class="chart-item">
+<span class="chart-label">24H Change</span>
+<span class="chart-value" id="change24h">+0%</span>
+</div>
+<div class="chart-item">
+<span class="chart-label">Market Cap</span>
+<span class="chart-value" id="marketCap">$0M</span>
+</div>
+</div>
+</div>
+
+<div class="candlesticks" id="chartContainer"></div>
+
+<div class="tabs">
+<button class="tab active">Market</button>
+<button class="tab">Limit</button>
+<button class="tab">Advanced</button>
+</div>
+
+<div class="trading-panel">
+<div style="display:flex;gap:8px;margin-bottom:12px">
+<button class="btn btn-buy" onclick="setMode('buy')">Buy</button>
+<button class="btn btn-sell" onclick="setMode('sell')">Sell</button>
+</div>
+
+<div class="input-group">
 <label class="input-label">Amount (SOL)</label>
-<input type="number" class="input-field" id="amount" placeholder="0.5" value="0.5">
+<input type="number" class="input-field" id="amount" placeholder="0.0" value="0.5">
 </div>
 
-<div class="input-row">
+<div class="input-group">
 <label class="input-label">Slippage %</label>
-<input type="number" class="input-field" id="slippage" placeholder="2" value="2">
+<input type="number" class="input-field" id="slippage" placeholder="0.0" value="2">
 </div>
 
 <div class="presets">
-<button class="preset-btn" onclick="setAmount(0.1)">0.1</button>
-<button class="preset-btn" onclick="setAmount(0.5)">0.5</button>
-<button class="preset-btn" onclick="setAmount(1)">1</button>
-<button class="preset-btn" onclick="setAmount(5)">5</button>
+<button class="btn-preset" onclick="setAmount(0.1)">0.1</button>
+<button class="btn-preset" onclick="setAmount(0.5)">0.5</button>
+<button class="btn-preset" onclick="setAmount(1)">1</button>
+<button class="btn-preset" onclick="setAmount(5)">5</button>
+<button class="btn-preset" onclick="setAmount(10)">10</button>
 </div>
 
-<button class="execute-btn" id="executeBtn" onclick="execute()">💚 BUY</button>
-</div>
+<button class="btn-execute" onclick="execute()">💚 BUY</button>
 </div>
 
-<div class="features-grid">
-<div class="feature-card">
-<div class="feature-title">🛡️ Security</div>
-<div class="feature-content">
-<div class="feature-row">
-<span class="feature-label">Score</span>
-<span class="feature-value">95/100</span>
+<div class="info-section">
+<div class="info-title">Bought | Sold | Holding</div>
+<div class="info-row">
+<span class="info-label">Bought</span>
+<span class="info-value">$0</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">Mint Auth</span>
-<span class="feature-value">✓</span>
+<div class="info-row">
+<span class="info-label">Sold</span>
+<span class="info-value">$0</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">Liq Lock</span>
-<span class="feature-value">✓</span>
+<div class="info-row">
+<span class="info-label">Holding</span>
+<span class="info-value">0 tokens</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">Renounced</span>
-<span class="feature-value">✓</span>
+<div class="info-row">
+<span class="info-label">P&L</span>
+<span class="info-value">+$0 (+0%)</span>
 </div>
 </div>
 </div>
 
-<div class="feature-card">
-<div class="feature-title">👥 Community</div>
-<div class="feature-content">
-<div class="feature-row">
-<span class="feature-label">Discord</span>
-<span class="feature-value" id="discord">12.5k</span>
+<div class="right-panel">
+<div class="info-section">
+<div class="info-title">Security Score</div>
+<div class="info-row">
+<span class="info-label">Overall</span>
+<span class="info-value"><span class="badge badge-safe">95/100</span></span>
 </div>
-<div class="feature-row">
-<span class="feature-label">Twitter</span>
-<span class="feature-value" id="twitter">4.5k</span>
+<div class="info-row" style="border:none;padding:12px 0;flex-direction:column">
+<div style="margin-bottom:8px">
+<div class="badge badge-safe" style="margin-right:6px">✓ Mint Auth</div>
+<div class="badge badge-safe">✓ Liq Lock</div>
 </div>
-<div class="feature-row">
-<span class="feature-label">Holders</span>
-<span class="feature-value">12.3k+</span>
-</div>
-<div class="feature-row">
-<span class="feature-label">Hype</span>
-<span class="feature-value">🔥 Rising</span>
+<div>
+<div class="badge badge-safe" style="margin-right:6px">✓ Renounced</div>
+<div class="badge badge-safe">✓ Dev Lock</div>
 </div>
 </div>
 </div>
 
-<div class="feature-card">
-<div class="feature-title">🐋 Whales</div>
-<div class="feature-content">
-<div class="feature-row">
-<span class="feature-label">Top Whale</span>
-<span class="feature-value">$4.2M</span>
+<div class="info-section">
+<div class="info-title">Community</div>
+<div class="info-row">
+<span class="info-label">Discord</span>
+<span class="info-value" id="discord">12.5k</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">24h Vol</span>
-<span class="feature-value">$12.3M</span>
+<div class="info-row">
+<span class="info-label">Twitter</span>
+<span class="info-value" id="twitter">4.5k</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">New Holders</span>
-<span class="feature-value">+340</span>
+<div class="info-row">
+<span class="info-label">Hype Level</span>
+<span class="info-value">🔥 RISING</span>
 </div>
-</div>
-</div>
-
-<div class="feature-card">
-<div class="feature-title">⏰ Market Cap Triggers</div>
-<div class="feature-content">
-<div style="margin-bottom:12px">
-<label class="input-label">Buy @ MC ($M)</label>
-<input type="number" class="input-field" id="buyMC" placeholder="2.0" value="2">
-</div>
-<div style="margin-bottom:12px">
-<label class="input-label">Sell @ MC ($M)</label>
-<input type="number" class="input-field" id="sellMC" placeholder="3.0" value="3">
-</div>
-<button class="execute-btn" onclick="setTriggers()">Set Triggers</button>
+<div class="info-row">
+<span class="info-label">Holders</span>
+<span class="info-value">12.3k+</span>
 </div>
 </div>
 
-<div class="feature-card">
-<div class="feature-title">📈 Portfolio</div>
-<div class="feature-content">
-<div class="feature-row">
-<span class="feature-label">Bought</span>
-<span class="feature-value">$0</span>
+<div class="info-section">
+<div class="info-title">Whale Activity</div>
+<div class="info-row">
+<span class="info-label">Top Whale</span>
+<span class="info-value">🧠 $4.2M</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">Sold</span>
-<span class="feature-value">$0</span>
+<div class="info-row">
+<span class="info-label">Volume 24h</span>
+<span class="info-value">$12.3M</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">Holding</span>
-<span class="feature-value">0</span>
-</div>
-<div class="feature-row">
-<span class="feature-label">P&L</span>
-<span class="feature-value">+$0</span>
-</div>
+<div class="info-row">
+<span class="info-label">Holders Change</span>
+<span class="info-value">+340</span>
 </div>
 </div>
 
-<div class="feature-card">
-<div class="feature-title">💎 Top Gainers</div>
-<div class="feature-content">
-<div class="feature-row">
-<span class="feature-label">ELON</span>
-<span class="feature-value" style="color:#00d4aa">+523.7%</span>
+<div class="info-section">
+<div class="info-title">⏰ Market Cap Triggers</div>
+<div class="input-group">
+<label class="input-label">Buy @ MC</label>
+<input type="number" class="input-field" placeholder="2.0" value="2">
 </div>
-<div class="feature-row">
-<span class="feature-label">FLOKI</span>
-<span class="feature-value" style="color:#00d4aa">+267.3%</span>
+<div class="input-group">
+<label class="input-label">Sell @ MC</label>
+<input type="number" class="input-field" placeholder="3.0" value="3">
 </div>
-<div class="feature-row">
-<span class="feature-label">PEPE2</span>
-<span class="feature-value" style="color:#00d4aa">+182.4%</span>
-</div>
-</div>
-</div>
-</div>
-</div>
+<button class="btn-execute" onclick="setTriggers()" style="margin-top:8px">Set Triggers</button>
 </div>
 </div>
 </div>
 
 <script>
 const tokens = [
-{name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,mc:1.2,vol:"2.4M",d:12500,tw:4500},
-{name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,mc:1.8,vol:"1.1M",d:8300,tw:2200},
-{name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,mc:2.5,vol:"2.3M",d:5200,tw:1100},
-{name:"MOON",icon:"🌙",price:0.00088,ch:44.1,mc:0.9,vol:"670K",d:7800,tw:1800},
-{name:"FLOKI",icon:"⚡",price:0.0000234,ch:267.3,mc:4.2,vol:"8.9M",d:16700,tw:7200},
-{name:"ELON",icon:"🚀",price:0.00000456,ch:523.7,mc:5.8,vol:"12.3M",d:14500,tw:6800},
-{name:"SHIB2",icon:"🐕",price:0.000089,ch:156.2,mc:2.2,vol:"5.2M",d:18900,tw:5600},
-{name:"SAITAMA",icon:"🥋",price:0.0000089,ch:145.6,mc:1.5,vol:"4.5M",d:13400,tw:5900}
+{name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,mc:1.2,vol:"2.4M",score:95,d:12500,tw:4500},
+{name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,mc:1.8,vol:"1.1M",score:88,d:8300,tw:2200},
+{name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,mc:2.5,vol:"2.3M",score:62,d:5200,tw:1100},
+{name:"MOON",icon:"🌙",price:0.00088,ch:44.1,mc:0.9,vol:"670K",score:91,d:7800,tw:1800},
+{name:"FLOKI",icon:"⚡",price:0.0000234,ch:267.3,mc:4.2,vol:"8.9M",score:92,d:16700,tw:7200},
+{name:"ELON",icon:"🚀",price:0.00000456,ch:523.7,mc:5.8,vol:"12.3M",score:87,d:14500,tw:6800},
+{name:"SHIB2",icon:"🐕",price:0.000089,ch:156.2,mc:2.2,vol:"5.2M",score:84,d:18900,tw:5600},
+{name:"SAITAMA",icon:"🥋",price:0.0000089,ch:145.6,mc:1.5,vol:"4.5M",score:81,d:13400,tw:5900}
 ];
 
-let sel = tokens[0];
+let sel = null;
 let mode = "buy";
 
-const tl = document.getElementById("tokensList");
-tokens.forEach((t,i) => {
-const d = document.createElement("button");
-d.className = "token-btn" + (i === 0 ? " active" : "");
+const tl = document.getElementById("tokenList");
+tokens.forEach((t, i) => {
+const d = document.createElement("div");
+d.className = "token-item";
 d.id = "tok" + i;
-const chClass = t.ch > 0 ? "up" : "down";
-d.innerHTML = `<div class="token-btn-header"><span class="token-name">${t.icon} ${t.name}</span><span class="token-change ${chClass}">${t.ch>0?'+':''}${t.ch}%</span></div><div class="token-details"><span class="token-price">$${t.price.toFixed(6)}</span><span class="token-mc">$${t.mc}M</span></div>`;
-d.onclick = (e) => { e.preventDefault(); select(i); };
+const ch = t.ch > 0 ? '#00d4aa' : '#ff4757';
+d.innerHTML = `<div class="token-name">${t.icon} ${t.name}</div><div class="token-price">$${t.price.toFixed(6)}</div><div class="token-change" style="color:${ch}">${t.ch>0?'+':''}${t.ch}%</div><div class="token-mc">MC: $${t.mc}M</div>`;
+d.onclick = () => select(i);
 tl.appendChild(d);
 });
 
 function filterTokens() {
 const q = document.getElementById("search").value.toLowerCase();
-document.querySelectorAll(".token-btn").forEach(t => {
+document.querySelectorAll(".token-item").forEach(t => {
 t.style.display = t.textContent.toLowerCase().includes(q) ? "block" : "none";
 });
 }
 
 function select(i) {
 sel = tokens[i];
-document.querySelectorAll(".token-btn").forEach(x => x.classList.remove("active"));
+document.querySelectorAll(".token-item").forEach(x => x.classList.remove("active"));
 document.getElementById("tok" + i).classList.add("active");
-document.getElementById("tokenIcon").textContent = sel.icon;
-document.getElementById("tokenName").textContent = sel.name;
-document.getElementById("tokenPrice").textContent = "$" + sel.price.toFixed(8);
-document.getElementById("change").textContent = (sel.ch>0?'+':'') + sel.ch.toFixed(2) + "%";
-document.getElementById("change").style.color = sel.ch > 0 ? '#00d4aa' : '#ff4757';
-document.getElementById("mc").textContent = "$" + sel.mc + "M";
-document.getElementById("vol").textContent = sel.vol;
+document.getElementById("tokenName").textContent = `${sel.icon} ${sel.name}`;
+document.getElementById("tokenPrice").textContent = `$${sel.price.toFixed(6)}`;
+document.getElementById("change24h").textContent = (sel.ch>0?'+':'') + sel.ch + "%";
+document.getElementById("change24h").style.color = sel.ch > 0 ? '#00d4aa' : '#ff4757';
+document.getElementById("marketCap").textContent = `$${sel.mc}M`;
+document.getElementById("headerVol").textContent = sel.vol;
 document.getElementById("discord").textContent = (sel.d/1000).toFixed(1) + "k";
 document.getElementById("twitter").textContent = (sel.tw/1000).toFixed(1) + "k";
+drawChart();
+}
+
+function drawChart() {
+const c = document.getElementById("chartContainer");
+c.innerHTML = "";
+for(let i=0;i<60;i++){
+const h = 20 + Math.sin(i*0.3)*30 + Math.random()*20;
+const div = document.createElement("div");
+div.className = "candle";
+const body = document.createElement("div");
+body.className = "candle-body" + (Math.random() > 0.45 ? " down" : "");
+body.style.height = h + "%";
+div.appendChild(body);
+c.appendChild(div);
+}
 }
 
 function setMode(m) {
 mode = m;
-const btn = document.getElementById("executeBtn");
+const btn = document.querySelector(".btn-execute");
 if(m === "buy") {
 btn.textContent = "💚 BUY";
 btn.style.background = "linear-gradient(135deg,#00d4aa,#00a885)";
@@ -337,15 +323,14 @@ document.getElementById("amount").value = amt;
 }
 
 function execute() {
-if(!sel) return;
+if(!sel) return alert("Select token!");
 const amt = document.getElementById("amount").value;
-notify(`✓ ${mode.toUpperCase()} ${amt} SOL of ${sel.name}`);
+notify(`✓ ${mode.toUpperCase()} ${amt} ${sel.name}`);
 }
 
 function setTriggers() {
-const buyMC = document.getElementById("buyMC").value;
-const sellMC = document.getElementById("sellMC").value;
-notify(`✓ Triggers: BUY @$${buyMC}M | SELL @$${sellMC}M`);
+if(!sel) return alert("Select token!");
+notify("✓ Market cap triggers set");
 }
 
 function notify(msg) {
