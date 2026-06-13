@@ -28,10 +28,9 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .token-change.up{color:#00d4aa}
 .token-change.down{color:#ff4757}
 .token-details{display:flex;justify-content:space-between;font-size:10px;color:#7a8ba8}
-.token-price{font-weight:600}
-.token-mc{color:#00d4aa;font-weight:700}
-.main-content{flex:1;display:flex;flex-direction:column;overflow-y:auto;padding:20px;gap:16px}
-.hero-section{display:grid;grid-template-columns:1fr 1.1fr;gap:16px}
+.main-content{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:20px;gap:16px}
+.scroll-area{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:16px;padding-right:8px}
+.hero-section{display:grid;grid-template-columns:1fr 1.1fr;gap:16px;flex-shrink:0}
 .token-display{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:14px;padding:20px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 24px #00000020}
 .token-icon{font-size:48px}
 .token-info h1{font-size:24px;color:#fff;margin-bottom:6px}
@@ -54,22 +53,39 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .preset-btn:hover{background:#1a2847;border-color:#00d4aa}
 .execute-btn{width:100%;padding:12px;background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 12px #00d4aa20}
 .execute-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px #00d4aa30}
-.metrics-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.metrics-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;flex-shrink:0}
 .metric-card{background:#1a2847;border:1px solid #ffffff15;border-radius:10px;padding:12px;box-shadow:0 4px 12px #00000020;text-align:center}
 .metric-label{font-size:9px;color:#7a8ba8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
 .metric-value{font-size:13px;font-weight:700;color:#00d4aa;word-break:break-word}
-.metric-value.danger{color:#ff4757}
-.metric-value.warning{color:#ffb300}
 .metric-badge{display:inline-block;padding:3px 8px;background:#00d4aa20;color:#00d4aa;border-radius:4px;font-size:9px;font-weight:700;margin-top:4px}
 .metric-badge.locked{background:#00d4aa40;color:#00d4aa}
-.features-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.feature-card{background:#1a2847;border:1px solid #ffffff15;border-radius:12px;padding:14px;box-shadow:0 4px 12px #00000020}
-.feature-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #ffffff08}
-.feature-content{font-size:10px;color:#7a8ba8;line-height:1.6}
-.feature-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #ffffff06}
-.feature-row:last-child{border:none}
-.feature-label{color:#7a8ba8}
-.feature-value{color:#fff;font-weight:700}
+.tabs-section{background:#1a2847;border:1px solid #ffffff15;border-radius:12px;padding:0;box-shadow:0 4px 12px #00000020;flex-shrink:0}
+.tabs-header{display:flex;gap:0;border-bottom:1px solid #ffffff15;overflow-x:auto}
+.tab-btn{flex:1;padding:12px;background:none;border:none;color:#7a8ba8;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.3s;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;min-width:80px}
+.tab-btn:hover{color:#00d4aa}
+.tab-btn.active{color:#00d4aa;border-bottom:2px solid #00d4aa;background:#0f1629}
+.tabs-content{display:none;padding:16px;max-height:200px;overflow-y:auto}
+.tabs-content.active{display:block}
+.table-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ffffff06;font-size:10px}
+.table-row:last-child{border:none}
+.table-header{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ffffff15;font-size:10px;font-weight:700;color:#00d4aa;margin-bottom:8px}
+.table-label{color:#7a8ba8}
+.table-value{color:#fff;font-weight:600}
+.holder-item{background:#0f1629;padding:8px;border-radius:6px;margin-bottom:6px;font-size:10px}
+.holder-name{color:#fff;font-weight:700;margin-bottom:4px}
+.holder-percent{color:#00d4aa;font-weight:700}
+.contract-info{background:#1a2847;border:1px solid #ffffff15;border-radius:12px;padding:14px;box-shadow:0 4px 12px #00000020;flex-shrink:0}
+.contract-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #ffffff08}
+.contract-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #ffffff06;font-size:10px}
+.contract-row:last-child{border:none}
+.contract-label{color:#7a8ba8}
+.contract-value{color:#00d4aa;font-family:monospace;font-weight:700;cursor:pointer;word-break:break-all}
+.whale-section{background:#1a2847;border:1px solid #ffffff15;border-radius:12px;padding:14px;box-shadow:0 4px 12px #00000020;flex-shrink:0}
+.whale-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #ffffff08}
+.whale-trade{background:#0f1629;padding:8px;border-radius:6px;margin-bottom:6px;border-left:3px solid #00d4aa}
+.whale-action{font-weight:700;color:#00d4aa;font-size:10px}
+.whale-amount{color:#fff;font-size:10px;margin:4px 0}
+.whale-time{color:#7a8ba8;font-size:9px}
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:3px}
@@ -106,6 +122,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 
 <div class="main-area">
 <div class="main-content">
+<div class="scroll-area">
 <div class="hero-section">
 <div class="token-display">
 <div class="token-icon" id="tokenIcon">🐸</div>
@@ -198,55 +215,197 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 </div>
 
-<div class="features-grid">
-<div class="feature-card">
-<div class="feature-title">🛡️ Security</div>
-<div class="feature-content">
-<div class="feature-row">
-<span class="feature-label">Score</span>
-<span class="feature-value">95/100</span>
+<div class="tabs-section">
+<div class="tabs-header">
+<button class="tab-btn active" onclick="switchTab(0)">📋 Trades</button>
+<button class="tab-btn" onclick="switchTab(1)">📊 Positions</button>
+<button class="tab-btn" onclick="switchTab(2)">🏷️ Orders</button>
+<button class="tab-btn" onclick="switchTab(3)">👥 Holders</button>
+<button class="tab-btn" onclick="switchTab(4)">⭐ Top Traders</button>
+<button class="tab-btn" onclick="switchTab(5)">💎 Dev Tokens</button>
 </div>
-<div class="feature-row">
-<span class="feature-label">Mint Auth</span>
-<span class="feature-value">✓</span>
+
+<div class="tabs-content active" id="tab0">
+<div class="table-header">
+<span>Type</span>
+<span>Amount</span>
+<span>Price</span>
+<span>Time</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">Renounced</span>
-<span class="feature-value">✓</span>
+<div class="table-row">
+<span class="table-label">BUY</span>
+<span class="table-value">500 PEPE2</span>
+<span class="table-value">$0.000040</span>
+<span class="table-value">2m ago</span>
+</div>
+<div class="table-row">
+<span class="table-label">SELL</span>
+<span class="table-value">250 PEPE2</span>
+<span class="table-value">$0.000042</span>
+<span class="table-value">5m ago</span>
+</div>
+<div class="table-row">
+<span class="table-label">BUY</span>
+<span class="table-value">1000 PEPE2</span>
+<span class="table-value">$0.000038</span>
+<span class="table-value">12m ago</span>
+</div>
+</div>
+
+<div class="tabs-content" id="tab1">
+<div class="table-header">
+<span>Token</span>
+<span>Amount</span>
+<span>Entry</span>
+<span>Current</span>
+<span>P&L</span>
+</div>
+<div class="table-row">
+<span class="table-label">PEPE2</span>
+<span class="table-value">1250</span>
+<span class="table-value">$0.000039</span>
+<span class="table-value">$0.000042</span>
+<span class="table-value" style="color:#00d4aa">+7.7%</span>
+</div>
+<div class="table-row">
+<span class="table-label">BONK2</span>
+<span class="table-value">500</span>
+<span class="table-value">$0.00190</span>
+<span class="table-value">$0.00213</span>
+<span class="table-value" style="color:#00d4aa">+12.1%</span>
+</div>
+</div>
+
+<div class="tabs-content" id="tab2">
+<div class="table-header">
+<span>Type</span>
+<span>Price</span>
+<span>Amount</span>
+<span>Status</span>
+</div>
+<div class="table-row">
+<span class="table-label">BUY</span>
+<span class="table-value">$0.000040</span>
+<span class="table-value">500 PEPE2</span>
+<span class="table-value" style="color:#00d4aa">⏳ Pending</span>
+</div>
+<div class="table-row">
+<span class="table-label">SELL</span>
+<span class="table-value">$0.000045</span>
+<span class="table-value">250 PEPE2</span>
+<span class="table-value" style="color:#00d4aa">⏳ Pending</span>
+</div>
+</div>
+
+<div class="tabs-content" id="tab3">
+<div class="holder-item">
+<div class="holder-name">🥇 Dev Wallet</div>
+<div class="holder-percent">2.3% (Owner)</div>
+</div>
+<div class="holder-item">
+<div class="holder-name">💰 Wallet 1</div>
+<div class="holder-percent">8.5%</div>
+</div>
+<div class="holder-item">
+<div class="holder-name">💰 Wallet 2</div>
+<div class="holder-percent">6.2%</div>
+</div>
+<div class="holder-item">
+<div class="holder-name">💰 Wallet 3</div>
+<div class="holder-percent">4.1%</div>
+</div>
+<div class="holder-item">
+<div class="holder-name">📊 Others (12.3k holders)</div>
+<div class="holder-percent">78.9%</div>
+</div>
+</div>
+
+<div class="tabs-content" id="tab4">
+<div class="table-header">
+<span>Trader</span>
+<span>Win Rate</span>
+<span>Avg Gain</span>
+<span>Trades</span>
+</div>
+<div class="table-row">
+<span class="table-label">🧠 MegaWhale</span>
+<span class="table-value" style="color:#00d4aa">78%</span>
+<span class="table-value" style="color:#00d4aa">+23.4%</span>
+<span class="table-value">1.2k</span>
+</div>
+<div class="table-row">
+<span class="table-label">💎 SolanaBoss</span>
+<span class="table-value" style="color:#00d4aa">72%</span>
+<span class="table-value" style="color:#00d4aa">+18.7%</span>
+<span class="table-value">890</span>
+</div>
+<div class="table-row">
+<span class="table-label">👑 CryptoKing</span>
+<span class="table-value" style="color:#00d4aa">65%</span>
+<span class="table-value" style="color:#00d4aa">+15.2%</span>
+<span class="table-value">567</span>
+</div>
+</div>
+
+<div class="tabs-content" id="tab5">
+<div class="table-header">
+<span>Token</span>
+<span>Created</span>
+<span>Status</span>
+<span>Supply</span>
+</div>
+<div class="table-row">
+<span class="table-label">PEPE2</span>
+<span class="table-value">Jan 11, 2025</span>
+<span class="table-value" style="color:#00d4aa">🟢 Active</span>
+<span class="table-value">1B</span>
+</div>
+<div class="table-row">
+<span class="table-label">BONK2</span>
+<span class="table-value">Jan 8, 2025</span>
+<span class="table-value" style="color:#00d4aa">🟢 Active</span>
+<span class="table-value">500M</span>
+</div>
 </div>
 </div>
 </div>
 
-<div class="feature-card">
-<div class="feature-title">👥 Community</div>
-<div class="feature-content">
-<div class="feature-row">
-<span class="feature-label">Discord</span>
-<span class="feature-value" id="discord">12.5k</span>
+<div class="contract-info">
+<div class="contract-title">🔗 Contract Details</div>
+<div class="contract-row">
+<span class="contract-label">CA (Contract)</span>
+<span class="contract-value" id="ca" onclick="copyToClip(this)">4Mq...9Xyz</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">Twitter</span>
-<span class="feature-value" id="twitter">4.5k</span>
+<div class="contract-row">
+<span class="contract-label">DA (Dev Address)</span>
+<span class="contract-value" id="da" onclick="copyToClip(this)">7Kp...2Abc</span>
 </div>
-<div class="feature-row">
-<span class="feature-label">Hype</span>
-<span class="feature-value">🔥 High</span>
+<div class="contract-row">
+<span class="contract-label">LP Address</span>
+<span class="contract-value" id="lp" onclick="copyToClip(this)">9Mr...5Def</span>
 </div>
+<div class="contract-row">
+<span class="contract-label">Network</span>
+<span class="contract-value">Solana</span>
 </div>
 </div>
 
-<div class="feature-card">
-<div class="feature-title">⏰ Triggers</div>
-<div class="feature-content" style="padding:10px 0">
-<div style="margin-bottom:8px">
-<label class="input-label">Buy @ MC</label>
-<input type="number" class="input-field" id="buyMC" placeholder="2.0" value="2">
+<div class="whale-section">
+<div class="whale-title">🐋 Whale Activity</div>
+<div class="whale-trade">
+<div class="whale-action">🧠 MegaWhale - BUY</div>
+<div class="whale-amount">+2.5M PEPE2 ($105k)</div>
+<div class="whale-time">2 minutes ago</div>
 </div>
-<div>
-<label class="input-label">Sell @ MC</label>
-<input type="number" class="input-field" id="sellMC" placeholder="3.0" value="3">
+<div class="whale-trade">
+<div class="whale-action">💎 SolanaBoss - SELL</div>
+<div class="whale-amount">-1.2M PEPE2 ($50.4k)</div>
+<div class="whale-time">8 minutes ago</div>
 </div>
-<button class="execute-btn" onclick="setTriggers()" style="font-size:11px;padding:8px;margin-top:8px">Set</button>
+<div class="whale-trade">
+<div class="whale-action">👑 CryptoKing - BUY</div>
+<div class="whale-amount">+1.8M PEPE2 ($75.6k)</div>
+<div class="whale-time">15 minutes ago</div>
 </div>
 </div>
 </div>
@@ -256,10 +415,10 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 
 <script>
 const tokens = [
-{name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,mc:1.2,vol:"2.4M",ath:0.000089,liq:"450K",devHold:2.3,created:"2 days ago",date:"Jan 11, 2025",d:12500,tw:4500},
-{name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,mc:1.8,vol:"1.1M",ath:0.00285,liq:"320K",devHold:1.8,created:"5 days ago",date:"Jan 8, 2025",d:8300,tw:2200},
-{name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,mc:2.5,vol:"2.3M",ath:0.0095,liq:"580K",devHold:3.5,created:"10 days ago",date:"Jan 3, 2025",d:5200,tw:1100},
-{name:"MOON",icon:"🌙",price:0.00088,ch:44.1,mc:0.9,vol:"670K",ath:0.0012,liq:"220K",devHold:1.2,created:"3 days ago",date:"Jan 10, 2025",d:7800,tw:1800}
+{name:"PEPE2",icon:"🐸",price:0.000042,ch:182.4,mc:1.2,vol:"2.4M",ath:0.000089,liq:"450K",devHold:2.3,created:"2 days ago",date:"Jan 11, 2025",d:12500,tw:4500,ca:"4Mq5DZz7Kp9Xyz2Abc5Def8Ghi1Jkl4Mno",da:"7KpL2Abc5Def8Ghi1Jkl4Mno7Pqr0Stu"},
+{name:"BONK2",icon:"🔨",price:0.00213,ch:34.2,mc:1.8,vol:"1.1M",ath:0.00285,liq:"320K",devHold:1.8,created:"5 days ago",date:"Jan 8, 2025",d:8300,tw:2200,ca:"9Mr8Vwx1Yza3Bcd6Efg9Hij2Klm5Nop",da:"2Klm5Nop8Qrs1Tuv4Wxy7Zab0Cde"},
+{name:"DOGWIF3",icon:"🐶",price:0.0081,ch:12.7,mc:2.5,vol:"2.3M",ath:0.0095,liq:"580K",devHold:3.5,created:"10 days ago",date:"Jan 3, 2025",d:5200,tw:1100,ca:"3Fgh6Ijk9Lmn2Opq5Rst8Uvw1Xyz4Abc",da:"5Rst8Uvw1Xyz4Abc7Def0Ghi3Jkl"},
+{name:"MOON",icon:"🌙",price:0.00088,ch:44.1,mc:0.9,vol:"670K",ath:0.0012,liq:"220K",devHold:1.2,created:"3 days ago",date:"Jan 10, 2025",d:7800,tw:1800,ca:"7Def0Ghi3Jkl6Mno9Pqr2Stu5Vwx8Yza",da:"1Stu5Vwx8Yza0Bcd3Efg6Hij9Klm"}
 ];
 
 let sel = tokens[0];
@@ -305,8 +464,8 @@ document.getElementById("metricLiq").textContent = sel.liq;
 document.getElementById("metricDev").textContent = sel.devHold + "%";
 document.getElementById("metricTime").textContent = sel.created;
 
-const athDrop = ((sel.price - sel.ath) / sel.ath * 100).toFixed(1);
-document.querySelector(".metric-card:nth-child(2) > div:nth-child(3)").textContent = athDrop + "%";
+document.getElementById("ca").textContent = sel.ca.slice(0,4) + "..." + sel.ca.slice(-4);
+document.getElementById("da").textContent = sel.da.slice(0,4) + "..." + sel.da.slice(-4);
 
 document.getElementById("discord").textContent = (sel.d/1000).toFixed(1) + "k";
 document.getElementById("twitter").textContent = (sel.tw/1000).toFixed(1) + "k";
@@ -334,10 +493,16 @@ const amt = document.getElementById("amount").value;
 notify(`✓ ${mode.toUpperCase()} ${amt} SOL of ${sel.name}`);
 }
 
-function setTriggers() {
-const buyMC = document.getElementById("buyMC").value;
-const sellMC = document.getElementById("sellMC").value;
-notify(`✓ Triggers set for ${sel.name}`);
+function switchTab(n) {
+document.querySelectorAll(".tabs-content").forEach(x => x.classList.remove("active"));
+document.getElementById("tab" + n).classList.add("active");
+document.querySelectorAll(".tab-btn").forEach(x => x.classList.remove("active"));
+event.target.classList.add("active");
+}
+
+function copyToClip(el) {
+navigator.clipboard.writeText(el.textContent);
+notify("✓ Copied!");
 }
 
 function notify(msg) {
