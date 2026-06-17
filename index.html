@@ -53,6 +53,21 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .data-bar{display:flex;height:4px;gap:1px;border-radius:2px;overflow:hidden}
 .bar-buy{background:#00d4aa;flex:1}
 .bar-sell{background:#ff4757;flex:1}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.whale-list{display:flex;flex-direction:column;gap:10px}
+.whale-item{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;border-left:4px solid #00d4aa}
+.whale-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.whale-name{font-size:11px;font-weight:700;color:#fff}
+.whale-status{font-size:9px;padding:3px 8px;background:#00d4aa20;color:#00d4aa;border-radius:4px}
+.whale-action{font-size:10px;color:#00d4aa;font-weight:700;margin-bottom:6px}
+.whale-action.sell{color:#ff4757}
+.whale-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;font-size:9px}
+.whale-detail-item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px}
+.whale-detail-label{color:#7a8ba8;font-size:8px;margin-bottom:3px}
+.whale-detail-value{color:#fff;font-weight:700}
+.whale-follow{display:flex;gap:8px;margin-top:8px}
+.follow-btn{flex:1;padding:8px;background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer}
 .bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:14px}
 .nav-btn{padding:10px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer;text-align:center}
 .nav-btn.active{background:#253857;border-color:#00d4aa}
@@ -193,12 +208,46 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 </div>
 
+<!-- INFO TAB -->
+<div class="tab-content active" id="infoTab"></div>
+
+<!-- CHART TAB -->
+<div class="tab-content" id="chartTab">
+<div class="data-section">
+<div class="data-title">📈 Chart (Coming Soon)</div>
+</div>
+</div>
+
+<!-- TXNS TAB -->
+<div class="tab-content" id="txnsTab">
+<div class="data-section">
+<div class="data-title">📝 Transactions (Coming Soon)</div>
+</div>
+</div>
+
+<!-- WHALES TAB -->
+<div class="tab-content" id="whalesTab">
+<div class="data-section">
+<div class="data-title">🐋 Top Whale Activities</div>
+<div class="whale-list" id="whaleList">
+<!-- Whales loaded here -->
+</div>
+</div>
+</div>
+
+<!-- ALERTS TAB -->
+<div class="tab-content" id="alertsTab">
+<div class="data-section">
+<div class="data-title">🔔 Price Alerts (Coming Soon)</div>
+</div>
+</div>
+
 <div class="bottom-nav">
-<button class="nav-btn active">ℹ️ Info</button>
-<button class="nav-btn">📊 Chart</button>
-<button class="nav-btn">📝 Txns</button>
-<button class="nav-btn">⭐ Watch</button>
-<button class="nav-btn">🔔 Alerts</button>
+<button class="nav-btn active" onclick="switchTab('info')">ℹ️ Info</button>
+<button class="nav-btn" onclick="switchTab('chart')">📈 Chart</button>
+<button class="nav-btn" onclick="switchTab('txns')">📝 Txns</button>
+<button class="nav-btn" onclick="switchTab('whales')">🐋 Whales</button>
+<button class="nav-btn" onclick="switchTab('alerts')">🔔 Alerts</button>
 </div>
 
 <button class="trade-btn" onclick="quickTrade()">🔄 Trade PEPE2/SOL</button>
@@ -207,53 +256,95 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 
 <script>
 const tokens = [
-{name:"PEPE2",icon:"🐸",chain:"Solana",price:0.000042,mc:1.2,fdv:420000,liq:450000,txns:16682,vol:1200000,buys:8388,buyVol:636000,buyers:2058},
-{name:"BONK2",icon:"🔨",chain:"Solana",price:0.00213,mc:1.8,fdv:500000,liq:320000,txns:12456,vol:900000,buys:6789,buyVol:450000,buyers:1456},
-{name:"DOGWIF3",icon:"🐶",chain:"Solana",price:0.0081,mc:2.5,fdv:750000,liq:580000,txns:18900,vol:1500000,buys:10234,buyVol:750000,buyers:2234}
+{name:"PEPE2",icon:"🐸",chain:"Solana",price:0.000042,mc:1.2,fdv:420000,liq:450000,txns:16682,vol:1200000,buys:8388,buyVol:636000,buyers:2058}
 ];
 
-let currentIndex = 0;
-let autoTradeActive = false;
+const whales = [
+{name:"🧠 MegaWhale",action:"BUY",amount:"$105K",tokens:"2.5M",time:"2m ago",wallet:"4Mq...9Xyz",twitter:"@MegaWhale_SOL",discord:"Active"},
+{name:"💎 SolanaBoss",action:"SELL",amount:"$50.4K",tokens:"1.2M",time:"8m ago",wallet:"7Kp...2Abc",twitter:"@SolanaBoss",discord:"Active"},
+{name:"👑 CryptoKing",action:"BUY",amount:"$75.6K",tokens:"1.8M",time:"15m ago",wallet:"9Mr...5Def",twitter:"@CryptoKing88",discord:"Verified"},
+{name:"🚀 PumpMaster",action:"BUY",amount:"$42.3K",tokens:"1.0M",time:"22m ago",wallet:"2Ab...7Ghi",twitter:"@PumpMaster2024",discord:"Active"},
+{name:"⚡ SpeedTrader",action:"SELL",amount:"$28.9K",tokens:"690K",time:"31m ago",wallet:"5Cd...8Jkl",twitter:"@SpeedTraderX",discord:"Verified"}
+];
 
-function updateDisplay() {
-const t = tokens[currentIndex];
-document.getElementById("heroIcon").textContent = t.icon;
-document.getElementById("heroName").textContent = t.name;
-document.getElementById("chainInfo").textContent = t.chain + " • PumpSwap";
-document.getElementById("priceUSD").textContent = "$" + t.price.toFixed(8);
-document.getElementById("priceSOL").textContent = t.price.toFixed(8) + " SOL";
-document.getElementById("metricLiq").textContent = "$" + (t.liq/1000).toFixed(0) + "K";
-document.getElementById("metricFDV").textContent = "$" + (t.fdv/1000).toFixed(0) + "K";
-document.getElementById("metricMC").textContent = "$" + t.mc.toFixed(1) + "M";
-document.getElementById("currentMC").textContent = "$" + t.mc.toFixed(1) + "M";
-document.getElementById("dataTxns").textContent = t.txns.toLocaleString();
-document.getElementById("dataVol").textContent = "$" + (t.vol/1000000).toFixed(1) + "M";
-document.getElementById("dataTraders").textContent = Math.floor(t.buyers * 1.2).toLocaleString();
-document.getElementById("dataBuys").textContent = t.buys.toLocaleString();
-document.getElementById("dataBuyVol").textContent = "$" + (t.buyVol/1000).toFixed(0) + "K";
-document.getElementById("dataBuyers").textContent = t.buyers.toLocaleString();
+let currentTab = "info";
+
+function switchTab(tab) {
+document.querySelectorAll(".tab-content").forEach(x => x.classList.remove("active"));
+document.getElementById(tab + "Tab").classList.add("active");
+document.querySelectorAll(".nav-btn").forEach(x => x.classList.remove("active"));
+event.target.classList.add("active");
+currentTab = tab;
+
+if(tab === "whales") loadWhales();
+}
+
+function loadWhales() {
+const wl = document.getElementById("whaleList");
+wl.innerHTML = "";
+whales.forEach(w => {
+const wa = document.createElement("div");
+wa.className = "whale-item";
+const actionClass = w.action === "SELL" ? "sell" : "";
+wa.innerHTML = `
+<div class="whale-header">
+<div class="whale-name">${w.name}</div>
+<div class="whale-status">${w.action}</div>
+</div>
+<div class="whale-action ${actionClass}">${w.action === 'BUY' ? '💚' : '❤️'} ${w.action} ${w.amount}</div>
+<div class="whale-details">
+<div class="whale-detail-item">
+<div class="whale-detail-label">Tokens</div>
+<div class="whale-detail-value">${w.tokens}</div>
+</div>
+<div class="whale-detail-item">
+<div class="whale-detail-label">Time</div>
+<div class="whale-detail-value">${w.time}</div>
+</div>
+<div class="whale-detail-item">
+<div class="whale-detail-label">Wallet</div>
+<div class="whale-detail-value" style="font-size:8px;font-family:monospace">${w.wallet}</div>
+</div>
+<div class="whale-detail-item">
+<div class="whale-detail-label">Status</div>
+<div class="whale-detail-value">${w.discord}</div>
+</div>
+</div>
+<div class="whale-follow">
+<button class="follow-btn" onclick="followWhale('${w.name}')">👁️ Follow</button>
+<button class="follow-btn" onclick="copyAddress('${w.wallet}')">📋 Copy</button>
+</div>
+`;
+wl.appendChild(wa);
+});
+}
+
+function followWhale(name) {
+notify(`✅ Following ${name} activities`);
+}
+
+function copyAddress(addr) {
+navigator.clipboard.writeText(addr);
+notify("📋 Wallet copied!");
 }
 
 function setAutoTrade() {
 const buyMC = parseFloat(document.getElementById("buyMC").value);
 const sellMC = parseFloat(document.getElementById("sellMC").value);
 if(!buyMC || !sellMC || buyMC >= sellMC) return alert("Invalid targets!");
-autoTradeActive = true;
 document.getElementById("mcStatus").textContent = "🟢 ACTIVE";
 document.getElementById("mcStatus").style.color = "#00d4aa";
 notify(`✅ Auto Trade Active:\n💚 BUY @ $${buyMC}M\n❤️ SELL @ $${sellMC}M`);
 }
 
 function cancelAutoTrade() {
-autoTradeActive = false;
 document.getElementById("mcStatus").textContent = "Cancelled";
 document.getElementById("mcStatus").style.color = "#ff4757";
 notify("❌ Auto Trade Cancelled");
 }
 
 function quickTrade() {
-const t = tokens[currentIndex];
-notify(`Ready to trade ${t.name}`);
+notify(`Ready to trade PEPE2`);
 }
 
 function notify(msg) {
@@ -263,8 +354,6 @@ n.innerHTML = msg;
 document.body.appendChild(n);
 setTimeout(() => n.remove(), 3000);
 }
-
-updateDisplay();
 </script>
 
 </body>
