@@ -3,313 +3,257 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel - Simple Trading</title>
+<title>MemeIntel - Smart Auto Trading</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
-.container{display:flex;height:100vh;flex-direction:column}
-.header{background:#0f1629;border-bottom:1px solid #ffffff15;padding:16px;display:flex;justify-content:space-between;align-items:center;height:60px}
-.logo{font-size:16px;font-weight:900;color:#00d4aa;letter-spacing:1px}
-.token-select{display:flex;gap:8px;align-items:center;font-size:12px}
-.token-select select{background:#1a2847;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;font-family:monospace}
-.content{display:flex;flex:1;overflow:hidden}
-.main{flex:1;background:#0a0e1a;padding:16px;overflow-y:auto}
-.token-card{background:#1a2847;border:1px solid #ffffff15;border-radius:10px;padding:16px;margin-bottom:16px}
-.token-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #ffffff10}
-.token-icon{font-size:32px}
-.token-name{font-size:14px;font-weight:700;color:#fff}
-.token-chain{font-size:10px;color:#7a8ba8}
-.price-display{display:flex;justify-content:space-between;margin-bottom:14px;padding:12px;background:#0f1629;border-radius:8px}
-.price-item{text-align:left}
-.price-label{font-size:9px;color:#7a8ba8;text-transform:uppercase;margin-bottom:4px}
-.price-value{font-size:14px;font-weight:700;color:#00d4aa}
-.metrics-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
-.metric-card{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:10px;text-align:center}
-.metric-label{font-size:9px;color:#7a8ba8;text-transform:uppercase;margin-bottom:4px}
-.metric-value{font-size:13px;font-weight:700;color:#00d4aa}
+html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;overflow:hidden}
+.app{display:flex;flex-direction:column;height:100vh}
+.header{background:#0f1629;border-bottom:1px solid #ffffff15;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;height:56px}
+.logo{font-size:14px;font-weight:900;color:#00d4aa}
+.token-info{font-size:10px;color:#7a8ba8}
+.content{flex:1;overflow-y:auto;padding:14px}
+.hero{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:16px;margin-bottom:14px;text-align:center}
+.token-logo{font-size:48px;margin-bottom:8px}
+.token-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
+.token-pair{font-size:11px;color:#7a8ba8;margin-bottom:12px}
+.token-links{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.link-btn{padding:6px 12px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#00d4aa;font-size:9px;cursor:pointer}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.price-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:10px;text-align:center}
+.price-label{font-size:8px;color:#7a8ba8;text-transform:uppercase;margin-bottom:4px}
+.price-value{font-size:13px;font-weight:700;color:#00d4aa}
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.metric-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:10px;text-align:center}
+.metric-label{font-size:8px;color:#7a8ba8;text-transform:uppercase;margin-bottom:4px}
+.metric-value{font-size:12px;font-weight:700;color:#00d4aa}
 .metric-small{font-size:8px;color:#7a8ba8;margin-top:3px}
-.price-changes{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px;padding:12px;background:#0f1629;border-radius:8px}
-.change-item{text-align:center}
-.change-time{font-size:9px;color:#7a8ba8;margin-bottom:4px}
+.changes{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.change-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:10px;text-align:center}
+.change-time{font-size:8px;color:#7a8ba8;margin-bottom:4px}
 .change-value{font-size:12px;font-weight:700;color:#00d4aa}
 .change-value.negative{color:#ff4757}
-.data-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
-.data-card{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:12px}
-.data-label{font-size:9px;color:#7a8ba8;text-transform:uppercase;margin-bottom:6px}
-.data-value{font-size:13px;font-weight:700;color:#fff;margin-bottom:8px}
-.data-bar{display:flex;height:6px;gap:2px;border-radius:3px;overflow:hidden}
+.target-section{background:linear-gradient(135deg,#1a2847,#253857);border:2px solid #00d4aa;border-radius:10px;padding:14px;margin-bottom:14px}
+.target-title{font-size:12px;font-weight:700;color:#00d4aa;text-transform:uppercase;margin-bottom:10px;letter-spacing:1px}
+.target-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.target-input{display:flex;flex-direction:column;gap:4px}
+.target-label{font-size:9px;color:#7a8ba8;text-transform:uppercase}
+.target-field{padding:10px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#fff;font-size:12px;font-weight:700;font-family:monospace}
+.target-field:focus{outline:none;border-color:#00d4aa}
+.target-status{display:flex;justify-content:space-between;font-size:9px;color:#7a8ba8;margin-bottom:10px}
+.target-status-value{color:#00d4aa;font-weight:700}
+.target-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.target-btn{padding:10px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.target-btn:hover{background:#253857;border-color:#00d4aa}
+.data-section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:14px;margin-bottom:14px}
+.data-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;margin-bottom:10px;letter-spacing:1px}
+.data-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.data-box{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:10px;text-align:center}
+.data-label{font-size:8px;color:#7a8ba8;text-transform:uppercase;margin-bottom:6px}
+.data-value{font-size:12px;font-weight:700;color:#fff;margin-bottom:6px}
+.data-bar{display:flex;height:4px;gap:1px;border-radius:2px;overflow:hidden}
 .bar-buy{background:#00d4aa;flex:1}
 .bar-sell{background:#ff4757;flex:1}
-.sidebar{width:200px;background:#1a2847;border-left:1px solid #ffffff15;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:16px}
-.sidebar-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;letter-spacing:1px}
-.search-input{width:100%;padding:10px;background:#0f1629;border:1px solid #ffffff15;border-radius:8px;color:#fff;font-size:11px;margin-bottom:8px;font-family:monospace}
-.tokens-list{display:flex;flex-direction:column;gap:6px;max-height:150px;overflow-y:auto}
-.token-item{padding:10px;background:#0f1629;border:2px solid #ffffff10;border-radius:6px;cursor:pointer;transition:all 0.2s;text-align:center}
-.token-item:hover{border-color:#00d4aa40}
-.token-item.active{border-color:#00d4aa;background:#253857}
-.token-item-icon{font-size:20px;margin-bottom:4px}
-.token-item-name{font-size:10px;font-weight:700;color:#fff}
-.token-item-change{font-size:9px;color:#00d4aa;margin-top:3px}
-.token-item-change.down{color:#ff4757}
-.quick-trade{background:#0f1629;border:1px solid #ffffff15;border-radius:10px;padding:14px}
-.trade-title{font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;margin-bottom:10px}
-.amount-input{width:100%;padding:10px;background:#0a0e1a;border:1px solid #ffffff15;border-radius:6px;color:#fff;font-size:12px;font-weight:700;font-family:monospace;margin-bottom:8px}
-.presets{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
-.preset-btn{padding:6px;background:#0a0e1a;border:1px solid #ffffff15;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer}
-.slippage-input{width:100%;padding:8px;background:#0a0e1a;border:1px solid #ffffff15;border-radius:6px;color:#fff;font-size:10px;font-family:monospace;margin-bottom:10px}
-.btn-buy{width:100%;padding:12px;background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;border-radius:6px;font-weight:700;font-size:12px;cursor:pointer;margin-bottom:8px;transition:all 0.2s}
-.btn-buy:hover{transform:translateY(-2px);box-shadow:0 6px 20px #00d4aa40}
-.btn-sell{width:100%;padding:12px;background:linear-gradient(135deg,#ff4757,#ff1744);color:#fff;border:none;border-radius:6px;font-weight:700;font-size:12px;cursor:pointer;transition:all 0.2s}
-.btn-sell:hover{transform:translateY(-2px);box-shadow:0 6px 20px #ff475740}
+.bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:14px}
+.nav-btn{padding:10px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer;text-align:center}
+.nav-btn.active{background:#253857;border-color:#00d4aa}
+.trade-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:14px}
+.trade-btn:hover{transform:translateY(-2px)}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:3px}
-.notif{position:fixed;bottom:20px;right:20px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:12px 16px;z-index:999;animation:slideIn 0.3s;font-size:11px}
+.notif{position:fixed;bottom:20px;right:20px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:12px 16px;z-index:999;animation:slideIn 0.3s;font-size:10px}
 @keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="app">
 <div class="header">
 <div class="logo">⚡ MEMEINTEL</div>
-<div class="token-select">
-<select id="tokenSelect" onchange="selectToken()">
-<option value="0">PEPE2 🐸</option>
-<option value="1">BONK2 🔨</option>
-<option value="2">DOGWIF3 🐶</option>
-<option value="3">MOON 🌙</option>
-<option value="4">FLOKI ⚡</option>
-<option value="5">ELON 🚀</option>
-</select>
-</div>
+<div class="token-info" id="chainInfo">SOL • PumpSwap</div>
 </div>
 
 <div class="content">
-<div class="main">
-<div class="token-card">
-<div class="token-header">
-<div class="token-icon" id="mainIcon">🐸</div>
-<div>
-<div class="token-name" id="mainName">PEPE2</div>
-<div class="token-chain">SOL > Solana</div>
+<div class="hero">
+<div class="token-logo" id="heroIcon">🐸</div>
+<div class="token-name" id="heroName">PEPE2</div>
+<div class="token-pair">PEPE2 / SOL</div>
+<div class="token-links">
+<button class="link-btn">🌐 Website</button>
+<button class="link-btn">𝕏 Twitter</button>
+<button class="link-btn">📱 Telegram</button>
 </div>
-</div>
-
-<div class="price-display">
-<div class="price-item">
+<div class="prices">
+<div class="price-box">
 <div class="price-label">Price USD</div>
 <div class="price-value" id="priceUSD">$0.000042</div>
 </div>
-<div class="price-item">
-<div class="price-label">Price USDT</div>
-<div class="price-value" id="priceUSDT">0.000042 USDT</div>
+<div class="price-box">
+<div class="price-label">Price SOL</div>
+<div class="price-value" id="priceSOL">0.000042 SOL</div>
+</div>
 </div>
 </div>
 
-<div class="metrics-grid">
-<div class="metric-card">
+<div class="metrics">
+<div class="metric-box">
 <div class="metric-label">💧 Liquidity</div>
 <div class="metric-value" id="metricLiq">$450K</div>
 <div class="metric-small">🔒 Locked</div>
 </div>
-<div class="metric-card">
+<div class="metric-box">
 <div class="metric-label">📊 FDV</div>
 <div class="metric-value" id="metricFDV">$420K</div>
 </div>
-<div class="metric-card">
-<div class="metric-label">🎯 Market Cap</div>
+<div class="metric-box">
+<div class="metric-label">🎯 MC</div>
 <div class="metric-value" id="metricMC">$1.2M</div>
 </div>
 </div>
 
-<div class="price-changes">
-<div class="change-item">
+<div class="changes">
+<div class="change-box">
 <div class="change-time">5M</div>
 <div class="change-value" id="change5m">+2.85%</div>
 </div>
-<div class="change-item">
+<div class="change-box">
 <div class="change-time">1H</div>
 <div class="change-value" id="change1h">+3.15%</div>
 </div>
-<div class="change-item">
+<div class="change-box">
 <div class="change-time">6H</div>
 <div class="change-value" id="change6h">+4.32%</div>
 </div>
-<div class="change-item">
+<div class="change-box">
 <div class="change-time">24H</div>
 <div class="change-value" id="change24h">+182.4%</div>
 </div>
 </div>
 
+<div class="target-section">
+<div class="target-title">🎯 Auto Trade @ Market Cap</div>
+<div class="target-grid">
+<div class="target-input">
+<label class="target-label">💚 Buy @ MC</label>
+<input type="number" class="target-field" id="buyMC" placeholder="2.0" value="2.0" step="0.1">
+</div>
+<div class="target-input">
+<label class="target-label">❤️ Sell @ MC</label>
+<input type="number" class="target-field" id="sellMC" placeholder="3.0" value="3.0" step="0.1">
+</div>
+</div>
+<div class="target-status">
+<span>Current MC: <span class="target-status-value" id="currentMC">$1.2M</span></span>
+<span>Status: <span class="target-status-value" id="mcStatus">Waiting...</span></span>
+</div>
+<div class="target-btns">
+<button class="target-btn" onclick="setAutoTrade()">⚙️ Set Auto Trade</button>
+<button class="target-btn" onclick="cancelAutoTrade()">❌ Cancel</button>
+</div>
+</div>
+
+<div class="data-section">
+<div class="data-title">📊 Trading Data</div>
 <div class="data-grid">
-<div class="data-card">
-<div class="data-label">📊 Transactions</div>
-<div class="data-value" id="dataTxns">107</div>
+<div class="data-box">
+<div class="data-label">Txns</div>
+<div class="data-value" id="dataTxns">16,682</div>
 </div>
-
-<div class="data-card">
-<div class="data-label">💰 Volume</div>
-<div class="data-value" id="dataVol">$4.0K</div>
+<div class="data-box">
+<div class="data-label">Volume</div>
+<div class="data-value" id="dataVol">$1.2M</div>
 </div>
-
-<div class="data-card">
-<div class="data-label">🏪 Traders</div>
-<div class="data-value" id="dataTraders">76</div>
+<div class="data-box">
+<div class="data-label">Traders</div>
+<div class="data-value" id="dataTraders">2,194</div>
 </div>
-
-<div class="data-card">
-<div class="data-label">📈 Buys</div>
-<div class="data-value" id="dataBuys">78</div>
+<div class="data-box">
+<div class="data-label">Buys</div>
+<div class="data-value" id="dataBuys">8,388</div>
 <div class="data-bar">
-<div class="bar-buy" style="width:75%"></div>
+<div class="bar-buy" style="width:50%"></div>
+<div class="bar-sell" style="width:50%"></div>
 </div>
 </div>
-
-<div class="data-card">
-<div class="data-label">📉 Sells</div>
-<div class="data-value" id="dataSells">29</div>
+<div class="data-box">
+<div class="data-label">Buy Vol</div>
+<div class="data-value" id="dataBuyVol">$636K</div>
 <div class="data-bar">
-<div class="bar-sell" style="width:25%"></div>
+<div class="bar-buy" style="width:50%"></div>
+<div class="bar-sell" style="width:50%"></div>
 </div>
 </div>
-
-<div class="data-card">
-<div class="data-label">Buy Volume</div>
-<div class="data-value" id="dataBuyVol">$2.7K</div>
+<div class="data-box">
+<div class="data-label">Buyers</div>
+<div class="data-value" id="dataBuyers">2,058</div>
 <div class="data-bar">
-<div class="bar-buy" style="width:70%"></div>
-</div>
-</div>
-
-<div class="data-card">
-<div class="data-label">💵 Buyers</div>
-<div class="data-value" id="dataBuyers">57</div>
-<div class="data-bar">
-<div class="bar-buy" style="width:70%"></div>
-</div>
-</div>
-
-<div class="data-card">
-<div class="data-label">Sell Volume</div>
-<div class="data-value" id="dataSellVol">$1.2K</div>
-<div class="data-bar">
-<div class="bar-sell" style="width:30%"></div>
-</div>
-</div>
-
-<div class="data-card">
-<div class="data-label">🏪 Sellers</div>
-<div class="data-value" id="dataSellers">25</div>
-<div class="data-bar">
-<div class="bar-sell" style="width:30%"></div>
-</div>
+<div class="bar-buy" style="width:55%"></div>
+<div class="bar-sell" style="width:45%"></div>
 </div>
 </div>
 </div>
 </div>
 
-<div class="sidebar">
-<div>
-<div class="sidebar-title">🔍 Select Token</div>
-<input type="text" class="search-input" id="search" placeholder="Search..." onkeyup="filterTokens()">
-<div class="tokens-list" id="tokensList"></div>
+<div class="bottom-nav">
+<button class="nav-btn active">ℹ️ Info</button>
+<button class="nav-btn">📊 Chart</button>
+<button class="nav-btn">📝 Txns</button>
+<button class="nav-btn">⭐ Watch</button>
+<button class="nav-btn">🔔 Alerts</button>
 </div>
 
-<div class="quick-trade">
-<div class="trade-title">⚡ Quick Trade</div>
-<input type="number" class="amount-input" id="amount" placeholder="Amount SOL" value="0.5">
-<div class="presets">
-<button class="preset-btn" onclick="setAmount(0.1)">0.1</button>
-<button class="preset-btn" onclick="setAmount(0.5)">0.5</button>
-<button class="preset-btn" onclick="setAmount(1)">1</button>
-<button class="preset-btn" onclick="setAmount(5)">5</button>
-</div>
-<input type="number" class="slippage-input" id="slippage" placeholder="Slippage %" value="2">
-<button class="btn-buy" onclick="buy()">💚 BUY</button>
-<button class="btn-sell" onclick="sell()">❤️ SELL</button>
-</div>
+<button class="trade-btn" onclick="quickTrade()">🔄 Trade PEPE2/SOL</button>
 </div>
 </div>
 
 <script>
 const tokens = [
-{name:"PEPE2",icon:"🐸",chain:"Solana",price:0.000042,fdv:420000,liq:450000,mc:1200000,txns:107,vol:4000,buys:78,sells:29,buyVol:2700,sellVol:1200,buyers:57,sellers:25,ch24h:182.4},
-{name:"BONK2",icon:"🔨",chain:"Solana",price:0.00213,fdv:500000,liq:320000,mc:1800000,txns:89,vol:3500,buys:65,sells:24,buyVol:2100,sellVol:900,buyers:45,sellers:20,ch24h:34.2},
-{name:"DOGWIF3",icon:"🐶",chain:"Solana",price:0.0081,fdv:750000,liq:580000,mc:2500000,txns:156,vol:5200,buys:92,sells:31,buyVol:3100,sellVol:1400,buyers:67,sellers:28,ch24h:12.7},
-{name:"MOON",icon:"🌙",chain:"Solana",price:0.00088,fdv:380000,liq:220000,mc:900000,txns:71,vol:2100,buys:45,sells:18,buyVol:1200,sellVol:600,buyers:34,sellers:14,ch24h:44.1},
-{name:"FLOKI",icon:"⚡",chain:"Solana",price:0.0000234,fdv:1200000,liq:750000,mc:4200000,txns:234,vol:8900,buys:134,sells:48,buyVol:5300,sellVol:2100,buyers:98,sellers:42,ch24h:267.3},
-{name:"ELON",icon:"🚀",chain:"Solana",price:0.00000456,fdv:1800000,liq:890000,mc:5800000,txns:312,vol:12300,buys:178,sells:62,buyVol:7200,sellVol:2800,buyers:128,sellers:55,ch24h:523.7}
+{name:"PEPE2",icon:"🐸",chain:"Solana",price:0.000042,mc:1.2,fdv:420000,liq:450000,txns:16682,vol:1200000,buys:8388,buyVol:636000,buyers:2058},
+{name:"BONK2",icon:"🔨",chain:"Solana",price:0.00213,mc:1.8,fdv:500000,liq:320000,txns:12456,vol:900000,buys:6789,buyVol:450000,buyers:1456},
+{name:"DOGWIF3",icon:"🐶",chain:"Solana",price:0.0081,mc:2.5,fdv:750000,liq:580000,txns:18900,vol:1500000,buys:10234,buyVol:750000,buyers:2234}
 ];
 
 let currentIndex = 0;
-
-const tl = document.getElementById("tokensList");
-tokens.forEach((t,i) => {
-const d = document.createElement("button");
-d.className = "token-item" + (i === 0 ? " active" : "");
-d.id = "tok" + i;
-const ch = Math.floor(Math.random() * 200) - 50;
-d.innerHTML = `<div class="token-item-icon">${t.icon}</div><div class="token-item-name">${t.name}</div><div class="token-item-change ${ch > 0 ? '' : 'down'}">${ch>0?'+':''}${ch}%</div>`;
-d.onclick = () => selectByIndex(i);
-tl.appendChild(d);
-});
-
-function filterTokens() {
-const q = document.getElementById("search").value.toLowerCase();
-tokens.forEach((t,i) => {
-document.getElementById("tok" + i).style.display = t.name.toLowerCase().includes(q) ? "block" : "none";
-});
-}
-
-function selectByIndex(i) {
-currentIndex = i;
-document.getElementById("tokenSelect").value = i;
-updateDisplay();
-document.querySelectorAll(".token-item").forEach(x => x.classList.remove("active"));
-document.getElementById("tok" + i).classList.add("active");
-}
-
-function selectToken() {
-currentIndex = parseInt(document.getElementById("tokenSelect").value);
-document.querySelectorAll(".token-item").forEach(x => x.classList.remove("active"));
-document.getElementById("tok" + currentIndex).classList.add("active");
-updateDisplay();
-}
+let autoTradeActive = false;
 
 function updateDisplay() {
 const t = tokens[currentIndex];
-document.getElementById("mainIcon").textContent = t.icon;
-document.getElementById("mainName").textContent = t.name;
+document.getElementById("heroIcon").textContent = t.icon;
+document.getElementById("heroName").textContent = t.name;
+document.getElementById("chainInfo").textContent = t.chain + " • PumpSwap";
 document.getElementById("priceUSD").textContent = "$" + t.price.toFixed(8);
-document.getElementById("priceUSDT").textContent = t.price.toFixed(8) + " USDT";
+document.getElementById("priceSOL").textContent = t.price.toFixed(8) + " SOL";
 document.getElementById("metricLiq").textContent = "$" + (t.liq/1000).toFixed(0) + "K";
 document.getElementById("metricFDV").textContent = "$" + (t.fdv/1000).toFixed(0) + "K";
-document.getElementById("metricMC").textContent = "$" + (t.mc/1000000).toFixed(1) + "M";
-document.getElementById("dataTxns").textContent = t.txns;
-document.getElementById("dataVol").textContent = "$" + (t.vol/1000).toFixed(1) + "K";
-document.getElementById("dataTraders").textContent = (t.buyers + t.sellers);
-document.getElementById("dataBuys").textContent = t.buys;
-document.getElementById("dataSells").textContent = t.sells;
-document.getElementById("dataBuyVol").textContent = "$" + (t.buyVol/1000).toFixed(1) + "K";
-document.getElementById("dataSellVol").textContent = "$" + (t.sellVol/1000).toFixed(1) + "K";
-document.getElementById("dataBuyers").textContent = t.buyers;
-document.getElementById("dataSellers").textContent = t.sellers;
-document.getElementById("change24h").textContent = (t.ch24h>0?'+':'') + t.ch24h + "%";
-document.getElementById("change24h").style.color = t.ch24h > 0 ? '#00d4aa' : '#ff4757';
+document.getElementById("metricMC").textContent = "$" + t.mc.toFixed(1) + "M";
+document.getElementById("currentMC").textContent = "$" + t.mc.toFixed(1) + "M";
+document.getElementById("dataTxns").textContent = t.txns.toLocaleString();
+document.getElementById("dataVol").textContent = "$" + (t.vol/1000000).toFixed(1) + "M";
+document.getElementById("dataTraders").textContent = Math.floor(t.buyers * 1.2).toLocaleString();
+document.getElementById("dataBuys").textContent = t.buys.toLocaleString();
+document.getElementById("dataBuyVol").textContent = "$" + (t.buyVol/1000).toFixed(0) + "K";
+document.getElementById("dataBuyers").textContent = t.buyers.toLocaleString();
 }
 
-function setAmount(a) { document.getElementById("amount").value = a; }
-
-function buy() {
-const t = tokens[currentIndex];
-const amt = document.getElementById("amount").value;
-notify(`✅ BUY ${amt} SOL of ${t.name}`);
+function setAutoTrade() {
+const buyMC = parseFloat(document.getElementById("buyMC").value);
+const sellMC = parseFloat(document.getElementById("sellMC").value);
+if(!buyMC || !sellMC || buyMC >= sellMC) return alert("Invalid targets!");
+autoTradeActive = true;
+document.getElementById("mcStatus").textContent = "🟢 ACTIVE";
+document.getElementById("mcStatus").style.color = "#00d4aa";
+notify(`✅ Auto Trade Active:\n💚 BUY @ $${buyMC}M\n❤️ SELL @ $${sellMC}M`);
 }
 
-function sell() {
+function cancelAutoTrade() {
+autoTradeActive = false;
+document.getElementById("mcStatus").textContent = "Cancelled";
+document.getElementById("mcStatus").style.color = "#ff4757";
+notify("❌ Auto Trade Cancelled");
+}
+
+function quickTrade() {
 const t = tokens[currentIndex];
-const amt = document.getElementById("amount").value;
-notify(`✅ SELL ${amt} SOL of ${t.name}`);
+notify(`Ready to trade ${t.name}`);
 }
 
 function notify(msg) {
