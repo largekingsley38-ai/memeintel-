@@ -42,7 +42,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .target-status{display:flex;justify-content:space-between;font-size:9px;color:#7a8ba8;margin-bottom:10px}
 .target-status-value{color:#00d4aa;font-weight:700}
 .target-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.target-btn{padding:10px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.target-btn{padding:10px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:10px;font-weight:700;cursor:pointer}
 .target-btn:hover{background:#253857;border-color:#00d4aa}
 .data-section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:14px;margin-bottom:14px}
 .data-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;margin-bottom:10px;letter-spacing:1px}
@@ -50,50 +50,45 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .data-box{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:10px;text-align:center}
 .data-label{font-size:8px;color:#7a8ba8;text-transform:uppercase;margin-bottom:6px}
 .data-value{font-size:12px;font-weight:700;color:#fff;margin-bottom:6px}
-.data-bar{display:flex;height:4px;gap:1px;border-radius:2px;overflow:hidden}
+.data-bar{display:flex;height:4px;gap:1px;border-radius:2px}
 .bar-buy{background:#00d4aa;flex:1}
 .bar-sell{background:#ff4757;flex:1}
 .tab-content{display:none}
 .tab-content.active{display:block}
-.chart-container{background:#0a0e1a;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:14px}
-.chart-controls{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;padding-bottom:8px}
+.chart-section{background:#0a0e1a;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:14px}
+.chart-title{font-size:11px;font-weight:700;color:#00d4aa;margin-bottom:10px}
+.chart-btns{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto}
 .chart-btn{padding:6px 10px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:9px;font-weight:700;cursor:pointer;white-space:nowrap}
 .chart-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
-#candleChart{width:100%;height:280px;margin-bottom:12px}
-.txns-container{background:#0a0e1a;border:1px solid #ffffff10;border-radius:10px;padding:12px}
-.txns-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;margin-bottom:10px;letter-spacing:1px}
-.txn-table{width:100%;font-size:9px}
-.txn-header{display:grid;grid-template-columns:0.6fr 0.8fr 1fr 1fr;gap:8px;padding:8px;border-bottom:1px solid #ffffff15;font-weight:700;color:#00d4aa;margin-bottom:6px}
-.txn-row{display:grid;grid-template-columns:0.6fr 0.8fr 1fr 1fr;gap:8px;padding:10px;border-bottom:1px solid #ffffff08;align-items:center;margin-bottom:4px;background:#0f1629;border-radius:6px}
-.txn-type{font-weight:700}
-.txn-buy{color:#00d4aa}
-.txn-sell{color:#ff4757}
-.txn-amount{font-weight:700;color:#fff}
+.chart-placeholder{background:#0f1629;border:1px solid #ffffff10;border-radius:6px;padding:20px;text-align:center;height:250px;display:flex;align-items:center;justify-content:center;color:#7a8ba8}
+.txns-section{background:#0a0e1a;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:14px}
+.txns-title{font-size:11px;font-weight:700;color:#00d4aa;margin-bottom:10px}
+.txn-item{background:#0f1629;border:1px solid #ffffff10;border-radius:6px;padding:10px;margin-bottom:6px;display:grid;grid-template-columns:0.6fr 0.8fr 1fr 1fr;gap:8px;font-size:9px}
+.txn-type{font-weight:700;color:#00d4aa}
+.txn-type.sell{color:#ff4757}
+.txn-amount{color:#fff;font-weight:700}
 .txn-price{font-family:monospace;color:#7a8ba8}
-.txn-trader{font-size:8px;color:#00d4aa;cursor:pointer}
-.txn-trader:hover{text-decoration:underline}
-.whale-list{display:flex;flex-direction:column;gap:10px}
-.whale-item{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;border-left:4px solid #00d4aa}
-.whale-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.txn-trader{color:#00d4aa;cursor:pointer}
+.whale-item{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:10px;border-left:4px solid #00d4aa}
+.whale-header{display:flex;justify-content:space-between;margin-bottom:8px}
 .whale-name{font-size:11px;font-weight:700;color:#fff}
 .whale-status{font-size:9px;padding:3px 8px;background:#00d4aa20;color:#00d4aa;border-radius:4px}
 .whale-action{font-size:10px;color:#00d4aa;font-weight:700;margin-bottom:6px}
 .whale-action.sell{color:#ff4757}
 .whale-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;font-size:9px}
-.whale-detail-item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px}
+.whale-detail{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px}
 .whale-detail-label{color:#7a8ba8;font-size:8px;margin-bottom:3px}
 .whale-detail-value{color:#fff;font-weight:700}
-.whale-follow{display:flex;gap:8px;margin-top:8px}
-.follow-btn{flex:1;padding:8px;background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer}
+.whale-btns{display:flex;gap:8px;margin-top:8px}
+.whale-btn{flex:1;padding:8px;background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer}
 .bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:14px}
-.nav-btn{padding:10px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer;text-align:center}
-.nav-btn.active{background:#253857;border-color:#00d4aa}
+.nav-btn{padding:10px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:9px;font-weight:700;cursor:pointer}
+.nav-btn.active{background:#253857;border:2px solid #00d4aa;color:#00d4aa}
 .trade-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:14px}
-.trade-btn:hover{transform:translateY(-2px)}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:3px}
 .notif{position:fixed;bottom:20px;right:20px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:12px 16px;z-index:999;animation:slideIn 0.3s;font-size:10px}
 @keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:3px}
 </style>
 </head>
 <body>
@@ -101,13 +96,13 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="app">
 <div class="header">
 <div class="logo">⚡ MEMEINTEL</div>
-<div class="token-info" id="chainInfo">SOL • PumpSwap</div>
+<div class="token-info">SOL • PumpSwap</div>
 </div>
 
 <div class="content">
 <div class="hero">
-<div class="token-logo" id="heroIcon">🐸</div>
-<div class="token-name" id="heroName">PEPE2</div>
+<div class="token-logo">🐸</div>
+<div class="token-name">PEPE2</div>
 <div class="token-pair">PEPE2 / SOL</div>
 <div class="token-links">
 <button class="link-btn">🌐 Website</button>
@@ -117,11 +112,11 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="prices">
 <div class="price-box">
 <div class="price-label">Price USD</div>
-<div class="price-value" id="priceUSD">$0.000042</div>
+<div class="price-value">$0.000042</div>
 </div>
 <div class="price-box">
 <div class="price-label">Price SOL</div>
-<div class="price-value" id="priceSOL">0.000042 SOL</div>
+<div class="price-value">0.000042 SOL</div>
 </div>
 </div>
 </div>
@@ -129,35 +124,35 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="metrics">
 <div class="metric-box">
 <div class="metric-label">💧 Liquidity</div>
-<div class="metric-value" id="metricLiq">$450K</div>
+<div class="metric-value">$450K</div>
 <div class="metric-small">🔒 Locked</div>
 </div>
 <div class="metric-box">
 <div class="metric-label">📊 FDV</div>
-<div class="metric-value" id="metricFDV">$420K</div>
+<div class="metric-value">$420K</div>
 </div>
 <div class="metric-box">
 <div class="metric-label">🎯 MC</div>
-<div class="metric-value" id="metricMC">$1.2M</div>
+<div class="metric-value">$1.2M</div>
 </div>
 </div>
 
 <div class="changes">
 <div class="change-box">
 <div class="change-time">5M</div>
-<div class="change-value" id="change5m">+2.85%</div>
+<div class="change-value">+2.85%</div>
 </div>
 <div class="change-box">
 <div class="change-time">1H</div>
-<div class="change-value" id="change1h">+3.15%</div>
+<div class="change-value">+3.15%</div>
 </div>
 <div class="change-box">
 <div class="change-time">6H</div>
-<div class="change-value" id="change6h">+4.32%</div>
+<div class="change-value">+4.32%</div>
 </div>
 <div class="change-box">
 <div class="change-time">24H</div>
-<div class="change-value" id="change24h">+182.4%</div>
+<div class="change-value">+182.4%</div>
 </div>
 </div>
 
@@ -166,15 +161,15 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="target-grid">
 <div class="target-input">
 <label class="target-label">💚 Buy @ MC</label>
-<input type="number" class="target-field" id="buyMC" placeholder="2.0" value="2.0" step="0.1">
+<input type="number" class="target-field" id="buyMC" placeholder="2.0" value="2.0">
 </div>
 <div class="target-input">
 <label class="target-label">❤️ Sell @ MC</label>
-<input type="number" class="target-field" id="sellMC" placeholder="3.0" value="3.0" step="0.1">
+<input type="number" class="target-field" id="sellMC" placeholder="3.0" value="3.0">
 </div>
 </div>
 <div class="target-status">
-<span>Current MC: <span class="target-status-value" id="currentMC">$1.2M</span></span>
+<span>Current MC: <span class="target-status-value">$1.2M</span></span>
 <span>Status: <span class="target-status-value" id="mcStatus">Waiting...</span></span>
 </div>
 <div class="target-btns">
@@ -188,103 +183,85 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="data-grid">
 <div class="data-box">
 <div class="data-label">Txns</div>
-<div class="data-value" id="dataTxns">16,682</div>
+<div class="data-value">16,682</div>
 </div>
 <div class="data-box">
 <div class="data-label">Volume</div>
-<div class="data-value" id="dataVol">$1.2M</div>
+<div class="data-value">$1.2M</div>
 </div>
 <div class="data-box">
 <div class="data-label">Traders</div>
-<div class="data-value" id="dataTraders">2,194</div>
+<div class="data-value">2,194</div>
 </div>
 <div class="data-box">
 <div class="data-label">Buys</div>
-<div class="data-value" id="dataBuys">8,388</div>
+<div class="data-value">8,388</div>
 <div class="data-bar">
-<div class="bar-buy" style="width:50%"></div>
-<div class="bar-sell" style="width:50%"></div>
+<div class="bar-buy" style="flex:1"></div>
+<div class="bar-sell" style="flex:1"></div>
 </div>
 </div>
 <div class="data-box">
 <div class="data-label">Buy Vol</div>
-<div class="data-value" id="dataBuyVol">$636K</div>
+<div class="data-value">$636K</div>
 <div class="data-bar">
-<div class="bar-buy" style="width:50%"></div>
-<div class="bar-sell" style="width:50%"></div>
+<div class="bar-buy" style="flex:1"></div>
+<div class="bar-sell" style="flex:1"></div>
 </div>
 </div>
 <div class="data-box">
 <div class="data-label">Buyers</div>
-<div class="data-value" id="dataBuyers">2,058</div>
+<div class="data-value">2,058</div>
 <div class="data-bar">
-<div class="bar-buy" style="width:55%"></div>
-<div class="bar-sell" style="width:45%"></div>
+<div class="bar-buy" style="flex:1.2"></div>
+<div class="bar-sell" style="flex:0.8"></div>
 </div>
 </div>
 </div>
 </div>
 
 <!-- INFO TAB -->
-<div class="tab-content active" id="infoTab"></div>
+<div class="tab-content active" id="tab-info"></div>
 
-<!-- CHART+TXNS TAB -->
-<div class="tab-content" id="chartTab">
-<div class="chart-container">
-<div class="chart-controls" id="chartControls">
-<button class="chart-btn active" onclick="switchTimeframe('1m')">1m</button>
-<button class="chart-btn" onclick="switchTimeframe('5m')">5m</button>
-<button class="chart-btn" onclick="switchTimeframe('15m')">15m</button>
-<button class="chart-btn" onclick="switchTimeframe('1h')">1h</button>
-<button class="chart-btn" onclick="switchTimeframe('4h')">4h</button>
-<button class="chart-btn" onclick="switchTimeframe('1d')">1d</button>
-<button class="chart-btn" onclick="switchTimeframe('1w')">1w</button>
+<!-- CHART TAB -->
+<div class="tab-content" id="tab-chart">
+<div class="chart-section">
+<div class="chart-title">📈 Chart</div>
+<div class="chart-btns">
+<button class="chart-btn active" onclick="changeTimeframe('1m')">1m</button>
+<button class="chart-btn" onclick="changeTimeframe('5m')">5m</button>
+<button class="chart-btn" onclick="changeTimeframe('15m')">15m</button>
+<button class="chart-btn" onclick="changeTimeframe('1h')">1h</button>
+<button class="chart-btn" onclick="changeTimeframe('4h')">4h</button>
+<button class="chart-btn" onclick="changeTimeframe('1d')">1d</button>
 </div>
-<canvas id="candleChart"></canvas>
+<div class="chart-placeholder">📈 Price Chart Loading...</div>
 </div>
 
-<div class="txns-container">
+<div class="txns-section">
 <div class="txns-title">📝 Recent Transactions</div>
-<div class="txn-table">
-<div class="txn-header">
-<span>TYPE</span>
-<span>USD 💵</span>
-<span>PRICE 📊</span>
-<span>TRADER 👤</span>
-</div>
-<div id="txnsList"></div>
-</div>
+<div id="chartTxns"></div>
 </div>
 </div>
 
-<!-- TXN DETAILS TAB -->
-<div class="tab-content" id="txnsTab">
-<div class="txns-container">
+<!-- TXNS TAB -->
+<div class="tab-content" id="tab-txns">
+<div class="txns-section">
 <div class="txns-title">📊 All Transactions</div>
-<div class="txn-table">
-<div class="txn-header">
-<span>TYPE</span>
-<span>USD 💵</span>
-<span>PRICE 📊</span>
-<span>TRADER 👤</span>
-</div>
-<div id="txnsFullList"></div>
-</div>
+<div id="allTxns"></div>
 </div>
 </div>
 
 <!-- WHALES TAB -->
-<div class="tab-content" id="whalesTab">
+<div class="tab-content" id="tab-whales">
 <div class="data-section">
 <div class="data-title">🐋 Top Whale Activities</div>
-<div class="whale-list" id="whaleList">
-<!-- Whales loaded here -->
-</div>
+<div id="whalesList"></div>
 </div>
 </div>
 
 <!-- ALERTS TAB -->
-<div class="tab-content" id="alertsTab">
+<div class="tab-content" id="tab-alerts">
 <div class="data-section">
 <div class="data-title">🔔 Price Alerts (Coming Soon)</div>
 </div>
@@ -298,29 +275,25 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <button class="nav-btn" onclick="switchTab('alerts')">🔔 Alerts</button>
 </div>
 
-<button class="trade-btn" onclick="quickTrade()">🔄 Trade PEPE2/SOL</button>
+<button class="trade-btn">🔄 Trade PEPE2/SOL</button>
 </div>
 </div>
 
 <script>
-const tokens = [
-{name:"PEPE2",icon:"🐸",chain:"Solana",price:0.000042,mc:1.2,fdv:420000,liq:450000,txns:16682,vol:1200000,buys:8388,buyVol:636000,buyers:2058}
+const txnData = [
+{type:"BUY",amount:"$105K",price:"$0.000042",trader:"🧠MegaWhale"},
+{type:"SELL",amount:"$50.4K",price:"$0.000041",trader:"💎SolanaBoss"},
+{type:"BUY",amount:"$75.6K",price:"$0.000039",trader:"👑CryptoKing"},
+{type:"BUY",amount:"$42.3K",price:"$0.000038",trader:"🚀PumpMaster"},
+{type:"SELL",amount:"$28.9K",price:"$0.000037",trader:"⚡SpeedTrader"},
+{type:"BUY",amount:"$63.4K",price:"$0.000036",trader:"💰WhaleWalker"},
+{type:"SELL",amount:"$35.2K",price:"$0.000035",trader:"🎯TargetHunter"},
+{type:"BUY",amount:"$89.7K",price:"$0.000034",trader:"🔥FireSale"},
+{type:"BUY",amount:"$52.1K",price:"$0.000033",trader:"⭐StarGainer"},
+{type:"SELL",amount:"$41.3K",price:"$0.000032",trader:"🌙MoonWalker"}
 ];
 
-const transactions = [
-{type:"BUY",amount:105000,price:0.000042,trader:"🧠MegaWhale",time:"2m"},
-{type:"SELL",amount:50400,price:0.000041,trader:"💎SolanaBoss",time:"8m"},
-{type:"BUY",amount:75600,price:0.000039,trader:"👑CryptoKing",time:"15m"},
-{type:"BUY",amount:42300,price:0.000038,trader:"🚀PumpMaster",time:"22m"},
-{type:"SELL",amount:28900,price:0.000037,trader:"⚡SpeedTrader",time:"31m"},
-{type:"BUY",amount:63400,price:0.000036,trader:"💰WhaleWalker",time:"42m"},
-{type:"SELL",amount:35200,price:0.000035,trader:"🎯TargetHunter",time:"51m"},
-{type:"BUY",amount:89700,price:0.000034,trader:"🔥FireSale",time:"58m"},
-{type:"BUY",amount:52100,price:0.000033,trader:"⭐StarGainer",time:"1h5m"},
-{type:"SELL",amount:41300,price:0.000032,trader:"🌙MoonWalker",time:"1h12m"}
-];
-
-const whales = [
+const whaleData = [
 {name:"🧠 MegaWhale",action:"BUY",amount:"$105K",tokens:"2.5M",time:"2m ago",wallet:"4Mq...9Xyz",twitter:"@MegaWhale_SOL",discord:"Active"},
 {name:"💎 SolanaBoss",action:"SELL",amount:"$50.4K",tokens:"1.2M",time:"8m ago",wallet:"7Kp...2Abc",twitter:"@SolanaBoss",discord:"Active"},
 {name:"👑 CryptoKing",action:"BUY",amount:"$75.6K",tokens:"1.8M",time:"15m ago",wallet:"9Mr...5Def",twitter:"@CryptoKing88",discord:"Verified"},
@@ -328,202 +301,88 @@ const whales = [
 {name:"⚡ SpeedTrader",action:"SELL",amount:"$28.9K",tokens:"690K",time:"31m ago",wallet:"5Cd...8Jkl",twitter:"@SpeedTraderX",discord:"Verified"}
 ];
 
-let currentTab = "info";
-let currentTimeframe = "1m";
-
 function switchTab(tab) {
-document.querySelectorAll(".tab-content").forEach(x => x.classList.remove("active"));
-document.getElementById(tab + "Tab").classList.add("active");
-document.querySelectorAll(".nav-btn").forEach(x => x.classList.remove("active"));
+document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+document.getElementById("tab-" + tab).classList.add("active");
 event.target.classList.add("active");
-currentTab = tab;
 
-if(tab === "chart") drawChart();
-if(tab === "whales") loadWhales();
+if(tab === "chart") loadChart();
 if(tab === "txns") loadAllTxns();
+if(tab === "whales") loadWhales();
 }
 
-function loadTxns() {
-const tl = document.getElementById("txnsList");
-tl.innerHTML = "";
-transactions.slice(0, 5).forEach(t => {
-const tr = document.createElement("div");
-tr.className = "txn-row";
-const typeClass = t.type === "SELL" ? "txn-sell" : "txn-buy";
-tr.innerHTML = `
-<span class="txn-type ${typeClass}">${t.type === 'BUY' ? '📈' : '📉'} ${t.type}</span>
-<span class="txn-amount">$${(t.amount/1000).toFixed(0)}K</span>
-<span class="txn-price">$${t.price.toFixed(8)}</span>
-<span class="txn-trader" onclick="copyAddress('${t.trader}')">${t.trader}</span>
-`;
-tl.appendChild(tr);
-});
+function changeTimeframe(tf) {
+document.querySelectorAll(".chart-btn").forEach(b => b.classList.remove("active"));
+event.target.classList.add("active");
+}
+
+function loadChart() {
+const html = txnData.slice(0, 5).map(t => `
+<div class="txn-item">
+<span class="txn-type ${t.type === 'SELL' ? 'sell' : ''}">${t.type === 'BUY' ? '📈' : '📉'} ${t.type}</span>
+<span class="txn-amount">${t.amount}</span>
+<span class="txn-price">${t.price}</span>
+<span class="txn-trader">${t.trader}</span>
+</div>
+`).join("");
+document.getElementById("chartTxns").innerHTML = html;
 }
 
 function loadAllTxns() {
-const tl = document.getElementById("txnsFullList");
-tl.innerHTML = "";
-transactions.forEach(t => {
-const tr = document.createElement("div");
-tr.className = "txn-row";
-const typeClass = t.type === "SELL" ? "txn-sell" : "txn-buy";
-tr.innerHTML = `
-<span class="txn-type ${typeClass}">${t.type === 'BUY' ? '📈' : '📉'} ${t.type}</span>
-<span class="txn-amount">$${(t.amount/1000).toFixed(0)}K</span>
-<span class="txn-price">$${t.price.toFixed(8)}</span>
-<span class="txn-trader" onclick="copyAddress('${t.trader}')">${t.trader}</span>
-`;
-tl.appendChild(tr);
-});
+const html = txnData.map(t => `
+<div class="txn-item">
+<span class="txn-type ${t.type === 'SELL' ? 'sell' : ''}">${t.type === 'BUY' ? '📈' : '📉'} ${t.type}</span>
+<span class="txn-amount">${t.amount}</span>
+<span class="txn-price">${t.price}</span>
+<span class="txn-trader">${t.trader}</span>
+</div>
+`).join("");
+document.getElementById("allTxns").innerHTML = html;
 }
 
 function loadWhales() {
-const wl = document.getElementById("whaleList");
-wl.innerHTML = "";
-whales.forEach(w => {
-const wa = document.createElement("div");
-wa.className = "whale-item";
-const actionClass = w.action === "SELL" ? "sell" : "";
-wa.innerHTML = `
+const html = whaleData.map(w => `
+<div class="whale-item">
 <div class="whale-header">
 <div class="whale-name">${w.name}</div>
 <div class="whale-status">${w.action}</div>
 </div>
-<div class="whale-action ${actionClass}">${w.action === 'BUY' ? '💚' : '❤️'} ${w.action} ${w.amount}</div>
+<div class="whale-action ${w.action === 'SELL' ? 'sell' : ''}">${w.action === 'BUY' ? '💚' : '❤️'} ${w.action} ${w.amount}</div>
 <div class="whale-details">
-<div class="whale-detail-item">
+<div class="whale-detail">
 <div class="whale-detail-label">Tokens</div>
 <div class="whale-detail-value">${w.tokens}</div>
 </div>
-<div class="whale-detail-item">
+<div class="whale-detail">
 <div class="whale-detail-label">Time</div>
 <div class="whale-detail-value">${w.time}</div>
 </div>
-<div class="whale-detail-item">
+<div class="whale-detail">
 <div class="whale-detail-label">Wallet</div>
 <div class="whale-detail-value" style="font-size:8px;font-family:monospace">${w.wallet}</div>
 </div>
-<div class="whale-detail-item">
+<div class="whale-detail">
 <div class="whale-detail-label">Status</div>
 <div class="whale-detail-value">${w.discord}</div>
 </div>
 </div>
-<div class="whale-follow">
-<button class="follow-btn" onclick="followWhale('${w.name}')">👁️ Follow</button>
-<button class="follow-btn" onclick="copyAddress('${w.wallet}')">📋 Copy</button>
+<div class="whale-btns">
+<button class="whale-btn" onclick="followWhale('${w.name}')">👁️ Follow</button>
+<button class="whale-btn" onclick="copyAddr('${w.wallet}')">📋 Copy</button>
 </div>
-`;
-wl.appendChild(wa);
-});
-}
-
-function switchTimeframe(tf) {
-currentTimeframe = tf;
-document.querySelectorAll(".chart-btn").forEach(x => x.classList.remove("active"));
-event.target.classList.add("active");
-drawChart();
-}
-
-function drawChart() {
-const canvas = document.getElementById("candleChart");
-const ctx = canvas.getContext("2d");
-const w = canvas.offsetWidth;
-const h = canvas.offsetHeight;
-canvas.width = w;
-canvas.height = h;
-
-// Generate candlestick data
-const candles = generateCandles(20);
-const maxPrice = Math.max(...candles.map(c => c.high));
-const minPrice = Math.min(...candles.map(c => c.low));
-const priceRange = maxPrice - minPrice;
-
-const padding = 40;
-const chartW = w - padding * 2;
-const chartH = h - padding * 2;
-const candleW = chartW / candles.length * 0.8;
-const spacing = chartW / candles.length;
-
-// Draw background grid
-ctx.strokeStyle = "#ffffff10";
-ctx.lineWidth = 1;
-for(let i = 0; i < 5; i++) {
-const y = padding + (chartH / 4) * i;
-ctx.beginPath();
-ctx.moveTo(padding, y);
-ctx.lineTo(w - padding, y);
-ctx.stroke();
-}
-
-// Draw candles
-candles.forEach((c, i) => {
-const x = padding + i * spacing + spacing/2;
-const yHigh = padding + chartH - ((c.high - minPrice) / priceRange) * chartH;
-const yLow = padding + chartH - ((c.low - minPrice) / priceRange) * chartH;
-const yOpen = padding + chartH - ((c.open - minPrice) / priceRange) * chartH;
-const yClose = padding + chartH - ((c.close - minPrice) / priceRange) * chartH;
-
-const color = c.close >= c.open ? "#00d4aa" : "#ff4757";
-ctx.strokeStyle = color;
-ctx.fillStyle = color;
-ctx.lineWidth = 2;
-
-// Wick
-ctx.beginPath();
-ctx.moveTo(x, yHigh);
-ctx.lineTo(x, yLow);
-ctx.stroke();
-
-// Body
-const bodyTop = Math.min(yOpen, yClose);
-const bodyH = Math.abs(yOpen - yClose) || 2;
-ctx.fillRect(x - candleW/2, bodyTop, candleW, bodyH);
-});
-
-// Draw axes
-ctx.strokeStyle = "#ffffff30";
-ctx.lineWidth = 1;
-ctx.beginPath();
-ctx.moveTo(padding, h - padding);
-ctx.lineTo(w - padding, h - padding);
-ctx.stroke();
-});
-
-// Draw price labels
-ctx.fillStyle = "#7a8ba8";
-ctx.font = "9px sans-serif";
-ctx.textAlign = "right";
-for(let i = 0; i < 5; i++) {
-const price = minPrice + (priceRange / 4) * i;
-const y = padding + chartH - (chartH / 4) * i;
-ctx.fillText("$" + price.toFixed(8), padding - 8, y + 3);
-}
-
-loadTxns();
-}
-
-function generateCandles(count) {
-const candles = [];
-let price = 0.000040;
-for(let i = 0; i < count; i++) {
-const open = price;
-const volatility = (Math.random() - 0.5) * 0.0000005;
-const close = open + volatility;
-const high = Math.max(open, close) + Math.random() * 0.0000003;
-const low = Math.min(open, close) - Math.random() * 0.0000003;
-candles.push({open, close, high, low});
-price = close;
-}
-return candles;
+</div>
+`).join("");
+document.getElementById("whalesList").innerHTML = html;
 }
 
 function setAutoTrade() {
-const buyMC = parseFloat(document.getElementById("buyMC").value);
-const sellMC = parseFloat(document.getElementById("sellMC").value);
-if(!buyMC || !sellMC || buyMC >= sellMC) return alert("Invalid targets!");
+const buyMC = document.getElementById("buyMC").value;
+const sellMC = document.getElementById("sellMC").value;
+if(!buyMC || !sellMC) return alert("Enter targets!");
 document.getElementById("mcStatus").textContent = "🟢 ACTIVE";
 document.getElementById("mcStatus").style.color = "#00d4aa";
-notify(`✅ Auto Trade Active:\n💚 BUY @ $${buyMC}M\n❤️ SELL @ $${sellMC}M`);
+notify(`✅ Auto Trade Active!\n💚 BUY @ $${buyMC}M\n❤️ SELL @ $${sellMC}M`);
 }
 
 function cancelAutoTrade() {
@@ -532,17 +391,13 @@ document.getElementById("mcStatus").style.color = "#ff4757";
 notify("❌ Auto Trade Cancelled");
 }
 
-function quickTrade() {
-notify(`Ready to trade PEPE2`);
-}
-
-function copyAddress(addr) {
-navigator.clipboard.writeText(addr);
-notify("📋 Wallet copied!");
-}
-
 function followWhale(name) {
-notify(`✅ Following ${name} activities`);
+notify(`✅ Following ${name}`);
+}
+
+function copyAddr(addr) {
+navigator.clipboard.writeText(addr);
+notify("📋 Copied!");
 }
 
 function notify(msg) {
@@ -553,7 +408,7 @@ document.body.appendChild(n);
 setTimeout(() => n.remove(), 3000);
 }
 
-loadTxns();
+loadChart();
 </script>
 
 </body>
