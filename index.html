@@ -263,7 +263,8 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <!-- ALERTS TAB -->
 <div class="tab-content" id="tab-alerts">
 <div class="data-section">
-<div class="data-title">🔔 Price Alerts (Coming Soon)</div>
+<div class="data-title">🔔 Price Alerts</div>
+<div id="alertsList"></div>
 </div>
 </div>
 
@@ -301,6 +302,13 @@ const whaleData = [
 {name:"⚡ SpeedTrader",action:"SELL",amount:"$28.9K",tokens:"690K",time:"31m ago",wallet:"5Cd...8Jkl",twitter:"@SpeedTraderX",discord:"Verified"}
 ];
 
+const alertsData = [
+{type:"Price",value:"$0.000050",condition:"Above",status:"Active"},
+{type:"Volume",value:"$2M",condition:"Above",status:"Active"},
+{type:"MC",value:"$3M",condition:"Above",status:"Active"},
+{type:"Whale",value:"Large Buy",condition:"Detected",status:"Waiting"}
+];
+
 function switchTab(tab) {
 document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
 document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
@@ -310,6 +318,7 @@ event.target.classList.add("active");
 if(tab === "chart") loadChart();
 if(tab === "txns") loadAllTxns();
 if(tab === "whales") loadWhales();
+if(tab === "alerts") loadAlerts();
 }
 
 function changeTimeframe(tf) {
@@ -374,6 +383,20 @@ const html = whaleData.map(w => `
 </div>
 `).join("");
 document.getElementById("whalesList").innerHTML = html;
+}
+
+function loadAlerts() {
+const html = alertsData.map(a => `
+<div class="whale-item" style="border-left-color:#ff9800">
+<div class="whale-header">
+<div class="whale-name">${a.type} Alert</div>
+<div class="whale-status" style="background:#ff980020;color:#ff9800">${a.status}</div>
+</div>
+<div style="font-size:10px;color:#fff;margin-bottom:6px">📍 Target: ${a.value}</div>
+<div style="font-size:9px;color:#7a8ba8">Condition: ${a.condition}</div>
+</div>
+`).join("");
+document.getElementById("alertsList").innerHTML = html;
 }
 
 function setAutoTrade() {
