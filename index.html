@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel - Smart Auto Trading</title>
+<title>MemeIntel - Fast Auto Trading</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;overflow:hidden}
@@ -32,18 +32,19 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .change-time{font-size:8px;color:#7a8ba8;margin-bottom:4px}
 .change-value{font-size:12px;font-weight:700;color:#00d4aa}
 .change-value.negative{color:#ff4757}
-.target-section{background:linear-gradient(135deg,#1a2847,#253857);border:2px solid #00d4aa;border-radius:10px;padding:14px;margin-bottom:14px}
-.target-title{font-size:12px;font-weight:700;color:#00d4aa;text-transform:uppercase;margin-bottom:10px;letter-spacing:1px}
-.target-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.target-input{display:flex;flex-direction:column;gap:4px}
-.target-label{font-size:9px;color:#7a8ba8;text-transform:uppercase}
-.target-field{padding:10px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#fff;font-size:12px;font-weight:700;font-family:monospace}
-.target-field:focus{outline:none;border-color:#00d4aa}
-.target-status{display:flex;justify-content:space-between;font-size:9px;color:#7a8ba8;margin-bottom:10px}
-.target-status-value{color:#00d4aa;font-weight:700}
-.target-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.target-btn{padding:10px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:10px;font-weight:700;cursor:pointer}
-.target-btn:hover{background:#253857;border-color:#00d4aa}
+.auto-trade-hero{background:linear-gradient(135deg,#00d4aa,#00a885);border:2px solid #00d4aa;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 0 20px #00d4aa30}
+.auto-title{font-size:13px;font-weight:700;color:#000;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.auto-input{display:flex;flex-direction:column;gap:4px}
+.auto-label{font-size:9px;color:#000;text-transform:uppercase;font-weight:700}
+.auto-field{padding:10px;background:#ffffff20;border:1px solid #00000030;border-radius:6px;color:#000;font-size:12px;font-weight:700;font-family:monospace}
+.auto-field:focus{outline:none;border-color:#000}
+.auto-status{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;font-size:9px}
+.status-item{background:#ffffff20;border-radius:6px;padding:8px;text-align:center;color:#000;font-weight:700}
+.auto-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.auto-btn-active{flex:1;padding:12px;background:#000;color:#00d4aa;border:none;border-radius:6px;font-weight:700;cursor:pointer}
+.auto-btn-cancel{flex:1;padding:12px;background:#ffffff30;color:#000;border:none;border-radius:6px;font-weight:700;cursor:pointer}
+.fee-compare{background:#ffffff15;border-radius:8px;padding:10px;margin-top:8px;font-size:8px;text-align:center;color:#000}
 .data-section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:14px;margin-bottom:14px}
 .data-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;margin-bottom:10px;letter-spacing:1px}
 .data-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
@@ -81,10 +82,13 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .whale-detail-value{color:#fff;font-weight:700}
 .whale-btns{display:flex;gap:8px;margin-top:8px}
 .whale-btn{flex:1;padding:8px;background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer}
+.wallet-btn{width:100%;padding:12px;background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;margin-bottom:8px}
+.holders-item{background:#0f1629;border:1px solid #ffffff10;border-radius:6px;padding:10px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.holder-name{font-size:10px;font-weight:700;color:#fff}
+.holder-pct{font-size:10px;font-weight:700;color:#00d4aa}
 .bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:14px}
 .nav-btn{padding:10px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:9px;font-weight:700;cursor:pointer}
 .nav-btn.active{background:#253857;border:2px solid #00d4aa;color:#00d4aa}
-.trade-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:14px}
 .notif{position:fixed;bottom:20px;right:20px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:12px 16px;z-index:999;animation:slideIn 0.3s;font-size:10px}
 @keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
 ::-webkit-scrollbar{width:5px}
@@ -156,25 +160,43 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 </div>
 
-<div class="target-section">
-<div class="target-title">🎯 Auto Trade @ Market Cap</div>
-<div class="target-grid">
-<div class="target-input">
-<label class="target-label">💚 Buy @ MC</label>
-<input type="number" class="target-field" id="buyMC" placeholder="2.0" value="2.0">
+<!-- AUTO BUY/SELL HERO SECTION -->
+<div class="auto-trade-hero">
+<div class="auto-title">⚡ INSTANT AUTO BUY/SELL</div>
+<div class="auto-grid">
+<div class="auto-input">
+<label class="auto-label">💚 Buy Trigger</label>
+<select class="auto-field" id="buyTrigger">
+<option>Market Cap: $2M</option>
+<option>Price: $0.00005</option>
+<option>Volume: $1M</option>
+<option>Whale Buy</option>
+</select>
 </div>
-<div class="target-input">
-<label class="target-label">❤️ Sell @ MC</label>
-<input type="number" class="target-field" id="sellMC" placeholder="3.0" value="3.0">
+<div class="auto-input">
+<label class="auto-label">❤️ Sell Trigger</label>
+<select class="auto-field" id="sellTrigger">
+<option>Market Cap: $3M</option>
+<option>Price: $0.00008</option>
+<option>Volume: $3M</option>
+<option>Take Profit: 50%</option>
+</select>
 </div>
 </div>
-<div class="target-status">
-<span>Current MC: <span class="target-status-value">$1.2M</span></span>
-<span>Status: <span class="target-status-value" id="mcStatus">Waiting...</span></span>
+
+<div class="auto-status">
+<div class="status-item">⚡ Speed: <b>50ms</b></div>
+<div class="status-item">💰 Fee: <b>0.2%</b></div>
+<div class="status-item">🔄 Status: <b id="autoStatus">READY</b></div>
 </div>
-<div class="target-btns">
-<button class="target-btn" onclick="setAutoTrade()">⚙️ Set Auto Trade</button>
-<button class="target-btn" onclick="cancelAutoTrade()">❌ Cancel</button>
+
+<div class="auto-btns">
+<button class="auto-btn-active" onclick="activateAutoTrade()">🚀 ACTIVATE NOW</button>
+<button class="auto-btn-cancel" onclick="deactivateAutoTrade()">STOP</button>
+</div>
+
+<div class="fee-compare">
+📊 Axiom: 0.5% fee | MemeIntel: 0.2% fee | **Save 60% on fees!**
 </div>
 </div>
 
@@ -226,7 +248,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <!-- CHART TAB -->
 <div class="tab-content" id="tab-chart">
 <div class="chart-section">
-<div class="chart-title">📈 Chart</div>
+<div class="chart-title">📈 Live Chart</div>
 <div class="chart-btns">
 <button class="chart-btn active" onclick="changeTimeframe('1m')">1m</button>
 <button class="chart-btn" onclick="changeTimeframe('5m')">5m</button>
@@ -235,7 +257,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <button class="chart-btn" onclick="changeTimeframe('4h')">4h</button>
 <button class="chart-btn" onclick="changeTimeframe('1d')">1d</button>
 </div>
-<div class="chart-placeholder">📈 Price Chart Loading...</div>
+<div class="chart-placeholder">📈 Live Candlestick Chart</div>
 </div>
 
 <div class="txns-section">
@@ -247,7 +269,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <!-- TXNS TAB -->
 <div class="tab-content" id="tab-txns">
 <div class="txns-section">
-<div class="txns-title">📊 All Transactions</div>
+<div class="txns-title">📊 Execution History</div>
 <div id="allTxns"></div>
 </div>
 </div>
@@ -263,7 +285,20 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <!-- ALERTS TAB -->
 <div class="tab-content" id="tab-alerts">
 <div class="data-section">
-<div class="data-title">🔔 Price Alerts</div>
+<div class="data-title">🔔 Smart Alerts & Holders</div>
+<div style="margin-bottom:16px">
+<button class="wallet-btn" onclick="connectWallet()">🔗 Connect Wallet (Phantom/MetaMask)</button>
+</div>
+<div style="margin-bottom:12px">
+<div class="data-title" style="margin-bottom:10px">👥 TOP 10 HOLDERS</div>
+<div id="holdersList"></div>
+</div>
+<div style="margin-bottom:12px">
+<div class="data-title" style="margin-bottom:10px">⚠️ SECURITY METRICS</div>
+<div id="securityList"></div>
+</div>
+<div>
+<div class="data-title" style="margin-bottom:10px">🔔 PRICE ALERTS</div>
 <div id="alertsList"></div>
 </div>
 </div>
@@ -271,27 +306,25 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="bottom-nav">
 <button class="nav-btn active" onclick="switchTab('info')">ℹ️ Info</button>
 <button class="nav-btn" onclick="switchTab('chart')">📈 Chart</button>
-<button class="nav-btn" onclick="switchTab('txns')">📝 Txns</button>
+<button class="nav-btn" onclick="switchTab('txns')">📝 History</button>
 <button class="nav-btn" onclick="switchTab('whales')">🐋 Whales</button>
-<button class="nav-btn" onclick="switchTab('alerts')">🔔 Alerts</button>
+<button class="nav-btn" onclick="switchTab('alerts')">⚙️ More</button>
 </div>
-
-<button class="trade-btn">🔄 Trade PEPE2/SOL</button>
 </div>
 </div>
 
 <script>
 const txnData = [
-{type:"BUY",amount:"$105K",price:"$0.000042",trader:"🧠MegaWhale"},
-{type:"SELL",amount:"$50.4K",price:"$0.000041",trader:"💎SolanaBoss"},
-{type:"BUY",amount:"$75.6K",price:"$0.000039",trader:"👑CryptoKing"},
-{type:"BUY",amount:"$42.3K",price:"$0.000038",trader:"🚀PumpMaster"},
-{type:"SELL",amount:"$28.9K",price:"$0.000037",trader:"⚡SpeedTrader"},
-{type:"BUY",amount:"$63.4K",price:"$0.000036",trader:"💰WhaleWalker"},
-{type:"SELL",amount:"$35.2K",price:"$0.000035",trader:"🎯TargetHunter"},
-{type:"BUY",amount:"$89.7K",price:"$0.000034",trader:"🔥FireSale"},
-{type:"BUY",amount:"$52.1K",price:"$0.000033",trader:"⭐StarGainer"},
-{type:"SELL",amount:"$41.3K",price:"$0.000032",trader:"🌙MoonWalker"}
+{type:"BUY",amount:"$105K",price:"$0.000042",trader:"🧠MegaWhale",speed:"45ms"},
+{type:"SELL",amount:"$50.4K",price:"$0.000041",trader:"💎SolanaBoss",speed:"38ms"},
+{type:"BUY",amount:"$75.6K",price:"$0.000039",trader:"👑CryptoKing",speed:"42ms"},
+{type:"BUY",amount:"$42.3K",price:"$0.000038",trader:"🚀PumpMaster",speed:"35ms"},
+{type:"SELL",amount:"$28.9K",price:"$0.000037",trader:"⚡SpeedTrader",speed:"40ms"},
+{type:"BUY",amount:"$63.4K",price:"$0.000036",trader:"💰WhaleWalker",speed:"48ms"},
+{type:"SELL",amount:"$35.2K",price:"$0.000035",trader:"🎯TargetHunter",speed:"37ms"},
+{type:"BUY",amount:"$89.7K",price:"$0.000034",trader:"🔥FireSale",speed:"41ms"},
+{type:"BUY",amount:"$52.1K",price:"$0.000033",trader:"⭐StarGainer",speed:"39ms"},
+{type:"SELL",amount:"$41.3K",price:"$0.000032",trader:"🌙MoonWalker",speed:"44ms"}
 ];
 
 const whaleData = [
@@ -302,11 +335,33 @@ const whaleData = [
 {name:"⚡ SpeedTrader",action:"SELL",amount:"$28.9K",tokens:"690K",time:"31m ago",wallet:"5Cd...8Jkl",twitter:"@SpeedTraderX",discord:"Verified"}
 ];
 
+const holdersData = [
+{rank:"1",name:"Dev Wallet",pct:"12.5%"},
+{rank:"2",name:"🐋 Whale Alpha",pct:"8.3%"},
+{rank:"3",name:"🐋 Whale Beta",pct:"6.7%"},
+{rank:"4",name:"🐋 Whale Gamma",pct:"5.2%"},
+{rank:"5",name:"Exchange Hot",pct:"4.1%"},
+{rank:"6",name:"🐋 Whale Delta",pct:"3.8%"},
+{rank:"7",name:"Burn Address",pct:"3.2%"},
+{rank:"8",name:"🐋 Whale Epsilon",pct:"2.9%"},
+{rank:"9",name:"Liquidity Pool",pct:"2.5%"},
+{rank:"10",name:"🐋 Whale Zeta",pct:"2.1%"}
+];
+
+const securityData = [
+{metric:"Dev Hold %",value:"12.5%",status:"⚠️ High"},
+{metric:"Sniper %",value:"1.2%",status:"✅ Low"},
+{metric:"Bundlers %",value:"4.3%",status:"⚠️ Medium"},
+{metric:"LP Burned",value:"100%",status:"✅ Safe"},
+{metric:"Mint Auth",value:"Renounced",status:"✅ Safe"},
+{metric:"Freeze Auth",value:"No",status:"✅ Safe"}
+];
+
 const alertsData = [
-{type:"Price",value:"$0.000050",condition:"Above",status:"Active"},
-{type:"Volume",value:"$2M",condition:"Above",status:"Active"},
-{type:"MC",value:"$3M",condition:"Above",status:"Active"},
-{type:"Whale",value:"Large Buy",condition:"Detected",status:"Waiting"}
+{type:"Price Target",value:"$0.000050",condition:"Above",status:"Active"},
+{type:"Volume Spike",value:"$2M+",condition:"Detected",status:"Active"},
+{type:"Whale Activity",value:"Large Trade",condition:"Monitored",status:"Active"},
+{type:"MC Milestone",value:"$3M",condition:"Alert Ready",status:"Waiting"}
 ];
 
 function switchTab(tab) {
@@ -318,7 +373,11 @@ event.target.classList.add("active");
 if(tab === "chart") loadChart();
 if(tab === "txns") loadAllTxns();
 if(tab === "whales") loadWhales();
-if(tab === "alerts") loadAlerts();
+if(tab === "alerts") {
+loadHolders();
+loadSecurity();
+loadAlerts();
+}
 }
 
 function changeTimeframe(tf) {
@@ -332,7 +391,7 @@ const html = txnData.slice(0, 5).map(t => `
 <span class="txn-type ${t.type === 'SELL' ? 'sell' : ''}">${t.type === 'BUY' ? '📈' : '📉'} ${t.type}</span>
 <span class="txn-amount">${t.amount}</span>
 <span class="txn-price">${t.price}</span>
-<span class="txn-trader">${t.trader}</span>
+<span class="txn-trader">${t.trader} <b>${t.speed}</b></span>
 </div>
 `).join("");
 document.getElementById("chartTxns").innerHTML = html;
@@ -344,7 +403,7 @@ const html = txnData.map(t => `
 <span class="txn-type ${t.type === 'SELL' ? 'sell' : ''}">${t.type === 'BUY' ? '📈' : '📉'} ${t.type}</span>
 <span class="txn-amount">${t.amount}</span>
 <span class="txn-price">${t.price}</span>
-<span class="txn-trader">${t.trader}</span>
+<span class="txn-trader">${t.trader} ⚡${t.speed}</span>
 </div>
 `).join("");
 document.getElementById("allTxns").innerHTML = html;
@@ -377,7 +436,7 @@ const html = whaleData.map(w => `
 </div>
 </div>
 <div class="whale-btns">
-<button class="whale-btn" onclick="followWhale('${w.name}')">👁️ Follow</button>
+<button class="whale-btn" onclick="copyTradeWhale('${w.name}')">🔄 Copy Trade</button>
 <button class="whale-btn" onclick="copyAddr('${w.wallet}')">📋 Copy</button>
 </div>
 </div>
@@ -385,11 +444,31 @@ const html = whaleData.map(w => `
 document.getElementById("whalesList").innerHTML = html;
 }
 
+function loadHolders() {
+const html = holdersData.map(h => `
+<div class="holders-item">
+<div class="holder-name">#${h.rank} ${h.name}</div>
+<div class="holder-pct">${h.pct}</div>
+</div>
+`).join("");
+document.getElementById("holdersList").innerHTML = html;
+}
+
+function loadSecurity() {
+const html = securityData.map(s => `
+<div class="holders-item">
+<div class="holder-name">${s.metric}</div>
+<div class="holder-pct">${s.value} ${s.status}</div>
+</div>
+`).join("");
+document.getElementById("securityList").innerHTML = html;
+}
+
 function loadAlerts() {
 const html = alertsData.map(a => `
 <div class="whale-item" style="border-left-color:#ff9800">
 <div class="whale-header">
-<div class="whale-name">${a.type} Alert</div>
+<div class="whale-name">${a.type}</div>
 <div class="whale-status" style="background:#ff980020;color:#ff9800">${a.status}</div>
 </div>
 <div style="font-size:10px;color:#fff;margin-bottom:6px">📍 Target: ${a.value}</div>
@@ -399,28 +478,29 @@ const html = alertsData.map(a => `
 document.getElementById("alertsList").innerHTML = html;
 }
 
-function setAutoTrade() {
-const buyMC = document.getElementById("buyMC").value;
-const sellMC = document.getElementById("sellMC").value;
-if(!buyMC || !sellMC) return alert("Enter targets!");
-document.getElementById("mcStatus").textContent = "🟢 ACTIVE";
-document.getElementById("mcStatus").style.color = "#00d4aa";
-notify(`✅ Auto Trade Active!\n💚 BUY @ $${buyMC}M\n❤️ SELL @ $${sellMC}M`);
+function activateAutoTrade() {
+document.getElementById("autoStatus").textContent = "🟢 ACTIVE";
+document.getElementById("autoStatus").style.color = "#00d4aa";
+notify(`⚡ AUTO TRADE ACTIVATED!\n💚 BUY & ❤️ SELL = AUTOMATIC\n⚡ Speed: 50ms | Fee: 0.2%`);
 }
 
-function cancelAutoTrade() {
-document.getElementById("mcStatus").textContent = "Cancelled";
-document.getElementById("mcStatus").style.color = "#ff4757";
-notify("❌ Auto Trade Cancelled");
+function deactivateAutoTrade() {
+document.getElementById("autoStatus").textContent = "STOPPED";
+document.getElementById("autoStatus").style.color = "#ff4757";
+notify("❌ Auto Trade Stopped");
 }
 
-function followWhale(name) {
-notify(`✅ Following ${name}`);
+function connectWallet() {
+notify(`✅ Phantom/MetaMask Connected!\n💰 Wallet Ready for Auto-Trade`);
+}
+
+function copyTradeWhale(name) {
+notify(`✅ Copy Trading ${name}\n🔄 Following all their trades!`);
 }
 
 function copyAddr(addr) {
 navigator.clipboard.writeText(addr);
-notify("📋 Copied!");
+notify("📋 Wallet Address Copied!");
 }
 
 function notify(msg) {
