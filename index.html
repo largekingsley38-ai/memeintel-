@@ -55,6 +55,23 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .bar-sell{background:#ff4757;flex:1}
 .tab-content{display:none}
 .tab-content.active{display:block}
+.chart-container{background:#0a0e1a;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:14px}
+.chart-controls{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;padding-bottom:8px}
+.chart-btn{padding:6px 10px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:9px;font-weight:700;cursor:pointer;white-space:nowrap}
+.chart-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
+#candleChart{width:100%;height:280px;margin-bottom:12px}
+.txns-container{background:#0a0e1a;border:1px solid #ffffff10;border-radius:10px;padding:12px}
+.txns-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;margin-bottom:10px;letter-spacing:1px}
+.txn-table{width:100%;font-size:9px}
+.txn-header{display:grid;grid-template-columns:0.6fr 0.8fr 1fr 1fr;gap:8px;padding:8px;border-bottom:1px solid #ffffff15;font-weight:700;color:#00d4aa;margin-bottom:6px}
+.txn-row{display:grid;grid-template-columns:0.6fr 0.8fr 1fr 1fr;gap:8px;padding:10px;border-bottom:1px solid #ffffff08;align-items:center;margin-bottom:4px;background:#0f1629;border-radius:6px}
+.txn-type{font-weight:700}
+.txn-buy{color:#00d4aa}
+.txn-sell{color:#ff4757}
+.txn-amount{font-weight:700;color:#fff}
+.txn-price{font-family:monospace;color:#7a8ba8}
+.txn-trader{font-size:8px;color:#00d4aa;cursor:pointer}
+.txn-trader:hover{text-decoration:underline}
 .whale-list{display:flex;flex-direction:column;gap:10px}
 .whale-item{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;border-left:4px solid #00d4aa}
 .whale-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
@@ -211,17 +228,48 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <!-- INFO TAB -->
 <div class="tab-content active" id="infoTab"></div>
 
-<!-- CHART TAB -->
+<!-- CHART+TXNS TAB -->
 <div class="tab-content" id="chartTab">
-<div class="data-section">
-<div class="data-title">📈 Chart (Coming Soon)</div>
+<div class="chart-container">
+<div class="chart-controls" id="chartControls">
+<button class="chart-btn active" onclick="switchTimeframe('1m')">1m</button>
+<button class="chart-btn" onclick="switchTimeframe('5m')">5m</button>
+<button class="chart-btn" onclick="switchTimeframe('15m')">15m</button>
+<button class="chart-btn" onclick="switchTimeframe('1h')">1h</button>
+<button class="chart-btn" onclick="switchTimeframe('4h')">4h</button>
+<button class="chart-btn" onclick="switchTimeframe('1d')">1d</button>
+<button class="chart-btn" onclick="switchTimeframe('1w')">1w</button>
+</div>
+<canvas id="candleChart"></canvas>
+</div>
+
+<div class="txns-container">
+<div class="txns-title">📝 Recent Transactions</div>
+<div class="txn-table">
+<div class="txn-header">
+<span>TYPE</span>
+<span>USD 💵</span>
+<span>PRICE 📊</span>
+<span>TRADER 👤</span>
+</div>
+<div id="txnsList"></div>
+</div>
 </div>
 </div>
 
-<!-- TXNS TAB -->
+<!-- TXN DETAILS TAB -->
 <div class="tab-content" id="txnsTab">
-<div class="data-section">
-<div class="data-title">📝 Transactions (Coming Soon)</div>
+<div class="txns-container">
+<div class="txns-title">📊 All Transactions</div>
+<div class="txn-table">
+<div class="txn-header">
+<span>TYPE</span>
+<span>USD 💵</span>
+<span>PRICE 📊</span>
+<span>TRADER 👤</span>
+</div>
+<div id="txnsFullList"></div>
+</div>
 </div>
 </div>
 
@@ -259,6 +307,19 @@ const tokens = [
 {name:"PEPE2",icon:"🐸",chain:"Solana",price:0.000042,mc:1.2,fdv:420000,liq:450000,txns:16682,vol:1200000,buys:8388,buyVol:636000,buyers:2058}
 ];
 
+const transactions = [
+{type:"BUY",amount:105000,price:0.000042,trader:"🧠MegaWhale",time:"2m"},
+{type:"SELL",amount:50400,price:0.000041,trader:"💎SolanaBoss",time:"8m"},
+{type:"BUY",amount:75600,price:0.000039,trader:"👑CryptoKing",time:"15m"},
+{type:"BUY",amount:42300,price:0.000038,trader:"🚀PumpMaster",time:"22m"},
+{type:"SELL",amount:28900,price:0.000037,trader:"⚡SpeedTrader",time:"31m"},
+{type:"BUY",amount:63400,price:0.000036,trader:"💰WhaleWalker",time:"42m"},
+{type:"SELL",amount:35200,price:0.000035,trader:"🎯TargetHunter",time:"51m"},
+{type:"BUY",amount:89700,price:0.000034,trader:"🔥FireSale",time:"58m"},
+{type:"BUY",amount:52100,price:0.000033,trader:"⭐StarGainer",time:"1h5m"},
+{type:"SELL",amount:41300,price:0.000032,trader:"🌙MoonWalker",time:"1h12m"}
+];
+
 const whales = [
 {name:"🧠 MegaWhale",action:"BUY",amount:"$105K",tokens:"2.5M",time:"2m ago",wallet:"4Mq...9Xyz",twitter:"@MegaWhale_SOL",discord:"Active"},
 {name:"💎 SolanaBoss",action:"SELL",amount:"$50.4K",tokens:"1.2M",time:"8m ago",wallet:"7Kp...2Abc",twitter:"@SolanaBoss",discord:"Active"},
@@ -268,6 +329,7 @@ const whales = [
 ];
 
 let currentTab = "info";
+let currentTimeframe = "1m";
 
 function switchTab(tab) {
 document.querySelectorAll(".tab-content").forEach(x => x.classList.remove("active"));
@@ -276,7 +338,43 @@ document.querySelectorAll(".nav-btn").forEach(x => x.classList.remove("active"))
 event.target.classList.add("active");
 currentTab = tab;
 
+if(tab === "chart") drawChart();
 if(tab === "whales") loadWhales();
+if(tab === "txns") loadAllTxns();
+}
+
+function loadTxns() {
+const tl = document.getElementById("txnsList");
+tl.innerHTML = "";
+transactions.slice(0, 5).forEach(t => {
+const tr = document.createElement("div");
+tr.className = "txn-row";
+const typeClass = t.type === "SELL" ? "txn-sell" : "txn-buy";
+tr.innerHTML = `
+<span class="txn-type ${typeClass}">${t.type === 'BUY' ? '📈' : '📉'} ${t.type}</span>
+<span class="txn-amount">$${(t.amount/1000).toFixed(0)}K</span>
+<span class="txn-price">$${t.price.toFixed(8)}</span>
+<span class="txn-trader" onclick="copyAddress('${t.trader}')">${t.trader}</span>
+`;
+tl.appendChild(tr);
+});
+}
+
+function loadAllTxns() {
+const tl = document.getElementById("txnsFullList");
+tl.innerHTML = "";
+transactions.forEach(t => {
+const tr = document.createElement("div");
+tr.className = "txn-row";
+const typeClass = t.type === "SELL" ? "txn-sell" : "txn-buy";
+tr.innerHTML = `
+<span class="txn-type ${typeClass}">${t.type === 'BUY' ? '📈' : '📉'} ${t.type}</span>
+<span class="txn-amount">$${(t.amount/1000).toFixed(0)}K</span>
+<span class="txn-price">$${t.price.toFixed(8)}</span>
+<span class="txn-trader" onclick="copyAddress('${t.trader}')">${t.trader}</span>
+`;
+tl.appendChild(tr);
+});
 }
 
 function loadWhales() {
@@ -319,13 +417,104 @@ wl.appendChild(wa);
 });
 }
 
-function followWhale(name) {
-notify(`✅ Following ${name} activities`);
+function switchTimeframe(tf) {
+currentTimeframe = tf;
+document.querySelectorAll(".chart-btn").forEach(x => x.classList.remove("active"));
+event.target.classList.add("active");
+drawChart();
 }
 
-function copyAddress(addr) {
-navigator.clipboard.writeText(addr);
-notify("📋 Wallet copied!");
+function drawChart() {
+const canvas = document.getElementById("candleChart");
+const ctx = canvas.getContext("2d");
+const w = canvas.offsetWidth;
+const h = canvas.offsetHeight;
+canvas.width = w;
+canvas.height = h;
+
+// Generate candlestick data
+const candles = generateCandles(20);
+const maxPrice = Math.max(...candles.map(c => c.high));
+const minPrice = Math.min(...candles.map(c => c.low));
+const priceRange = maxPrice - minPrice;
+
+const padding = 40;
+const chartW = w - padding * 2;
+const chartH = h - padding * 2;
+const candleW = chartW / candles.length * 0.8;
+const spacing = chartW / candles.length;
+
+// Draw background grid
+ctx.strokeStyle = "#ffffff10";
+ctx.lineWidth = 1;
+for(let i = 0; i < 5; i++) {
+const y = padding + (chartH / 4) * i;
+ctx.beginPath();
+ctx.moveTo(padding, y);
+ctx.lineTo(w - padding, y);
+ctx.stroke();
+}
+
+// Draw candles
+candles.forEach((c, i) => {
+const x = padding + i * spacing + spacing/2;
+const yHigh = padding + chartH - ((c.high - minPrice) / priceRange) * chartH;
+const yLow = padding + chartH - ((c.low - minPrice) / priceRange) * chartH;
+const yOpen = padding + chartH - ((c.open - minPrice) / priceRange) * chartH;
+const yClose = padding + chartH - ((c.close - minPrice) / priceRange) * chartH;
+
+const color = c.close >= c.open ? "#00d4aa" : "#ff4757";
+ctx.strokeStyle = color;
+ctx.fillStyle = color;
+ctx.lineWidth = 2;
+
+// Wick
+ctx.beginPath();
+ctx.moveTo(x, yHigh);
+ctx.lineTo(x, yLow);
+ctx.stroke();
+
+// Body
+const bodyTop = Math.min(yOpen, yClose);
+const bodyH = Math.abs(yOpen - yClose) || 2;
+ctx.fillRect(x - candleW/2, bodyTop, candleW, bodyH);
+});
+
+// Draw axes
+ctx.strokeStyle = "#ffffff30";
+ctx.lineWidth = 1;
+ctx.beginPath();
+ctx.moveTo(padding, h - padding);
+ctx.lineTo(w - padding, h - padding);
+ctx.stroke();
+});
+
+// Draw price labels
+ctx.fillStyle = "#7a8ba8";
+ctx.font = "9px sans-serif";
+ctx.textAlign = "right";
+for(let i = 0; i < 5; i++) {
+const price = minPrice + (priceRange / 4) * i;
+const y = padding + chartH - (chartH / 4) * i;
+ctx.fillText("$" + price.toFixed(8), padding - 8, y + 3);
+}
+
+loadTxns();
+}
+
+function generateCandles(count) {
+const candles = [];
+let price = 0.000040;
+for(let i = 0; i < count; i++) {
+const open = price;
+const volatility = (Math.random() - 0.5) * 0.0000005;
+const close = open + volatility;
+const high = Math.max(open, close) + Math.random() * 0.0000003;
+const low = Math.min(open, close) - Math.random() * 0.0000003;
+candles.push({open, close, high, low});
+price = close;
+}
+return candles;
 }
 
 function setAutoTrade() {
@@ -347,6 +536,15 @@ function quickTrade() {
 notify(`Ready to trade PEPE2`);
 }
 
+function copyAddress(addr) {
+navigator.clipboard.writeText(addr);
+notify("📋 Wallet copied!");
+}
+
+function followWhale(name) {
+notify(`✅ Following ${name} activities`);
+}
+
 function notify(msg) {
 const n = document.createElement("div");
 n.className = "notif";
@@ -354,6 +552,8 @@ n.innerHTML = msg;
 document.body.appendChild(n);
 setTimeout(() => n.remove(), 3000);
 }
+
+loadTxns();
 </script>
 
 </body>
