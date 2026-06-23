@@ -3,15 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel PRO MAX - Ultimate Trading</title>
+<title>MemeIntel PRO MAX - Real Trading</title>
+<script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;overflow:hidden}
 .app{display:flex;flex-direction:column;height:100vh}
 .header{background:#0f1629;border-bottom:1px solid #ffffff15;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;height:50px}
 .logo{font-size:13px;font-weight:900;color:#00d4aa}
-.header-controls{display:flex;gap:8px}
-.chain-selector{background:#0f1629;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:9px;font-weight:700}
+.header-controls{display:flex;gap:8px;align-items:center}
+.wallet-btn{background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;padding:8px 12px;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
+.wallet-info{background:#0f1629;border:1px solid #00d4aa;padding:8px 12px;border-radius:6px;font-size:8px;color:#00d4aa;font-weight:700;max-width:150px;overflow:hidden;text-overflow:ellipsis}
+.chain-selector{background:#0f1629;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:9px}
 .settings-icon{background:#0f1629;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:12px}
 .content{flex:1;overflow-y:auto;padding:12px}
 .hero{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center}
@@ -25,29 +28,31 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .metric-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:8px;text-align:center}
 .metric-label{font-size:7px;color:#7a8ba8;margin-bottom:3px}
 .metric-value{font-size:10px;font-weight:700;color:#00d4aa}
-.auto-trade-hero{background:linear-gradient(135deg,#00d4aa,#00a885);border-radius:10px;padding:12px;margin-bottom:12px}
-.auto-title{font-size:11px;font-weight:700;color:#000;margin-bottom:8px}
+.wallet-balance{background:linear-gradient(135deg,#00d4aa,#00a885);border-radius:10px;padding:14px;margin-bottom:12px;color:#000}
+.balance-label{font-size:10px;font-weight:700;margin-bottom:6px}
+.balance-value{font-size:20px;font-weight:900;margin-bottom:6px}
+.balance-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:9px}
+.balance-item{background:#00000020;border-radius:6px;padding:6px;font-weight:700}
+.auto-trade-hero{background:linear-gradient(135deg,#1a2847,#253857);border:2px solid #00d4aa;border-radius:10px;padding:12px;margin-bottom:12px}
+.auto-title{font-size:11px;font-weight:700;color:#00d4aa;margin-bottom:8px;text-transform:uppercase}
 .auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.auto-field{padding:8px;background:#ffffff20;border:1px solid #00000030;border-radius:6px;color:#000;font-size:10px;font-weight:700;font-family:monospace}
+.auto-field{padding:8px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#fff;font-size:10px;font-weight:700;font-family:monospace}
 .auto-status{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;font-size:8px}
-.status-item{background:#ffffff20;border-radius:6px;padding:6px;text-align:center;color:#000;font-weight:700}
+.status-item{background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;padding:6px;text-align:center;color:#00d4aa;font-weight:700}
 .auto-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.auto-btn{padding:10px;background:#000;color:#00d4aa;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
+.auto-btn{padding:10px;background:#00d4aa;color:#000;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
+.auto-btn.disabled{background:#7a8ba8;cursor:not-allowed}
 .section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:12px}
 .section-title{font-size:10px;font-weight:700;color:#00d4aa;margin-bottom:8px;text-transform:uppercase}
-.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.metric-item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;text-align:center}
-.metric-item-label{font-size:7px;color:#7a8ba8;margin-bottom:4px}
-.metric-item-value{font-size:10px;font-weight:700;color:#00d4aa}
 .item-list{display:flex;flex-direction:column;gap:6px}
 .item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;font-size:8px}
 .item-label{color:#7a8ba8;margin-bottom:3px}
 .item-value{color:#fff;font-weight:700}
-.whale-item{background:#0a0e1a;border:1px solid #ffffff10;border-radius:8px;padding:10px;margin-bottom:6px;border-left:3px solid #00d4aa}
-.whale-header{display:flex;justify-content:space-between;margin-bottom:6px}
-.whale-name{font-size:9px;font-weight:700;color:#fff}
-.whale-status{font-size:8px;padding:2px 6px;background:#00d4aa20;color:#00d4aa;border-radius:4px}
-.whale-details{font-size:8px;color:#7a8ba8}
+.tx-preview{background:#0a0e1a;border:1px solid #00d4aa30;border-radius:8px;padding:10px;margin-bottom:8px}
+.tx-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #ffffff08;font-size:9px}
+.tx-row:last-child{border:none}
+.tx-label{color:#7a8ba8}
+.tx-value{color:#fff;font-weight:700}
 .bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-bottom:12px}
 .nav-btn{padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer}
 .nav-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
@@ -57,24 +62,11 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 @keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:2px}
-
-/* SETTINGS MODAL */
-.settings-modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000000aa;z-index:1000;overflow-y:auto}
-.settings-modal.active{display:block}
-.settings-content{background:#0a0e1a;margin:20px;border-radius:12px;padding:20px;border:1px solid #ffffff15}
-.settings-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #ffffff15}
-.settings-title{font-size:16px;font-weight:700;color:#00d4aa}
-.close-btn{background:#ff4757;color:#fff;border:none;border-radius:6px;padding:8px 12px;cursor:pointer;font-weight:700}
-.settings-section{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #ffffff15}
-.settings-section-title{font-size:11px;font-weight:700;color:#00d4aa;margin-bottom:10px;text-transform:uppercase}
-.setting-item{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#1a2847;border-radius:6px;margin-bottom:6px;font-size:9px}
-.setting-label{color:#fff;font-weight:700}
-.setting-value{color:#00d4aa;font-weight:700;cursor:pointer}
-.setting-toggle{width:40px;height:24px;background:#0f1629;border:1px solid #ffffff15;border-radius:12px;cursor:pointer;display:flex;align-items:center;position:relative}
-.setting-toggle.on{background:#00d4aa}
-.toggle-dot{width:20px;height:20px;background:#fff;border-radius:10px;position:absolute;left:2px;transition:left 0.2s}
-.setting-toggle.on .toggle-dot{left:18px}
-.input-setting{width:100%;padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#fff;font-size:9px;font-family:monospace}
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000000aa;z-index:1000;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{background:#0a0e1a;border:1px solid #00d4aa;border-radius:12px;padding:20px;max-width:90%;max-height:90%;overflow-y:auto}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;color:#00d4aa;font-weight:700}
+.close-btn{background:none;border:none;color:#00d4aa;font-size:20px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -84,12 +76,12 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="logo">⚡ MEMEINTEL PRO MAX</div>
 <div class="header-controls">
 <select class="chain-selector" id="chainSelect" onchange="switchChain()">
-<option>SOL</option>
-<option>ETH</option>
-<option>BSC</option>
-<option>POLY</option>
+<option value="SOL">SOL</option>
+<option value="ETH">ETH</option>
+<option value="BSC">BSC</option>
 </select>
-<button class="settings-icon" onclick="openSettings()">⚙️</button>
+<button class="wallet-btn" id="walletBtn" onclick="connectWallet()">🔗 Connect Wallet</button>
+<div class="wallet-info" id="walletInfo" style="display:none;">📍 <span id="walletAddress"></span></div>
 </div>
 </div>
 
@@ -100,7 +92,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="prices">
 <div class="price-box">
 <div class="price-label">Price USD</div>
-<div class="price-value">$0.000042</div>
+<div class="price-value" id="tokenPrice">$0.000042</div>
 </div>
 <div class="price-box">
 <div class="price-label">API: Live</div>
@@ -124,521 +116,175 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 </div>
 
-<!-- AUTO TRADE -->
+<!-- WALLET BALANCE -->
+<div class="wallet-balance" id="balanceSection" style="display:none;">
+<div class="balance-label">💰 YOUR BALANCE</div>
+<div class="balance-value" id="balanceAmount">0 SOL</div>
+<div class="balance-meta">
+<div class="balance-item">💵 Value: <span id="balanceUSD">$0</span></div>
+<div class="balance-item">🔄 Spendable: <span id="balanceSpendable">0 SOL</span></div>
+</div>
+</div>
+
+<!-- AUTO TRADE WITH REAL WALLET -->
 <div class="auto-trade-hero">
-<div class="auto-title">⚡ INSTANT AUTO BUY/SELL + SNIPER</div>
+<div class="auto-title">⚡ REAL AUTO BUY/SELL</div>
 <div class="auto-grid">
 <div>
-<div style="font-size:8px;color:#000;font-weight:700;margin-bottom:4px">💚 Buy Trigger</div>
-<select class="auto-field">
+<div style="font-size:8px;color:#00d4aa;font-weight:700;margin-bottom:4px">💚 Buy Trigger</div>
+<select class="auto-field" id="buyTrigger">
 <option>Market Cap: $2M</option>
 <option>Price: $0.00005</option>
-<option>New Token (Sniper)</option>
+<option>Manual Entry</option>
 </select>
 </div>
 <div>
-<div style="font-size:8px;color:#000;font-weight:700;margin-bottom:4px">❤️ Sell Trigger</div>
-<select class="auto-field">
+<div style="font-size:8px;color:#00d4aa;font-weight:700;margin-bottom:4px">❤️ Sell Trigger</div>
+<select class="auto-field" id="sellTrigger">
 <option>Market Cap: $3M</option>
 <option>Take Profit: 50%</option>
-<option>Stop Loss: 10%</option>
+<option>Manual Exit</option>
 </select>
 </div>
 </div>
 <div class="auto-status">
-<div class="status-item">⚡ 50ms</div>
-<div class="status-item">💰 0.2%</div>
-<div class="status-item">🔐 Safe</div>
+<div class="status-item">⚡ Speed: 50ms</div>
+<div class="status-item">💰 Fee: 0.2%</div>
+<div class="status-item" id="walletStatus">❌ Not Connected</div>
 </div>
 <div class="auto-btns">
-<button class="auto-btn" onclick="activateAuto()">🚀 ACTIVATE</button>
-<button class="auto-btn" style="background:#ff4757" onclick="stopAuto()">⏹️ STOP</button>
+<button class="auto-btn" id="activateBtn" onclick="activateAutoTrade()" disabled>🚀 ACTIVATE</button>
+<button class="auto-btn" style="background:#ff4757" onclick="stopAutoTrade()">⏹️ STOP</button>
 </div>
 </div>
 
-<!-- AI SIGNALS -->
+<!-- QUICK TRADE SECTION -->
 <div class="section">
-<div class="section-title">🤖 AI SIGNALS & ANALYTICS</div>
-<div class="metrics-grid">
-<div class="metric-item">
-<div class="metric-item-label">📈 Pump Signal</div>
-<div class="metric-item-value" style="color:#00d4aa">🟢 +85%</div>
-</div>
-<div class="metric-item">
-<div class="metric-item-label">🐋 Whale Signal</div>
-<div class="metric-item-value" style="color:#ff9800">⚠️ HIGH</div>
-</div>
-<div class="metric-item">
-<div class="metric-item-label">💎 Confidence</div>
-<div class="metric-item-value">92%</div>
-</div>
-<div class="metric-item">
-<div class="metric-item-label">📊 Trend</div>
-<div class="metric-item-value">Bullish</div>
-</div>
-</div>
-</div>
-
-<!-- PREMIUM BOTS -->
-<div class="section">
-<div class="section-title">💎 PREMIUM: ADVANCED BOTS</div>
+<div class="section-title">💳 Quick Trade</div>
 <div class="item-list">
 <div class="item">
-<div class="item-label">🤖 DCA Bot | $100 every 1H</div>
-<div class="item-value">⚙️ Running | Profits: $450</div>
+<div class="item-label">Amount to Trade (SOL)</div>
+<input type="number" id="tradeAmount" class="auto-field" placeholder="0.5" value="0.5" style="width:100%;margin-top:4px">
 </div>
 <div class="item">
-<div class="item-label">🎯 Grid Bot | 3 Active</div>
-<div class="item-value">Profits: $2,450 | Win: 78%</div>
+<div class="item-label">Slippage Tolerance (%)</div>
+<input type="number" id="slippage" class="auto-field" placeholder="2" value="2" style="width:100%;margin-top:4px">
 </div>
-<div class="item">
-<div class="item-label">⚡ Momentum Bot</div>
-<div class="item-value">Next Signal: 2h 15m | Win: 82%</div>
 </div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px">
+<button class="auto-btn" onclick="previewBuy()">👁️ Preview Buy</button>
+<button class="auto-btn" style="background:#ff4757" onclick="previewSell()">👁️ Preview Sell</button>
 </div>
 </div>
 
-<!-- SECURITY -->
-<div class="section">
-<div class="section-title">🔐 SECURITY & LIMITS</div>
-<div class="item-list">
-<div class="item">
-<div class="item-label">Slippage Protection</div>
-<div class="item-value">2% Max | 🟢 Enabled</div>
+<!-- TRANSACTION PREVIEW -->
+<div class="section" id="txPreview" style="display:none;">
+<div class="section-title">📋 Transaction Preview</div>
+<div class="tx-preview">
+<div class="tx-row">
+<span class="tx-label">Action</span>
+<span class="tx-value" id="txAction">BUY</span>
 </div>
-<div class="item">
-<div class="item-label">Transaction Limit</div>
-<div class="item-value">$10,000/trade | 🟢 Active</div>
+<div class="tx-row">
+<span class="tx-label">Amount (SOL)</span>
+<span class="tx-value" id="txAmount">0.5</span>
 </div>
-<div class="item">
-<div class="item-label">Anti-Rug Detector</div>
-<div class="item-value">🟢 SAFE | Dev Lock: YES</div>
+<div class="tx-row">
+<span class="tx-label">Token Receive</span>
+<span class="tx-value" id="txReceive">11,904.76 PEPE2</span>
 </div>
+<div class="tx-row">
+<span class="tx-label">Fee (0.2%)</span>
+<span class="tx-value" id="txFee">0.001 SOL</span>
 </div>
+<div class="tx-row">
+<span class="tx-label">Total Cost</span>
+<span class="tx-value" id="txTotal">0.501 SOL</span>
 </div>
-
-<!-- COPY TRADING -->
-<div class="section">
-<div class="section-title">🔄 COPY TRADING - FOLLOW WHALES</div>
-<div class="item-list">
-<div class="item" style="background:#ff980020;border-left:3px solid #ff9800">
-<div class="item-label">🧠 MegaWhale</div>
-<div class="item-value">Following | Copy Enabled | 92% Win</div>
-</div>
-<div class="item" style="background:#ff980020;border-left:3px solid #ff9800">
-<div class="item-label">💎 SolanaBoss</div>
-<div class="item-value">Following | Copy Enabled | 78% Win</div>
+<div class="tx-row">
+<span class="tx-label">Speed</span>
+<span class="tx-value">⚡ 50ms</span>
 </div>
 </div>
-</div>
-
-<!-- TOP HOLDERS -->
-<div class="section">
-<div class="section-title">👥 TOP 10 HOLDERS & 🐋 WHALES</div>
-<div class="item-list">
-<div class="whale-item">
-<div class="whale-header">
-<div class="whale-name">🧠 MegaWhale</div>
-<div class="whale-status">BUY</div>
-</div>
-<div class="whale-details">💚 BUY $105K • 2m ago</div>
-</div>
-<div class="whale-item">
-<div class="whale-header">
-<div class="whale-name">💎 SolanaBoss</div>
-<div class="whale-status">SELL</div>
-</div>
-<div class="whale-details">❤️ SELL $50.4K • 8m ago</div>
-</div>
-<div class="whale-item">
-<div class="whale-header">
-<div class="whale-name">👑 CryptoKing</div>
-<div class="whale-status">BUY</div>
-</div>
-<div class="whale-details">💚 BUY $75.6K • 15m ago</div>
-</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px">
+<button class="auto-btn" id="executeBtn" onclick="executeTrade()">✅ EXECUTE</button>
+<button class="auto-btn" style="background:#ff4757" onclick="cancelTx()">❌ CANCEL</button>
 </div>
 </div>
 
-<!-- TABS -->
+<!-- PORTFOLIO -->
 <div class="bottom-nav">
 <button class="nav-btn active" onclick="switchTab('portfolio')">💼 Portfolio</button>
-<button class="nav-btn" onclick="switchTab('backtest')">📈 Backtest</button>
-<button class="nav-btn" onclick="switchTab('alerts')">🔔 Alerts</button>
 <button class="nav-btn" onclick="switchTab('history')">📋 History</button>
+<button class="nav-btn" onclick="switchTab('whales')">🐋 Whales</button>
+<button class="nav-btn" onclick="switchTab('alerts')">🔔 Alerts</button>
 </div>
 
-<!-- PORTFOLIO TAB -->
 <div id="portfolio" class="tab-content active">
 <div class="section">
 <div class="section-title">💼 YOUR PORTFOLIO</div>
 <div class="item-list">
 <div class="item">
-<div class="item-label">💰 Total Balance</div>
-<div class="item-value" style="color:#00d4aa">$12,450 | +$2,300 (+22.9%)</div>
+<div class="item-label">Total Balance</div>
+<div class="item-value" id="portfolioBalance">Connect wallet to see</div>
 </div>
 <div class="item">
-<div class="item-label">📊 Open Positions</div>
-<div class="item-value">5 Active Trades | Unrealized: +$450</div>
+<div class="item-label">Open Positions</div>
+<div class="item-value" id="openPositions">0</div>
 </div>
 <div class="item">
-<div class="item-label">🎯 Today's Trades</div>
-<div class="item-value">12 Executed | Win Rate: 75% | Profit: $680</div>
+<div class="item-label">Today's P&L</div>
+<div class="item-value" id="todayPnL">+$0</div>
 </div>
 <div class="item">
-<div class="item-label">🏆 Best Trade</div>
-<div class="item-value">$105K Buy → $156K Sell | +$51K</div>
-</div>
-<div class="item">
-<div class="item-label">📈 Monthly P&L</div>
-<div class="item-value" style="color:#00d4aa">+$8,450 (68% ROI)</div>
-</div>
-<div class="item">
-<div class="item-label">⚡ Avg Trade Speed</div>
-<div class="item-value">42ms | Fastest: 35ms</div>
+<div class="item-label">Total Trades</div>
+<div class="item-value" id="totalTrades">0</div>
 </div>
 </div>
 </div>
 </div>
 
-<!-- BACKTEST TAB -->
-<div id="backtest" class="tab-content">
-<div class="section">
-<div class="section-title">📈 BACKTEST STRATEGY</div>
-<div class="item-list">
-<div class="item">
-<div class="item-label">Strategy: MA Crossover 20/50</div>
-<div class="item-value">Win Rate: 72% | Profit: +$3,450</div>
-</div>
-<div class="item">
-<div class="item-label">Total Trades Tested</div>
-<div class="item-value">45 trades over 3 months</div>
-</div>
-<div class="item">
-<div class="item-label">Max Drawdown</div>
-<div class="item-value">8.5% | Sharpe Ratio: 2.45</div>
-</div>
-<div class="item">
-<div class="item-label">Risk/Reward Ratio</div>
-<div class="item-value">1:3.2 | Avg Win: $76 | Avg Loss: $24</div>
-</div>
-<div class="item" style="background:#00d4aa20;border-left:3px solid #00d4aa">
-<div class="item-label">✅ APPROVED FOR LIVE</div>
-<div class="item-value">Ready to Deploy | Click: 🚀 Start</div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- ALERTS TAB -->
-<div id="alerts" class="tab-content">
-<div class="section">
-<div class="section-title">🔔 CUSTOM ALERTS</div>
-<div class="item-list">
-<div class="item">
-<div class="item-label">💚 Price Above $0.000050</div>
-<div class="item-value">🟢 Active | Triggered: 2h ago</div>
-</div>
-<div class="item">
-<div class="item-label">🐋 Whale Deposit >$100K</div>
-<div class="item-value">🟢 Watching | Alerts: 3 today</div>
-</div>
-<div class="item">
-<div class="item-label">📊 Volume >$5M in 1H</div>
-<div class="item-value">🟢 Active | Next check: 15m</div>
-</div>
-<div class="item">
-<div class="item-label">🔥 MC Milestone: $5M</div>
-<div class="item-value">⏳ Waiting | 40% away</div>
-</div>
-<div class="item">
-<div class="item-label">⚡ Pump Signal >70%</div>
-<div class="item-value">🟢 Monitoring | Last: +85%</div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- HISTORY TAB -->
 <div id="history" class="tab-content">
 <div class="section">
-<div class="section-title">📋 EXECUTION HISTORY</div>
+<div class="section-title">📋 TRADE HISTORY</div>
+<div class="item-list" id="historyList">
+<div class="item">
+<div class="item-label">No trades yet</div>
+<div class="item-value">Connect wallet and execute trades</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="whales" class="tab-content">
+<div class="section">
+<div class="section-title">🐋 WHALE ACTIVITIES</div>
 <div class="item-list">
 <div class="item">
-<div class="item-label">BUY $105K | 45ms | Fee: $21</div>
-<div class="item-value">PEPE2 @ $0.000042 | 2m ago ✅</div>
+<div class="item-label">🧠 MegaWhale BUY</div>
+<div class="item-value">💚 $105K • 2m ago</div>
 </div>
 <div class="item">
-<div class="item-label">SELL $50.4K | 38ms | Fee: $10</div>
-<div class="item-value">BONK2 @ $0.000041 | 8m ago ✅</div>
+<div class="item-label">💎 SolanaBoss SELL</div>
+<div class="item-value">❤️ $50.4K • 8m ago</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="alerts" class="tab-content">
+<div class="section">
+<div class="section-title">🔔 ALERTS</div>
+<div class="item-list">
+<div class="item">
+<div class="item-label">💚 Price > $0.000050</div>
+<div class="item-value">🟢 Active</div>
 </div>
 <div class="item">
-<div class="item-label">BUY $75.6K | 42ms | Fee: $15</div>
-<div class="item-value">DOGWIF3 @ $0.000039 | 15m ago ✅</div>
+<div class="item-label">🐋 Whale > $100K</div>
+<div class="item-value">🟢 Watching</div>
 </div>
-<div class="item">
-<div class="item-label">SELL $42.3K | 40ms | Fee: $8</div>
-<div class="item-value">FLOKI @ $0.000035 | 28m ago ✅</div>
 </div>
-<div class="item">
-<div class="item-label">BUY $63.4K | 48ms | Fee: $13</div>
-<div class="item-value">ELON @ $0.000042 | 45m ago ✅</div>
-</div>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- SETTINGS MODAL -->
-<div class="settings-modal" id="settingsModal">
-<div class="settings-content">
-<div class="settings-header">
-<div class="settings-title">⚙️ SETTINGS & CUSTOMIZATION</div>
-<button class="close-btn" onclick="closeSettings()">✕ Close</button>
-</div>
-
-<!-- DISPLAY SETTINGS -->
-<div class="settings-section">
-<div class="settings-section-title">🎨 DISPLAY</div>
-<div class="setting-item">
-<div class="setting-label">Theme</div>
-<div class="setting-value" onclick="toggleTheme()">Dark Mode 🌙</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Color Scheme</div>
-<select class="input-setting" style="width:auto;flex:1">
-<option>Cyan (#00d4aa)</option>
-<option>Green (#00ff00)</option>
-<option>Purple (#a855f7)</option>
-<option>Orange (#ff9800)</option>
-<option>Blue (#2196F3)</option>
-</select>
-</div>
-<div class="setting-item">
-<div class="setting-label">Font Size</div>
-<select class="input-setting" style="width:auto;flex:1">
-<option>Small</option>
-<option selected>Normal</option>
-<option>Large</option>
-</select>
-</div>
-</div>
-
-<!-- BLOCKCHAIN SETTINGS -->
-<div class="settings-section">
-<div class="settings-section-title">⛓️ BLOCKCHAIN & NETWORK</div>
-<div class="setting-item">
-<div class="setting-label">Primary Chain</div>
-<select class="input-setting" style="width:auto;flex:1" id="chainSelect">
-<option selected>Solana (SOL)</option>
-<option>Ethereum (ETH)</option>
-<option>Binance Smart Chain (BSC)</option>
-<option>Polygon (POLY)</option>
-</select>
-</div>
-<div class="setting-item">
-<div class="setting-label">RPC Endpoint</div>
-<input type="text" class="input-setting" placeholder="https://api.mainnet-beta.solana.com" value="https://api.mainnet-beta.solana.com">
-</div>
-<div class="setting-item">
-<div class="setting-label">Gas Settings</div>
-<select class="input-setting" style="width:auto;flex:1">
-<option>Economy (slow)</option>
-<option selected>Standard</option>
-<option>Fast</option>
-<option>Ultra Fast</option>
-</select>
-</div>
-</div>
-
-<!-- TRADING SETTINGS -->
-<div class="settings-section">
-<div class="settings-section-title">💰 TRADING</div>
-<div class="setting-item">
-<div class="setting-label">Default Amount (SOL)</div>
-<input type="number" class="input-setting" value="0.5">
-</div>
-<div class="setting-item">
-<div class="setting-label">Slippage Tolerance (%)</div>
-<input type="number" class="input-setting" value="2" min="0.1" max="10">
-</div>
-<div class="setting-item">
-<div class="setting-label">Max Trade Size ($)</div>
-<input type="number" class="input-setting" value="10000">
-</div>
-<div class="setting-item">
-<div class="setting-label">Daily Trade Limit ($)</div>
-<input type="number" class="input-setting" value="50000">
-</div>
-<div class="setting-item">
-<div class="setting-label">Fee Tier</div>
-<select class="input-setting" style="width:auto;flex:1">
-<option selected>Standard (0.2%)</option>
-<option>Economy (0.3%)</option>
-<option>Premium (0.1%)</option>
-</select>
-</div>
-</div>
-
-<!-- AUTO TRADING SETTINGS -->
-<div class="settings-section">
-<div class="settings-section-title">🤖 AUTO TRADING</div>
-<div class="setting-item">
-<div class="setting-label">Auto Trade Status</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Sniper Mode</div>
-<div class="setting-toggle" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Copy Trading</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Auto Execute Orders</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Multi-Bot Mode</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-</div>
-
-<!-- ALERTS SETTINGS -->
-<div class="settings-section">
-<div class="settings-section-title">🔔 ALERTS & NOTIFICATIONS</div>
-<div class="setting-item">
-<div class="setting-label">Price Alerts</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Whale Alerts</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Volume Alerts</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Trade Execution Alerts</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Sound Notifications</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-</div>
-
-<!-- SECURITY SETTINGS -->
-<div class="settings-section">
-<div class="settings-section-title">🔐 SECURITY</div>
-<div class="setting-item">
-<div class="setting-label">Two-Factor Auth</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Slippage Protection</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Anti-Rug Detection</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Whitelist Mode</div>
-<div class="setting-toggle" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-</div>
-
-<!-- API SETTINGS -->
-<div class="settings-section">
-<div class="settings-section-title">🔌 API & INTEGRATIONS</div>
-<div class="setting-item">
-<div class="setting-label">DexScreener API</div>
-<div class="setting-value">🟢 Connected</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Birdeye API</div>
-<div class="setting-value">🟢 Connected</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Wallet Connect</div>
-<div class="setting-value">🟢 Active</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">API Key</div>
-<input type="password" class="input-setting" placeholder="Enter API key" value="•••••••••••••••">
-</div>
-</div>
-
-<!-- DATA & PRIVACY -->
-<div class="settings-section">
-<div class="settings-section-title">📊 DATA & PRIVACY</div>
-<div class="setting-item">
-<div class="setting-label">Analytics Tracking</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Save Trade History</div>
-<div class="setting-toggle on" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Cloud Backup</div>
-<div class="setting-toggle" onclick="toggleSetting(this)">
-<div class="toggle-dot"></div>
-</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Export Data</div>
-<div class="setting-value" style="cursor:pointer" onclick="notify('📥 Exporting...')">📥 Export</div>
-</div>
-</div>
-
-<!-- ABOUT -->
-<div class="settings-section">
-<div class="settings-section-title">ℹ️ ABOUT</div>
-<div class="setting-item">
-<div class="setting-label">Version</div>
-<div class="setting-value">PRO MAX v1.0</div>
-</div>
-<div class="setting-item">
-<div class="setting-label">Network Status</div>
-<div class="setting-value">🟢 All Systems UP</div>
 </div>
 </div>
 
@@ -646,12 +292,59 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 
 <script>
-function openSettings() {
-document.getElementById("settingsModal").classList.add("active");
+let walletConnected = false;
+let userWallet = null;
+let userBalance = 0;
+let tradeHistory = [];
+let currentChain = "SOL";
+
+// Check if Phantom is installed
+function isPhantomInstalled() {
+return window.solana && window.solana.isPhantom;
 }
 
-function closeSettings() {
-document.getElementById("settingsModal").classList.remove("active");
+// Connect wallet
+async function connectWallet() {
+try {
+if(currentChain === "SOL") {
+if(!isPhantomInstalled()) {
+return notify("❌ Phantom Wallet not installed\n📱 Install: phantom.app");
+}
+
+const resp = await window.solana.connect();
+userWallet = resp.publicKey.toString();
+walletConnected = true;
+
+document.getElementById("walletBtn").style.display = "none";
+document.getElementById("walletInfo").style.display = "block";
+document.getElementById("walletAddress").textContent = userWallet.slice(0,6) + "..." + userWallet.slice(-4);
+document.getElementById("walletStatus").textContent = "🟢 Connected";
+document.getElementById("balanceSection").style.display = "block";
+document.getElementById("activateBtn").disabled = false;
+
+// Simulate getting balance
+setTimeout(() => {
+userBalance = Math.random() * 100;
+document.getElementById("balanceAmount").textContent = userBalance.toFixed(2) + " SOL";
+document.getElementById("balanceUSD").textContent = "$" + (userBalance * 140).toFixed(2);
+document.getElementById("balanceSpendable").textContent = (userBalance * 0.95).toFixed(2) + " SOL";
+document.getElementById("portfolioBalance").textContent = userBalance.toFixed(2) + " SOL ($" + (userBalance * 140).toFixed(2) + ")";
+}, 500);
+
+notify(`✅ Wallet Connected!\n📍 ${userWallet.slice(0,6)}...${userWallet.slice(-4)}\n💰 Balance: ${userBalance.toFixed(2)} SOL`);
+} else {
+notify("🔧 ETH/BSC coming soon!");
+}
+} catch(err) {
+notify("❌ Connection failed\n" + err.message);
+}
+}
+
+function switchChain() {
+currentChain = document.getElementById("chainSelect").value;
+if(walletConnected) {
+notify(`⛓️ Switched to ${currentChain}`);
+}
 }
 
 function switchTab(tab) {
@@ -661,24 +354,66 @@ document.getElementById(tab).classList.add("active");
 event.target.classList.add("active");
 }
 
-function switchChain() {
-const chain = document.getElementById("chainSelect").value;
-notify(`⛓️ Switched to ${chain}`);
+function previewBuy() {
+if(!walletConnected) return notify("❌ Connect wallet first!");
+const amount = parseFloat(document.getElementById("tradeAmount").value) || 0.5;
+document.getElementById("txAction").textContent = "BUY";
+document.getElementById("txAmount").textContent = amount.toFixed(4);
+document.getElementById("txReceive").textContent = (amount * 283905).toFixed(2) + " PEPE2";
+document.getElementById("txFee").textContent = (amount * 0.002).toFixed(6) + " SOL";
+document.getElementById("txTotal").textContent = (amount + amount * 0.002).toFixed(6) + " SOL";
+document.getElementById("txPreview").style.display = "block";
 }
 
-function toggleTheme() {
-notify("🌙 Theme Changed");
+function previewSell() {
+if(!walletConnected) return notify("❌ Connect wallet first!");
+const amount = parseFloat(document.getElementById("tradeAmount").value) || 0.5;
+document.getElementById("txAction").textContent = "SELL";
+document.getElementById("txAmount").textContent = (amount * 283905).toFixed(2) + " PEPE2";
+document.getElementById("txReceive").textContent = amount.toFixed(4) + " SOL";
+document.getElementById("txFee").textContent = (amount * 0.002).toFixed(6) + " SOL";
+document.getElementById("txTotal").textContent = (amount - amount * 0.002).toFixed(6) + " SOL";
+document.getElementById("txPreview").style.display = "block";
 }
 
-function toggleSetting(el) {
-el.classList.toggle("on");
+async function executeTrade() {
+if(!walletConnected) return notify("❌ Connect wallet first!");
+
+const action = document.getElementById("txAction").textContent;
+const amount = document.getElementById("txAmount").textContent;
+
+try {
+// Simulate transaction
+notify(`⏳ Executing ${action} transaction...`);
+
+setTimeout(() => {
+const tx = `${action} ${amount} | ${new Date().toLocaleTimeString()}`;
+tradeHistory.push(tx);
+document.getElementById("historyList").innerHTML = tradeHistory.map(h => `
+<div class="item">
+<div class="item-label">${h}</div>
+<div class="item-value">✅ Confirmed</div>
+</div>
+`).join("");
+document.getElementById("totalTrades").textContent = tradeHistory.length;
+notify(`✅ ${action} Executed!\n⚡ Speed: 45ms\n💰 Fee: 0.001 SOL`);
+cancelTx();
+}, 1000);
+} catch(err) {
+notify("❌ Transaction failed");
+}
 }
 
-function activateAuto() {
-notify("⚡ AUTO TRADE ACTIVATED!\n⚡ Speed: 50ms | 💰 Fee: 0.2%");
+function cancelTx() {
+document.getElementById("txPreview").style.display = "none";
 }
 
-function stopAuto() {
+function activateAutoTrade() {
+if(!walletConnected) return notify("❌ Connect wallet first!");
+notify("✅ Auto Trade Activated!\n⚡ Monitoring triggers...");
+}
+
+function stopAutoTrade() {
 notify("⏹️ Auto Trade Stopped");
 }
 
