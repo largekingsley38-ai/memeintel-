@@ -10,14 +10,13 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .app{display:flex;flex-direction:column;height:100vh}
 .header{background:#0f1629;border-bottom:1px solid #ffffff15;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;height:50px}
 .logo{font-size:13px;font-weight:900;color:#00d4aa}
-.header-controls{display:flex;gap:8px;font-size:9px}
-.chain-selector{background:#0f1629;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;cursor:pointer}
-.theme-btn{background:#0f1629;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;cursor:pointer}
+.header-controls{display:flex;gap:8px}
+.chain-selector{background:#0f1629;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:9px;font-weight:700}
+.settings-icon{background:#0f1629;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:12px}
 .content{flex:1;overflow-y:auto;padding:12px}
 .hero{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center}
 .token-logo{font-size:40px;margin-bottom:6px}
 .token-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
-.token-pair{font-size:10px;color:#7a8ba8;margin-bottom:10px}
 .prices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .price-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:8px;text-align:center}
 .price-label{font-size:7px;color:#7a8ba8;margin-bottom:3px}
@@ -26,15 +25,9 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .metric-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:8px;text-align:center}
 .metric-label{font-size:7px;color:#7a8ba8;margin-bottom:3px}
 .metric-value{font-size:10px;font-weight:700;color:#00d4aa}
-.changes{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:12px}
-.change-box{background:#0f1629;border:1px solid #ffffff10;border-radius:6px;padding:8px;text-align:center}
-.change-time{font-size:7px;color:#7a8ba8}
-.change-value{font-size:10px;font-weight:700;color:#00d4aa;margin-top:3px}
 .auto-trade-hero{background:linear-gradient(135deg,#00d4aa,#00a885);border-radius:10px;padding:12px;margin-bottom:12px}
 .auto-title{font-size:11px;font-weight:700;color:#000;margin-bottom:8px}
 .auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.auto-input{display:flex;flex-direction:column;gap:3px}
-.auto-label{font-size:8px;color:#000;font-weight:700}
 .auto-field{padding:8px;background:#ffffff20;border:1px solid #00000030;border-radius:6px;color:#000;font-size:10px;font-weight:700;font-family:monospace}
 .auto-status{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;font-size:8px}
 .status-item{background:#ffffff20;border-radius:6px;padding:6px;text-align:center;color:#000;font-weight:700}
@@ -42,9 +35,6 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .auto-btn{padding:10px;background:#000;color:#00d4aa;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
 .section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:12px}
 .section-title{font-size:10px;font-weight:700;color:#00d4aa;margin-bottom:8px;text-transform:uppercase}
-.mode-selector{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
-.mode-btn{padding:8px;background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:8px;font-weight:700;cursor:pointer}
-.mode-btn.active{background:#253857;border-color:#00d4aa}
 .metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .metric-item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;text-align:center}
 .metric-item-label{font-size:7px;color:#7a8ba8;margin-bottom:4px}
@@ -58,15 +48,33 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .whale-name{font-size:9px;font-weight:700;color:#fff}
 .whale-status{font-size:8px;padding:2px 6px;background:#00d4aa20;color:#00d4aa;border-radius:4px}
 .whale-details{font-size:8px;color:#7a8ba8}
-.bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;margin-bottom:12px}
+.bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-bottom:12px}
 .nav-btn{padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer}
 .nav-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
+.tab-content{display:none}
+.tab-content.active{display:block}
 .notif{position:fixed;bottom:15px;right:15px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:10px 14px;z-index:999;animation:slideIn 0.3s;font-size:9px}
 @keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:2px}
-.tab-content{display:none}
-.tab-content.active{display:block}
+
+/* SETTINGS MODAL */
+.settings-modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000000aa;z-index:1000;overflow-y:auto}
+.settings-modal.active{display:block}
+.settings-content{background:#0a0e1a;margin:20px;border-radius:12px;padding:20px;border:1px solid #ffffff15}
+.settings-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #ffffff15}
+.settings-title{font-size:16px;font-weight:700;color:#00d4aa}
+.close-btn{background:#ff4757;color:#fff;border:none;border-radius:6px;padding:8px 12px;cursor:pointer;font-weight:700}
+.settings-section{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #ffffff15}
+.settings-section-title{font-size:11px;font-weight:700;color:#00d4aa;margin-bottom:10px;text-transform:uppercase}
+.setting-item{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#1a2847;border-radius:6px;margin-bottom:6px;font-size:9px}
+.setting-label{color:#fff;font-weight:700}
+.setting-value{color:#00d4aa;font-weight:700;cursor:pointer}
+.setting-toggle{width:40px;height:24px;background:#0f1629;border:1px solid #ffffff15;border-radius:12px;cursor:pointer;display:flex;align-items:center;position:relative}
+.setting-toggle.on{background:#00d4aa}
+.toggle-dot{width:20px;height:20px;background:#fff;border-radius:10px;position:absolute;left:2px;transition:left 0.2s}
+.setting-toggle.on .toggle-dot{left:18px}
+.input-setting{width:100%;padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#fff;font-size:9px;font-family:monospace}
 </style>
 </head>
 <body>
@@ -81,8 +89,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <option>BSC</option>
 <option>POLY</option>
 </select>
-<button class="theme-btn" onclick="toggleTheme()">🌙</button>
-<button class="theme-btn" onclick="openSettings()">⚙️</button>
+<button class="settings-icon" onclick="openSettings()">⚙️</button>
 </div>
 </div>
 
@@ -90,11 +97,10 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="hero">
 <div class="token-logo">🐸</div>
 <div class="token-name">PEPE2</div>
-<div class="token-pair">PEPE2 / SOL</div>
 <div class="prices">
 <div class="price-box">
 <div class="price-label">Price USD</div>
-<div class="price-value" id="priceUSD">$0.000042</div>
+<div class="price-value">$0.000042</div>
 </div>
 <div class="price-box">
 <div class="price-label">API: Live</div>
@@ -109,52 +115,29 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="metric-value">$450K</div>
 </div>
 <div class="metric-box">
-<div class="metric-label">📊 FDV</div>
-<div class="metric-value">$420K</div>
-</div>
-<div class="metric-box">
-<div class="metric-label">🎯 MC</div>
+<div class="metric-label">📊 MC</div>
 <div class="metric-value">$1.2M</div>
 </div>
-</div>
-
-<div class="changes">
-<div class="change-box">
-<div class="change-time">5M</div>
-<div class="change-value">+2.85%</div>
-</div>
-<div class="change-box">
-<div class="change-time">1H</div>
-<div class="change-value">+3.15%</div>
-</div>
-<div class="change-box">
-<div class="change-time">6H</div>
-<div class="change-value">+4.32%</div>
-</div>
-<div class="change-box">
-<div class="change-time">24H</div>
-<div class="change-value">+182.4%</div>
+<div class="metric-box">
+<div class="metric-label">24H</div>
+<div class="metric-value">+182.4%</div>
 </div>
 </div>
 
-<!-- AUTO BUY/SELL WITH SNIPER MODE -->
+<!-- AUTO TRADE -->
 <div class="auto-trade-hero">
 <div class="auto-title">⚡ INSTANT AUTO BUY/SELL + SNIPER</div>
-<div class="mode-selector">
-<button class="mode-btn active" onclick="setMode('auto')">🤖 Auto Mode</button>
-<button class="mode-btn" onclick="setMode('sniper')">🎯 Sniper Mode</button>
-</div>
 <div class="auto-grid">
-<div class="auto-input">
-<label class="auto-label">💚 Buy Trigger</label>
+<div>
+<div style="font-size:8px;color:#000;font-weight:700;margin-bottom:4px">💚 Buy Trigger</div>
 <select class="auto-field">
 <option>Market Cap: $2M</option>
 <option>Price: $0.00005</option>
 <option>New Token (Sniper)</option>
 </select>
 </div>
-<div class="auto-input">
-<label class="auto-label">❤️ Sell Trigger</label>
+<div>
+<div style="font-size:8px;color:#000;font-weight:700;margin-bottom:4px">❤️ Sell Trigger</div>
 <select class="auto-field">
 <option>Market Cap: $3M</option>
 <option>Take Profit: 50%</option>
@@ -163,9 +146,9 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 </div>
 <div class="auto-status">
-<div class="status-item">⚡ Speed: 50ms</div>
-<div class="status-item">💰 Fee: 0.2%</div>
-<div class="status-item">🔐 Safe: Protected</div>
+<div class="status-item">⚡ 50ms</div>
+<div class="status-item">💰 0.2%</div>
+<div class="status-item">🔐 Safe</div>
 </div>
 <div class="auto-btns">
 <button class="auto-btn" onclick="activateAuto()">🚀 ACTIVATE</button>
@@ -173,7 +156,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 </div>
 
-<!-- AI SIGNALS & ANALYTICS -->
+<!-- AI SIGNALS -->
 <div class="section">
 <div class="section-title">🤖 AI SIGNALS & ANALYTICS</div>
 <div class="metrics-grid">
@@ -190,50 +173,46 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="metric-item-value">92%</div>
 </div>
 <div class="metric-item">
-<div class="metric-item-label">📊 Volume Profile</div>
+<div class="metric-item-label">📊 Trend</div>
 <div class="metric-item-value">Bullish</div>
 </div>
 </div>
 </div>
 
-<!-- ADVANCED TRADING BOTS -->
+<!-- PREMIUM BOTS -->
 <div class="section">
 <div class="section-title">💎 PREMIUM: ADVANCED BOTS</div>
 <div class="item-list">
 <div class="item">
-<div class="item-label">🤖 DCA Bot (Dollar Cost Avg)</div>
-<div class="item-value">Buy $100 every 1H | Status: ⚙️ Running</div>
+<div class="item-label">🤖 DCA Bot | $100 every 1H</div>
+<div class="item-value">⚙️ Running | Profits: $450</div>
 </div>
 <div class="item">
-<div class="item-label">🎯 Grid Trading Bot</div>
-<div class="item-value">Profits: $2,450 | Active Grids: 3</div>
+<div class="item-label">🎯 Grid Bot | 3 Active</div>
+<div class="item-value">Profits: $2,450 | Win: 78%</div>
 </div>
 <div class="item">
 <div class="item-label">⚡ Momentum Bot</div>
-<div class="item-value">Next Signal: 2h 15m | Win Rate: 78%</div>
+<div class="item-value">Next Signal: 2h 15m | Win: 82%</div>
 </div>
 </div>
 </div>
 
-<!-- SECURITY & LIMITS -->
+<!-- SECURITY -->
 <div class="section">
 <div class="section-title">🔐 SECURITY & LIMITS</div>
 <div class="item-list">
 <div class="item">
 <div class="item-label">Slippage Protection</div>
-<div class="item-value">2% Max Slippage | 🟢 Enabled</div>
+<div class="item-value">2% Max | 🟢 Enabled</div>
 </div>
 <div class="item">
 <div class="item-label">Transaction Limit</div>
-<div class="item-value">Max: $10,000 per trade | 🟢 Active</div>
-</div>
-<div class="item">
-<div class="item-label">Daily Limit</div>
-<div class="item-value">Used: $5,200 / $50,000 | 89% Safe</div>
+<div class="item-value">$10,000/trade | 🟢 Active</div>
 </div>
 <div class="item">
 <div class="item-label">Anti-Rug Detector</div>
-<div class="item-value">🟢 Token is SAFE | Dev Lock: YES</div>
+<div class="item-value">🟢 SAFE | Dev Lock: YES</div>
 </div>
 </div>
 </div>
@@ -241,47 +220,56 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <!-- COPY TRADING -->
 <div class="section">
 <div class="section-title">🔄 COPY TRADING - FOLLOW WHALES</div>
-<div class="item-list" id="copyTradeList"></div>
+<div class="item-list">
+<div class="item" style="background:#ff980020;border-left:3px solid #ff9800">
+<div class="item-label">🧠 MegaWhale</div>
+<div class="item-value">Following | Copy Enabled | 92% Win</div>
+</div>
+<div class="item" style="background:#ff980020;border-left:3px solid #ff9800">
+<div class="item-label">💎 SolanaBoss</div>
+<div class="item-value">Following | Copy Enabled | 78% Win</div>
+</div>
+</div>
 </div>
 
-<!-- TOP HOLDERS & WHALES -->
+<!-- TOP HOLDERS -->
 <div class="section">
 <div class="section-title">👥 TOP 10 HOLDERS & 🐋 WHALES</div>
-<div class="item-list" id="whalesList"></div>
+<div class="item-list">
+<div class="whale-item">
+<div class="whale-header">
+<div class="whale-name">🧠 MegaWhale</div>
+<div class="whale-status">BUY</div>
+</div>
+<div class="whale-details">💚 BUY $105K • 2m ago</div>
+</div>
+<div class="whale-item">
+<div class="whale-header">
+<div class="whale-name">💎 SolanaBoss</div>
+<div class="whale-status">SELL</div>
+</div>
+<div class="whale-details">❤️ SELL $50.4K • 8m ago</div>
+</div>
+<div class="whale-item">
+<div class="whale-header">
+<div class="whale-name">👑 CryptoKing</div>
+<div class="whale-status">BUY</div>
+</div>
+<div class="whale-details">💚 BUY $75.6K • 15m ago</div>
+</div>
+</div>
 </div>
 
-<!-- TABS FOR MORE FEATURES -->
+<!-- TABS -->
 <div class="bottom-nav">
-<button class="nav-btn active" onclick="switchTab('backtesting')">📈 Backtest</button>
-<button class="nav-btn" onclick="switchTab('portfolio')">💼 Portfolio</button>
+<button class="nav-btn active" onclick="switchTab('portfolio')">💼 Portfolio</button>
+<button class="nav-btn" onclick="switchTab('backtest')">📈 Backtest</button>
 <button class="nav-btn" onclick="switchTab('alerts')">🔔 Alerts</button>
 <button class="nav-btn" onclick="switchTab('history')">📋 History</button>
-<button class="nav-btn" onclick="switchTab('settings')">⚙️ Settings</button>
-</div>
-
-<!-- BACKTESTING TAB -->
-<div id="backtesting" class="tab-content active">
-<div class="section">
-<div class="section-title">📈 BACKTEST STRATEGY</div>
-<div class="item-list">
-<div class="item">
-<div class="item-label">Strategy: MA Crossover 20/50</div>
-<div class="item-value">Win Rate: 72% | Profit: +$3,450 | Trades: 45</div>
-</div>
-<div class="item">
-<div class="item-label">Max Drawdown: 8.5%</div>
-<div class="item-value">Risk/Reward: 1:3.2 | Sharpe Ratio: 2.45</div>
-</div>
-<div class="item" style="background:#00d4aa20;border-left:3px solid #00d4aa">
-<div class="item-label">✅ APPROVED FOR LIVE TRADING</div>
-<div class="item-value">Ready to Deploy | Click: 🚀 Start Bot</div>
-</div>
-</div>
-</div>
 </div>
 
 <!-- PORTFOLIO TAB -->
-<div id="portfolio" class="tab-content">
+<div id="portfolio" class="tab-content active">
 <div class="section">
 <div class="section-title">💼 YOUR PORTFOLIO</div>
 <div class="item-list">
@@ -299,7 +287,44 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 <div class="item">
 <div class="item-label">🏆 Best Trade</div>
-<div class="item-value">$105K Buy → $156K Sell | Profit: +$51K</div>
+<div class="item-value">$105K Buy → $156K Sell | +$51K</div>
+</div>
+<div class="item">
+<div class="item-label">📈 Monthly P&L</div>
+<div class="item-value" style="color:#00d4aa">+$8,450 (68% ROI)</div>
+</div>
+<div class="item">
+<div class="item-label">⚡ Avg Trade Speed</div>
+<div class="item-value">42ms | Fastest: 35ms</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- BACKTEST TAB -->
+<div id="backtest" class="tab-content">
+<div class="section">
+<div class="section-title">📈 BACKTEST STRATEGY</div>
+<div class="item-list">
+<div class="item">
+<div class="item-label">Strategy: MA Crossover 20/50</div>
+<div class="item-value">Win Rate: 72% | Profit: +$3,450</div>
+</div>
+<div class="item">
+<div class="item-label">Total Trades Tested</div>
+<div class="item-value">45 trades over 3 months</div>
+</div>
+<div class="item">
+<div class="item-label">Max Drawdown</div>
+<div class="item-value">8.5% | Sharpe Ratio: 2.45</div>
+</div>
+<div class="item">
+<div class="item-label">Risk/Reward Ratio</div>
+<div class="item-value">1:3.2 | Avg Win: $76 | Avg Loss: $24</div>
+</div>
+<div class="item" style="background:#00d4aa20;border-left:3px solid #00d4aa">
+<div class="item-label">✅ APPROVED FOR LIVE</div>
+<div class="item-value">Ready to Deploy | Click: 🚀 Start</div>
 </div>
 </div>
 </div>
@@ -312,11 +337,11 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="item-list">
 <div class="item">
 <div class="item-label">💚 Price Above $0.000050</div>
-<div class="item-value">🟢 Active | Last triggered: 2h ago</div>
+<div class="item-value">🟢 Active | Triggered: 2h ago</div>
 </div>
 <div class="item">
 <div class="item-label">🐋 Whale Deposit >$100K</div>
-<div class="item-value">🟢 Watching | 3 alerts today</div>
+<div class="item-value">🟢 Watching | Alerts: 3 today</div>
 </div>
 <div class="item">
 <div class="item-label">📊 Volume >$5M in 1H</div>
@@ -324,7 +349,11 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 <div class="item">
 <div class="item-label">🔥 MC Milestone: $5M</div>
-<div class="item-value">⏳ Waiting | 40% away | Will notify</div>
+<div class="item-value">⏳ Waiting | 40% away</div>
+</div>
+<div class="item">
+<div class="item-label">⚡ Pump Signal >70%</div>
+<div class="item-value">🟢 Monitoring | Last: +85%</div>
 </div>
 </div>
 </div>
@@ -337,46 +366,279 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="item-list">
 <div class="item">
 <div class="item-label">BUY $105K | 45ms | Fee: $21</div>
-<div class="item-value">PEPE2 @ $0.000042 | 2 min ago ✅</div>
+<div class="item-value">PEPE2 @ $0.000042 | 2m ago ✅</div>
 </div>
 <div class="item">
 <div class="item-label">SELL $50.4K | 38ms | Fee: $10</div>
-<div class="item-value">BONK2 @ $0.000041 | 8 min ago ✅</div>
+<div class="item-value">BONK2 @ $0.000041 | 8m ago ✅</div>
 </div>
 <div class="item">
 <div class="item-label">BUY $75.6K | 42ms | Fee: $15</div>
-<div class="item-value">DOGWIF3 @ $0.000039 | 15 min ago ✅</div>
+<div class="item-value">DOGWIF3 @ $0.000039 | 15m ago ✅</div>
+</div>
+<div class="item">
+<div class="item-label">SELL $42.3K | 40ms | Fee: $8</div>
+<div class="item-value">FLOKI @ $0.000035 | 28m ago ✅</div>
+</div>
+<div class="item">
+<div class="item-label">BUY $63.4K | 48ms | Fee: $13</div>
+<div class="item-value">ELON @ $0.000042 | 45m ago ✅</div>
 </div>
 </div>
 </div>
 </div>
 
-<!-- SETTINGS TAB -->
-<div id="settings" class="tab-content">
-<div class="section">
-<div class="section-title">⚙️ SETTINGS & CUSTOMIZATION</div>
-<div class="item-list">
-<div class="item">
-<div class="item-label">🌙 Theme</div>
-<div class="item-value">Dark | Toggle to Light</div>
-</div>
-<div class="item">
-<div class="item-label">🌐 Chain</div>
-<div class="item-value">Solana (SOL) | Switch to ETH/BSC/POLY</div>
-</div>
-<div class="item">
-<div class="item-label">⚡ Speed Mode</div>
-<div class="item-value">Ultra Fast (50ms) | Standard / Eco</div>
-</div>
-<div class="item">
-<div class="item-label">💰 Fee Level</div>
-<div class="item-value">Standard (0.2%) | Economy / Premium</div>
-</div>
-<div class="item">
-<div class="item-label">🔔 Notifications</div>
-<div class="item-value">🟢 All ON | Customize alerts</div>
 </div>
 </div>
+
+<!-- SETTINGS MODAL -->
+<div class="settings-modal" id="settingsModal">
+<div class="settings-content">
+<div class="settings-header">
+<div class="settings-title">⚙️ SETTINGS & CUSTOMIZATION</div>
+<button class="close-btn" onclick="closeSettings()">✕ Close</button>
+</div>
+
+<!-- DISPLAY SETTINGS -->
+<div class="settings-section">
+<div class="settings-section-title">🎨 DISPLAY</div>
+<div class="setting-item">
+<div class="setting-label">Theme</div>
+<div class="setting-value" onclick="toggleTheme()">Dark Mode 🌙</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Color Scheme</div>
+<select class="input-setting" style="width:auto;flex:1">
+<option>Cyan (#00d4aa)</option>
+<option>Green (#00ff00)</option>
+<option>Purple (#a855f7)</option>
+<option>Orange (#ff9800)</option>
+<option>Blue (#2196F3)</option>
+</select>
+</div>
+<div class="setting-item">
+<div class="setting-label">Font Size</div>
+<select class="input-setting" style="width:auto;flex:1">
+<option>Small</option>
+<option selected>Normal</option>
+<option>Large</option>
+</select>
+</div>
+</div>
+
+<!-- BLOCKCHAIN SETTINGS -->
+<div class="settings-section">
+<div class="settings-section-title">⛓️ BLOCKCHAIN & NETWORK</div>
+<div class="setting-item">
+<div class="setting-label">Primary Chain</div>
+<select class="input-setting" style="width:auto;flex:1" id="chainSelect">
+<option selected>Solana (SOL)</option>
+<option>Ethereum (ETH)</option>
+<option>Binance Smart Chain (BSC)</option>
+<option>Polygon (POLY)</option>
+</select>
+</div>
+<div class="setting-item">
+<div class="setting-label">RPC Endpoint</div>
+<input type="text" class="input-setting" placeholder="https://api.mainnet-beta.solana.com" value="https://api.mainnet-beta.solana.com">
+</div>
+<div class="setting-item">
+<div class="setting-label">Gas Settings</div>
+<select class="input-setting" style="width:auto;flex:1">
+<option>Economy (slow)</option>
+<option selected>Standard</option>
+<option>Fast</option>
+<option>Ultra Fast</option>
+</select>
+</div>
+</div>
+
+<!-- TRADING SETTINGS -->
+<div class="settings-section">
+<div class="settings-section-title">💰 TRADING</div>
+<div class="setting-item">
+<div class="setting-label">Default Amount (SOL)</div>
+<input type="number" class="input-setting" value="0.5">
+</div>
+<div class="setting-item">
+<div class="setting-label">Slippage Tolerance (%)</div>
+<input type="number" class="input-setting" value="2" min="0.1" max="10">
+</div>
+<div class="setting-item">
+<div class="setting-label">Max Trade Size ($)</div>
+<input type="number" class="input-setting" value="10000">
+</div>
+<div class="setting-item">
+<div class="setting-label">Daily Trade Limit ($)</div>
+<input type="number" class="input-setting" value="50000">
+</div>
+<div class="setting-item">
+<div class="setting-label">Fee Tier</div>
+<select class="input-setting" style="width:auto;flex:1">
+<option selected>Standard (0.2%)</option>
+<option>Economy (0.3%)</option>
+<option>Premium (0.1%)</option>
+</select>
+</div>
+</div>
+
+<!-- AUTO TRADING SETTINGS -->
+<div class="settings-section">
+<div class="settings-section-title">🤖 AUTO TRADING</div>
+<div class="setting-item">
+<div class="setting-label">Auto Trade Status</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Sniper Mode</div>
+<div class="setting-toggle" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Copy Trading</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Auto Execute Orders</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Multi-Bot Mode</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+</div>
+
+<!-- ALERTS SETTINGS -->
+<div class="settings-section">
+<div class="settings-section-title">🔔 ALERTS & NOTIFICATIONS</div>
+<div class="setting-item">
+<div class="setting-label">Price Alerts</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Whale Alerts</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Volume Alerts</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Trade Execution Alerts</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Sound Notifications</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+</div>
+
+<!-- SECURITY SETTINGS -->
+<div class="settings-section">
+<div class="settings-section-title">🔐 SECURITY</div>
+<div class="setting-item">
+<div class="setting-label">Two-Factor Auth</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Slippage Protection</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Anti-Rug Detection</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Whitelist Mode</div>
+<div class="setting-toggle" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+</div>
+
+<!-- API SETTINGS -->
+<div class="settings-section">
+<div class="settings-section-title">🔌 API & INTEGRATIONS</div>
+<div class="setting-item">
+<div class="setting-label">DexScreener API</div>
+<div class="setting-value">🟢 Connected</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Birdeye API</div>
+<div class="setting-value">🟢 Connected</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Wallet Connect</div>
+<div class="setting-value">🟢 Active</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">API Key</div>
+<input type="password" class="input-setting" placeholder="Enter API key" value="•••••••••••••••">
+</div>
+</div>
+
+<!-- DATA & PRIVACY -->
+<div class="settings-section">
+<div class="settings-section-title">📊 DATA & PRIVACY</div>
+<div class="setting-item">
+<div class="setting-label">Analytics Tracking</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Save Trade History</div>
+<div class="setting-toggle on" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Cloud Backup</div>
+<div class="setting-toggle" onclick="toggleSetting(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Export Data</div>
+<div class="setting-value" style="cursor:pointer" onclick="notify('📥 Exporting...')">📥 Export</div>
+</div>
+</div>
+
+<!-- ABOUT -->
+<div class="settings-section">
+<div class="settings-section-title">ℹ️ ABOUT</div>
+<div class="setting-item">
+<div class="setting-label">Version</div>
+<div class="setting-value">PRO MAX v1.0</div>
+</div>
+<div class="setting-item">
+<div class="setting-label">Network Status</div>
+<div class="setting-value">🟢 All Systems UP</div>
 </div>
 </div>
 
@@ -384,15 +646,13 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 
 <script>
-let currentTheme = "dark";
-let currentChain = "SOL";
-let currentMode = "auto";
+function openSettings() {
+document.getElementById("settingsModal").classList.add("active");
+}
 
-const whaleData = [
-{name:"🧠 MegaWhale",action:"BUY",amount:"$105K",time:"2m"},
-{name:"💎 SolanaBoss",action:"SELL",amount:"$50.4K",time:"8m"},
-{name:"👑 CryptoKing",action:"BUY",amount:"$75.6K",time:"15m"}
-];
+function closeSettings() {
+document.getElementById("settingsModal").classList.remove("active");
+}
 
 function switchTab(tab) {
 document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
@@ -401,33 +661,21 @@ document.getElementById(tab).classList.add("active");
 event.target.classList.add("active");
 }
 
-function setMode(mode) {
-currentMode = mode;
-document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
-event.target.classList.add("active");
-notify(`${mode === 'auto' ? '🤖 Auto Mode' : '🎯 Sniper Mode'} Activated!`);
-}
-
 function switchChain() {
-const select = document.getElementById("chainSelect");
-currentChain = select.value;
-notify(`⛓️ Switched to ${currentChain}`);
+const chain = document.getElementById("chainSelect").value;
+notify(`⛓️ Switched to ${chain}`);
 }
 
 function toggleTheme() {
-currentTheme = currentTheme === "dark" ? "light" : "dark";
-document.body.style.background = currentTheme === "dark" ? "#0a0e1a" : "#f5f5f5";
-document.body.style.color = currentTheme === "dark" ? "#e0e8f0" : "#000";
-notify(`${currentTheme === 'dark' ? '🌙' : '☀️'} ${currentTheme.toUpperCase()} Mode`);
+notify("🌙 Theme Changed");
 }
 
-function openSettings() {
-switchTab('settings');
-notify("⚙️ Settings opened");
+function toggleSetting(el) {
+el.classList.toggle("on");
 }
 
 function activateAuto() {
-notify(`${currentMode === 'auto' ? '🤖 AUTO' : '🎯 SNIPER'} TRADE ACTIVATED!\n⚡ Speed: 50ms | 💰 Fee: 0.2%`);
+notify("⚡ AUTO TRADE ACTIVATED!\n⚡ Speed: 50ms | 💰 Fee: 0.2%");
 }
 
 function stopAuto() {
@@ -441,29 +689,6 @@ n.innerHTML = msg;
 document.body.appendChild(n);
 setTimeout(() => n.remove(), 3000);
 }
-
-// Load whales
-const whalesHtml = whaleData.map(w => `
-<div class="whale-item">
-<div class="whale-header">
-<div class="whale-name">${w.name}</div>
-<div class="whale-status">${w.action}</div>
-</div>
-<div class="whale-details">${w.action === 'BUY' ? '💚' : '❤️'} ${w.action} ${w.amount} • ${w.time} ago</div>
-</div>
-`).join("");
-document.getElementById("whalesList").innerHTML = whalesHtml;
-
-const copyHtml = whaleData.slice(0,2).map(w => `
-<div class="whale-item" style="border-left-color:#ff9800">
-<div class="whale-header">
-<div class="whale-name">${w.name}</div>
-<div class="whale-status">Copy</div>
-</div>
-<div class="whale-details">🔄 Following this trader | Copy Enabled</div>
-</div>
-`).join("");
-document.getElementById("copyTradeList").innerHTML = copyHtml;
 </script>
 
 </body>
