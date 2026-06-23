@@ -3,88 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel - Fast Auto Trading</title>
+<title>MemeIntel PRO MAX - Ultimate Trading</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;overflow:hidden}
 .app{display:flex;flex-direction:column;height:100vh}
-.header{background:#0f1629;border-bottom:1px solid #ffffff15;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;height:56px}
-.logo{font-size:14px;font-weight:900;color:#00d4aa}
-.token-info{font-size:10px;color:#7a8ba8}
-.content{flex:1;overflow-y:auto;padding:14px}
-.hero{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:16px;margin-bottom:14px;text-align:center}
-.token-logo{font-size:48px;margin-bottom:8px}
-.token-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
-.token-pair{font-size:11px;color:#7a8ba8;margin-bottom:12px}
-.token-links{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
-.link-btn{padding:6px 12px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#00d4aa;font-size:9px;cursor:pointer}
+.header{background:#0f1629;border-bottom:1px solid #ffffff15;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;height:50px}
+.logo{font-size:13px;font-weight:900;color:#00d4aa}
+.header-controls{display:flex;gap:8px;font-size:9px}
+.chain-selector{background:#0f1629;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;cursor:pointer}
+.theme-btn{background:#0f1629;border:1px solid #ffffff15;color:#00d4aa;padding:6px 10px;border-radius:6px;cursor:pointer}
+.content{flex:1;overflow-y:auto;padding:12px}
+.hero{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center}
+.token-logo{font-size:40px;margin-bottom:6px}
+.token-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+.token-pair{font-size:10px;color:#7a8ba8;margin-bottom:10px}
 .prices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.price-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:10px;text-align:center}
-.price-label{font-size:8px;color:#7a8ba8;text-transform:uppercase;margin-bottom:4px}
-.price-value{font-size:13px;font-weight:700;color:#00d4aa}
-.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
-.metric-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:10px;text-align:center}
-.metric-label{font-size:8px;color:#7a8ba8;text-transform:uppercase;margin-bottom:4px}
-.metric-value{font-size:12px;font-weight:700;color:#00d4aa}
-.metric-small{font-size:8px;color:#7a8ba8;margin-top:3px}
-.changes{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px}
-.change-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:10px;text-align:center}
-.change-time{font-size:8px;color:#7a8ba8;margin-bottom:4px}
-.change-value{font-size:12px;font-weight:700;color:#00d4aa}
-.change-value.negative{color:#ff4757}
-.auto-trade-hero{background:linear-gradient(135deg,#00d4aa,#00a885);border:2px solid #00d4aa;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 0 20px #00d4aa30}
-.auto-title{font-size:13px;font-weight:700;color:#000;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
-.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.auto-input{display:flex;flex-direction:column;gap:4px}
-.auto-label{font-size:9px;color:#000;text-transform:uppercase;font-weight:700}
-.auto-field{padding:10px;background:#ffffff20;border:1px solid #00000030;border-radius:6px;color:#000;font-size:12px;font-weight:700;font-family:monospace}
-.auto-status{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;font-size:9px}
-.status-item{background:#ffffff20;border-radius:6px;padding:8px;text-align:center;color:#000;font-weight:700}
-.auto-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.auto-btn{flex:1;padding:12px;background:#000;color:#00d4aa;border:none;border-radius:6px;font-weight:700;cursor:pointer}
-.auto-btn-cancel{background:#ffffff30;color:#000}
-.fee-info{background:#ffffff15;border-radius:8px;padding:10px;margin-top:8px;font-size:8px;text-align:center;color:#000}
-.section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:14px;margin-bottom:14px}
-.section-title{font-size:11px;font-weight:700;color:#00d4aa;text-transform:uppercase;margin-bottom:10px;letter-spacing:1px}
-.copy-trade-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.copy-btn{padding:10px;background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer}
-.wallet-btn{width:100%;padding:12px;background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;border-radius:8px;font-weight:700;font-size:10px;cursor:pointer;margin-bottom:8px}
-.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.metric-item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:10px;text-align:center}
-.metric-item-label{font-size:8px;color:#7a8ba8;text-transform:uppercase;margin-bottom:6px}
-.metric-item-value{font-size:11px;font-weight:700;color:#00d4aa;margin-bottom:4px}
-.metric-item-status{font-size:8px}
-.holders-list{display:flex;flex-direction:column;gap:6px}
-.holder-item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;display:flex;justify-content:space-between;font-size:9px}
-.holder-name{color:#fff;font-weight:700}
-.holder-pct{color:#00d4aa;font-weight:700}
-.whale-item{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:10px;border-left:4px solid #00d4aa}
-.whale-header{display:flex;justify-content:space-between;margin-bottom:8px}
-.whale-name{font-size:11px;font-weight:700;color:#fff}
-.whale-status{font-size:9px;padding:3px 8px;background:#00d4aa20;color:#00d4aa;border-radius:4px}
-.whale-action{font-size:10px;color:#00d4aa;font-weight:700;margin-bottom:6px}
-.whale-action.sell{color:#ff4757}
-.whale-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;font-size:9px}
-.whale-detail{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px}
-.whale-detail-label{color:#7a8ba8;font-size:8px;margin-bottom:3px}
-.whale-detail-value{color:#fff;font-weight:700}
-.whale-btns{display:flex;gap:8px;margin-top:8px}
-.whale-btn{flex:1;padding:8px;background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:9px;font-weight:700;cursor:pointer}
-.bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:14px}
-.nav-btn{padding:10px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:9px;font-weight:700;cursor:pointer}
-.nav-btn.active{background:#253857;border:2px solid #00d4aa;color:#00d4aa}
-.notif{position:fixed;bottom:20px;right:20px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:12px 16px;z-index:999;animation:slideIn 0.3s;font-size:10px}
+.price-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:8px;text-align:center}
+.price-label{font-size:7px;color:#7a8ba8;margin-bottom:3px}
+.price-value{font-size:11px;font-weight:700;color:#00d4aa}
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px}
+.metric-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:8px;text-align:center}
+.metric-label{font-size:7px;color:#7a8ba8;margin-bottom:3px}
+.metric-value{font-size:10px;font-weight:700;color:#00d4aa}
+.changes{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:12px}
+.change-box{background:#0f1629;border:1px solid #ffffff10;border-radius:6px;padding:8px;text-align:center}
+.change-time{font-size:7px;color:#7a8ba8}
+.change-value{font-size:10px;font-weight:700;color:#00d4aa;margin-top:3px}
+.auto-trade-hero{background:linear-gradient(135deg,#00d4aa,#00a885);border-radius:10px;padding:12px;margin-bottom:12px}
+.auto-title{font-size:11px;font-weight:700;color:#000;margin-bottom:8px}
+.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.auto-input{display:flex;flex-direction:column;gap:3px}
+.auto-label{font-size:8px;color:#000;font-weight:700}
+.auto-field{padding:8px;background:#ffffff20;border:1px solid #00000030;border-radius:6px;color:#000;font-size:10px;font-weight:700;font-family:monospace}
+.auto-status{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;font-size:8px}
+.status-item{background:#ffffff20;border-radius:6px;padding:6px;text-align:center;color:#000;font-weight:700}
+.auto-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.auto-btn{padding:10px;background:#000;color:#00d4aa;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
+.section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:12px}
+.section-title{font-size:10px;font-weight:700;color:#00d4aa;margin-bottom:8px;text-transform:uppercase}
+.mode-selector{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.mode-btn{padding:8px;background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;color:#00d4aa;font-size:8px;font-weight:700;cursor:pointer}
+.mode-btn.active{background:#253857;border-color:#00d4aa}
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.metric-item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;text-align:center}
+.metric-item-label{font-size:7px;color:#7a8ba8;margin-bottom:4px}
+.metric-item-value{font-size:10px;font-weight:700;color:#00d4aa}
+.item-list{display:flex;flex-direction:column;gap:6px}
+.item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;font-size:8px}
+.item-label{color:#7a8ba8;margin-bottom:3px}
+.item-value{color:#fff;font-weight:700}
+.whale-item{background:#0a0e1a;border:1px solid #ffffff10;border-radius:8px;padding:10px;margin-bottom:6px;border-left:3px solid #00d4aa}
+.whale-header{display:flex;justify-content:space-between;margin-bottom:6px}
+.whale-name{font-size:9px;font-weight:700;color:#fff}
+.whale-status{font-size:8px;padding:2px 6px;background:#00d4aa20;color:#00d4aa;border-radius:4px}
+.whale-details{font-size:8px;color:#7a8ba8}
+.bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;margin-bottom:12px}
+.nav-btn{padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer}
+.nav-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
+.notif{position:fixed;bottom:15px;right:15px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:10px 14px;z-index:999;animation:slideIn 0.3s;font-size:9px}
 @keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:3px}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:2px}
+.tab-content{display:none}
+.tab-content.active{display:block}
 </style>
 </head>
 <body>
 
 <div class="app">
 <div class="header">
-<div class="logo">⚡ MEMEINTEL PRO</div>
-<div class="token-info">SOL • Fast Auto Trading</div>
+<div class="logo">⚡ MEMEINTEL PRO MAX</div>
+<div class="header-controls">
+<select class="chain-selector" id="chainSelect" onchange="switchChain()">
+<option>SOL</option>
+<option>ETH</option>
+<option>BSC</option>
+<option>POLY</option>
+</select>
+<button class="theme-btn" onclick="toggleTheme()">🌙</button>
+<button class="theme-btn" onclick="openSettings()">⚙️</button>
+</div>
 </div>
 
 <div class="content">
@@ -92,28 +91,22 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="token-logo">🐸</div>
 <div class="token-name">PEPE2</div>
 <div class="token-pair">PEPE2 / SOL</div>
-<div class="token-links">
-<button class="link-btn">🌐 Website</button>
-<button class="link-btn">𝕏 Twitter</button>
-<button class="link-btn">📱 Telegram</button>
-</div>
 <div class="prices">
 <div class="price-box">
 <div class="price-label">Price USD</div>
-<div class="price-value">$0.000042</div>
+<div class="price-value" id="priceUSD">$0.000042</div>
 </div>
 <div class="price-box">
-<div class="price-label">Price SOL</div>
-<div class="price-value">0.000042 SOL</div>
+<div class="price-label">API: Live</div>
+<div class="price-value">🟢 Active</div>
 </div>
 </div>
 </div>
 
 <div class="metrics">
 <div class="metric-box">
-<div class="metric-label">💧 Liquidity</div>
+<div class="metric-label">💧 Liq</div>
 <div class="metric-value">$450K</div>
-<div class="metric-small">🔒 Locked</div>
 </div>
 <div class="metric-box">
 <div class="metric-label">📊 FDV</div>
@@ -144,289 +137,301 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 </div>
 
-<!-- ⚡ FEATURE 1: AUTO BUY/SELL -->
+<!-- AUTO BUY/SELL WITH SNIPER MODE -->
 <div class="auto-trade-hero">
-<div class="auto-title">⚡ INSTANT AUTO BUY/SELL</div>
+<div class="auto-title">⚡ INSTANT AUTO BUY/SELL + SNIPER</div>
+<div class="mode-selector">
+<button class="mode-btn active" onclick="setMode('auto')">🤖 Auto Mode</button>
+<button class="mode-btn" onclick="setMode('sniper')">🎯 Sniper Mode</button>
+</div>
 <div class="auto-grid">
 <div class="auto-input">
 <label class="auto-label">💚 Buy Trigger</label>
 <select class="auto-field">
 <option>Market Cap: $2M</option>
 <option>Price: $0.00005</option>
-<option>Volume: $1M</option>
+<option>New Token (Sniper)</option>
 </select>
 </div>
 <div class="auto-input">
 <label class="auto-label">❤️ Sell Trigger</label>
 <select class="auto-field">
 <option>Market Cap: $3M</option>
-<option>Price: $0.00008</option>
 <option>Take Profit: 50%</option>
+<option>Stop Loss: 10%</option>
 </select>
 </div>
 </div>
 <div class="auto-status">
 <div class="status-item">⚡ Speed: 50ms</div>
 <div class="status-item">💰 Fee: 0.2%</div>
-<div class="status-item">Status: <span id="autoStatus">READY</span></div>
+<div class="status-item">🔐 Safe: Protected</div>
 </div>
 <div class="auto-btns">
 <button class="auto-btn" onclick="activateAuto()">🚀 ACTIVATE</button>
-<button class="auto-btn auto-btn-cancel" onclick="deactivateAuto()">STOP</button>
+<button class="auto-btn" style="background:#ff4757" onclick="stopAuto()">⏹️ STOP</button>
 </div>
-<div class="fee-info">💰 Axiom: 0.5% | MemeIntel: 0.2% | Save 60% on fees!</div>
 </div>
 
-<!-- 🔄 FEATURE 2: COPY TRADING -->
+<!-- AI SIGNALS & ANALYTICS -->
 <div class="section">
-<div class="section-title">🔄 Copy Trading - Follow Whales</div>
-<div id="copyTradeList"></div>
-</div>
-
-<!-- 🔗 FEATURE 3: WALLET CONNECT -->
-<div class="section">
-<div class="section-title">🔗 Wallet & Portfolio</div>
-<button class="wallet-btn" onclick="connectWallet()">🔗 Connect Phantom/MetaMask</button>
-<div id="portfolioTracker"></div>
-</div>
-
-<!-- 📊 FEATURE 4: ADVANCED METRICS -->
-<div class="section">
-<div class="section-title">📊 Advanced Metrics</div>
-<div class="metrics-grid" id="advMetrics"></div>
-</div>
-
-<!-- 👥 FEATURE 5: TOP 10 HOLDERS -->
-<div class="section">
-<div class="section-title">👥 Top 10 Holders</div>
-<div class="holders-list" id="holdersList"></div>
-</div>
-
-<!-- 🐋 FEATURE 6-9: MORE FEATURES IN TABS -->
-<div class="bottom-nav">
-<button class="nav-btn active" onclick="switchTab('data')">📊 Data</button>
-<button class="nav-btn" onclick="switchTab('chart')">📈 Chart</button>
-<button class="nav-btn" onclick="switchTab('whales')">🐋 Whales</button>
-<button class="nav-btn" onclick="switchTab('alerts')">🔔 Alerts</button>
-<button class="nav-btn" onclick="switchTab('history')">📋 History</button>
-</div>
-
-<!-- DATA TAB -->
-<div id="tab-data" class="section" style="margin-bottom:0">
-<div class="section-title">📊 Trading Data</div>
+<div class="section-title">🤖 AI SIGNALS & ANALYTICS</div>
 <div class="metrics-grid">
 <div class="metric-item">
-<div class="metric-item-label">Transactions</div>
-<div class="metric-item-value">16,682</div>
+<div class="metric-item-label">📈 Pump Signal</div>
+<div class="metric-item-value" style="color:#00d4aa">🟢 +85%</div>
 </div>
 <div class="metric-item">
-<div class="metric-item-label">Volume</div>
-<div class="metric-item-value">$1.2M</div>
+<div class="metric-item-label">🐋 Whale Signal</div>
+<div class="metric-item-value" style="color:#ff9800">⚠️ HIGH</div>
 </div>
 <div class="metric-item">
-<div class="metric-item-label">Traders</div>
-<div class="metric-item-value">2,194</div>
+<div class="metric-item-label">💎 Confidence</div>
+<div class="metric-item-value">92%</div>
 </div>
 <div class="metric-item">
-<div class="metric-item-label">Buys/Sells</div>
-<div class="metric-item-value">8.4K/5.2K</div>
+<div class="metric-item-label">📊 Volume Profile</div>
+<div class="metric-item-value">Bullish</div>
 </div>
 </div>
 </div>
 
-<!-- CHART TAB -->
-<div id="tab-chart" class="section" style="display:none;margin-bottom:0">
-<div class="section-title">📈 Live Candlestick Chart</div>
-<div style="background:#0a0e1a;border-radius:8px;padding:20px;text-align:center;color:#7a8ba8;height:200px;display:flex;align-items:center;justify-content:center">
-📈 Live Chart Loading...
+<!-- ADVANCED TRADING BOTS -->
+<div class="section">
+<div class="section-title">💎 PREMIUM: ADVANCED BOTS</div>
+<div class="item-list">
+<div class="item">
+<div class="item-label">🤖 DCA Bot (Dollar Cost Avg)</div>
+<div class="item-value">Buy $100 every 1H | Status: ⚙️ Running</div>
+</div>
+<div class="item">
+<div class="item-label">🎯 Grid Trading Bot</div>
+<div class="item-value">Profits: $2,450 | Active Grids: 3</div>
+</div>
+<div class="item">
+<div class="item-label">⚡ Momentum Bot</div>
+<div class="item-value">Next Signal: 2h 15m | Win Rate: 78%</div>
+</div>
 </div>
 </div>
 
-<!-- WHALES TAB -->
-<div id="tab-whales" class="section" style="display:none;margin-bottom:0">
-<div class="section-title">🐋 Whale Activities</div>
-<div id="whalesList"></div>
+<!-- SECURITY & LIMITS -->
+<div class="section">
+<div class="section-title">🔐 SECURITY & LIMITS</div>
+<div class="item-list">
+<div class="item">
+<div class="item-label">Slippage Protection</div>
+<div class="item-value">2% Max Slippage | 🟢 Enabled</div>
+</div>
+<div class="item">
+<div class="item-label">Transaction Limit</div>
+<div class="item-value">Max: $10,000 per trade | 🟢 Active</div>
+</div>
+<div class="item">
+<div class="item-label">Daily Limit</div>
+<div class="item-value">Used: $5,200 / $50,000 | 89% Safe</div>
+</div>
+<div class="item">
+<div class="item-label">Anti-Rug Detector</div>
+<div class="item-value">🟢 Token is SAFE | Dev Lock: YES</div>
+</div>
+</div>
+</div>
+
+<!-- COPY TRADING -->
+<div class="section">
+<div class="section-title">🔄 COPY TRADING - FOLLOW WHALES</div>
+<div class="item-list" id="copyTradeList"></div>
+</div>
+
+<!-- TOP HOLDERS & WHALES -->
+<div class="section">
+<div class="section-title">👥 TOP 10 HOLDERS & 🐋 WHALES</div>
+<div class="item-list" id="whalesList"></div>
+</div>
+
+<!-- TABS FOR MORE FEATURES -->
+<div class="bottom-nav">
+<button class="nav-btn active" onclick="switchTab('backtesting')">📈 Backtest</button>
+<button class="nav-btn" onclick="switchTab('portfolio')">💼 Portfolio</button>
+<button class="nav-btn" onclick="switchTab('alerts')">🔔 Alerts</button>
+<button class="nav-btn" onclick="switchTab('history')">📋 History</button>
+<button class="nav-btn" onclick="switchTab('settings')">⚙️ Settings</button>
+</div>
+
+<!-- BACKTESTING TAB -->
+<div id="backtesting" class="tab-content active">
+<div class="section">
+<div class="section-title">📈 BACKTEST STRATEGY</div>
+<div class="item-list">
+<div class="item">
+<div class="item-label">Strategy: MA Crossover 20/50</div>
+<div class="item-value">Win Rate: 72% | Profit: +$3,450 | Trades: 45</div>
+</div>
+<div class="item">
+<div class="item-label">Max Drawdown: 8.5%</div>
+<div class="item-value">Risk/Reward: 1:3.2 | Sharpe Ratio: 2.45</div>
+</div>
+<div class="item" style="background:#00d4aa20;border-left:3px solid #00d4aa">
+<div class="item-label">✅ APPROVED FOR LIVE TRADING</div>
+<div class="item-value">Ready to Deploy | Click: 🚀 Start Bot</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PORTFOLIO TAB -->
+<div id="portfolio" class="tab-content">
+<div class="section">
+<div class="section-title">💼 YOUR PORTFOLIO</div>
+<div class="item-list">
+<div class="item">
+<div class="item-label">💰 Total Balance</div>
+<div class="item-value" style="color:#00d4aa">$12,450 | +$2,300 (+22.9%)</div>
+</div>
+<div class="item">
+<div class="item-label">📊 Open Positions</div>
+<div class="item-value">5 Active Trades | Unrealized: +$450</div>
+</div>
+<div class="item">
+<div class="item-label">🎯 Today's Trades</div>
+<div class="item-value">12 Executed | Win Rate: 75% | Profit: $680</div>
+</div>
+<div class="item">
+<div class="item-label">🏆 Best Trade</div>
+<div class="item-value">$105K Buy → $156K Sell | Profit: +$51K</div>
+</div>
+</div>
+</div>
 </div>
 
 <!-- ALERTS TAB -->
-<div id="tab-alerts" class="section" style="display:none;margin-bottom:0">
-<div class="section-title">🔔 Smart Alerts</div>
-<div id="alertsList"></div>
+<div id="alerts" class="tab-content">
+<div class="section">
+<div class="section-title">🔔 CUSTOM ALERTS</div>
+<div class="item-list">
+<div class="item">
+<div class="item-label">💚 Price Above $0.000050</div>
+<div class="item-value">🟢 Active | Last triggered: 2h ago</div>
+</div>
+<div class="item">
+<div class="item-label">🐋 Whale Deposit >$100K</div>
+<div class="item-value">🟢 Watching | 3 alerts today</div>
+</div>
+<div class="item">
+<div class="item-label">📊 Volume >$5M in 1H</div>
+<div class="item-value">🟢 Active | Next check: 15m</div>
+</div>
+<div class="item">
+<div class="item-label">🔥 MC Milestone: $5M</div>
+<div class="item-value">⏳ Waiting | 40% away | Will notify</div>
+</div>
+</div>
+</div>
 </div>
 
 <!-- HISTORY TAB -->
-<div id="tab-history" class="section" style="display:none;margin-bottom:0">
-<div class="section-title">📋 Execution History</div>
-<div id="historyList"></div>
+<div id="history" class="tab-content">
+<div class="section">
+<div class="section-title">📋 EXECUTION HISTORY</div>
+<div class="item-list">
+<div class="item">
+<div class="item-label">BUY $105K | 45ms | Fee: $21</div>
+<div class="item-value">PEPE2 @ $0.000042 | 2 min ago ✅</div>
+</div>
+<div class="item">
+<div class="item-label">SELL $50.4K | 38ms | Fee: $10</div>
+<div class="item-value">BONK2 @ $0.000041 | 8 min ago ✅</div>
+</div>
+<div class="item">
+<div class="item-label">BUY $75.6K | 42ms | Fee: $15</div>
+<div class="item-value">DOGWIF3 @ $0.000039 | 15 min ago ✅</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- SETTINGS TAB -->
+<div id="settings" class="tab-content">
+<div class="section">
+<div class="section-title">⚙️ SETTINGS & CUSTOMIZATION</div>
+<div class="item-list">
+<div class="item">
+<div class="item-label">🌙 Theme</div>
+<div class="item-value">Dark | Toggle to Light</div>
+</div>
+<div class="item">
+<div class="item-label">🌐 Chain</div>
+<div class="item-value">Solana (SOL) | Switch to ETH/BSC/POLY</div>
+</div>
+<div class="item">
+<div class="item-label">⚡ Speed Mode</div>
+<div class="item-value">Ultra Fast (50ms) | Standard / Eco</div>
+</div>
+<div class="item">
+<div class="item-label">💰 Fee Level</div>
+<div class="item-value">Standard (0.2%) | Economy / Premium</div>
+</div>
+<div class="item">
+<div class="item-label">🔔 Notifications</div>
+<div class="item-value">🟢 All ON | Customize alerts</div>
+</div>
+</div>
+</div>
 </div>
 
 </div>
 </div>
 
 <script>
+let currentTheme = "dark";
+let currentChain = "SOL";
+let currentMode = "auto";
+
 const whaleData = [
-{name:"🧠 MegaWhale",action:"BUY",amount:"$105K",tokens:"2.5M",time:"2m ago",wallet:"4Mq...9Xyz",twitter:"@MegaWhale_SOL"},
-{name:"💎 SolanaBoss",action:"SELL",amount:"$50.4K",tokens:"1.2M",time:"8m ago",wallet:"7Kp...2Abc",twitter:"@SolanaBoss"},
-{name:"👑 CryptoKing",action:"BUY",amount:"$75.6K",tokens:"1.8M",time:"15m ago",wallet:"9Mr...5Def",twitter:"@CryptoKing88"}
+{name:"🧠 MegaWhale",action:"BUY",amount:"$105K",time:"2m"},
+{name:"💎 SolanaBoss",action:"SELL",amount:"$50.4K",time:"8m"},
+{name:"👑 CryptoKing",action:"BUY",amount:"$75.6K",time:"15m"}
 ];
-
-const holdersData = [
-{rank:"1",name:"Dev Wallet",pct:"12.5%"},
-{rank:"2",name:"🐋 Whale Alpha",pct:"8.3%"},
-{rank:"3",name:"🐋 Whale Beta",pct:"6.7%"},
-{rank:"4",name:"🐋 Whale Gamma",pct:"5.2%"},
-{rank:"5",name:"Exchange Hot",pct:"4.1%"},
-{rank:"6",name:"🐋 Whale Delta",pct:"3.8%"},
-{rank:"7",name:"Burn Address",pct:"3.2%"},
-{rank:"8",name:"🐋 Whale Epsilon",pct:"2.9%"},
-{rank:"9",name:"Liquidity Pool",pct:"2.5%"},
-{rank:"10",name:"🐋 Whale Zeta",pct:"2.1%"}
-];
-
-const metricsData = [
-{name:"Dev Hold %",value:"12.5%",status:"⚠️ High Risk"},
-{name:"Snipers %",value:"1.2%",status:"✅ Safe"},
-{name:"Bundlers %",value:"4.3%",status:"⚠️ Medium"},
-{name:"LP Burned",value:"100%",status:"✅ Safe"},
-{name:"Mint Auth",value:"Renounced",status:"✅ Safe"},
-{name:"Freeze Auth",value:"None",status:"✅ Safe"}
-];
-
-const alertsData = [
-{type:"Price Alert",value:"$0.000050",status:"🟢 Active"},
-{type:"Volume Alert",value:"$2M+",status:"🟢 Active"},
-{type:"MC Milestone",value:"$3M",status:"⏳ Waiting"},
-{type:"Whale Alert",value:"Large Trade",status:"🟢 Watching"}
-];
-
-const historyData = [
-{type:"BUY",amount:"$105K",price:"$0.000042",time:"2m",speed:"45ms",fee:"$21"},
-{type:"SELL",amount:"$50.4K",price:"$0.000041",time:"8m",speed:"38ms",fee:"$10"},
-{type:"BUY",amount:"$75.6K",price:"$0.000039",time:"15m",speed:"42ms",fee:"$15"}
-];
-
-function loadAllData() {
-// Copy Trade
-const copyHtml = whaleData.slice(0,2).map(w => `
-<div style="margin-bottom:10px">
-<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:6px">${w.name} - ${w.action} ${w.amount}</div>
-<div class="copy-trade-btns">
-<button class="copy-btn" onclick="notify('✅ Following ${w.name}!')">👁️ Follow</button>
-<button class="copy-btn" onclick="notify('✅ Copy Trading ${w.name}!')">🔄 Copy</button>
-</div>
-</div>
-`).join("");
-document.getElementById("copyTradeList").innerHTML = copyHtml;
-
-// Portfolio
-document.getElementById("portfolioTracker").innerHTML = `
-<div style="font-size:9px;color:#7a8ba8;margin-top:10px">
-<div style="display:flex;justify-content:space-between;padding:6px 0">
-<span>💰 Balance:</span><span style="color:#00d4aa;font-weight:700">2.5 SOL ($500)</span>
-</div>
-<div style="display:flex;justify-content:space-between;padding:6px 0">
-<span>📈 P&L:</span><span style="color:#00d4aa;font-weight:700">+$120 (+24%)</span>
-</div>
-<div style="display:flex;justify-content:space-between;padding:6px 0">
-<span>🔄 Trades:</span><span style="color:#00d4aa;font-weight:700">12 Executed</span>
-</div>
-</div>
-`;
-
-// Advanced Metrics
-const metricsHtml = metricsData.map(m => `
-<div class="metric-item">
-<div class="metric-item-label">${m.name}</div>
-<div class="metric-item-value">${m.value}</div>
-<div class="metric-item-status">${m.status}</div>
-</div>
-`).join("");
-document.getElementById("advMetrics").innerHTML = metricsHtml;
-
-// Holders
-const holdersHtml = holdersData.map(h => `
-<div class="holder-item">
-<span class="holder-name">#${h.rank} ${h.name}</span>
-<span class="holder-pct">${h.pct}</span>
-</div>
-`).join("");
-document.getElementById("holdersList").innerHTML = holdersHtml;
-
-// Whales
-const whalesHtml = whaleData.map(w => `
-<div class="whale-item">
-<div class="whale-header">
-<div class="whale-name">${w.name}</div>
-<div class="whale-status">${w.action}</div>
-</div>
-<div class="whale-action ${w.action==='SELL'?'sell':''}">${w.action==='BUY'?'💚':'❤️'} ${w.action} ${w.amount}</div>
-<div class="whale-details">
-<div class="whale-detail">
-<div class="whale-detail-label">Tokens</div>
-<div class="whale-detail-value">${w.tokens}</div>
-</div>
-<div class="whale-detail">
-<div class="whale-detail-label">Wallet</div>
-<div class="whale-detail-value" style="font-size:8px;font-family:monospace">${w.wallet}</div>
-</div>
-</div>
-<div class="whale-btns">
-<button class="whale-btn" onclick="notify('Following ${w.name}!')">👁️ Follow</button>
-<button class="whale-btn" onclick="copyAddr('${w.wallet}')">📋 Copy</button>
-</div>
-</div>
-`).join("");
-document.getElementById("whalesList").innerHTML = whalesHtml;
-
-// Alerts
-const alertsHtml = alertsData.map(a => `
-<div style="background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:10px;margin-bottom:6px">
-<div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px">
-<span style="color:#fff;font-weight:700">${a.type}</span>
-<span style="color:#ff9800">${a.status}</span>
-</div>
-<div style="font-size:9px;color:#7a8ba8">📍 Target: ${a.value}</div>
-</div>
-`).join("");
-document.getElementById("alertsList").innerHTML = alertsHtml;
-
-// History
-const historyHtml = historyData.map(h => `
-<div style="background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:10px;margin-bottom:6px">
-<div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px">
-<span style="color:#00d4aa;font-weight:700">${h.type} ${h.amount}</span>
-<span style="color:#7a8ba8">⚡${h.speed}</span>
-</div>
-<div style="font-size:8px;color:#7a8ba8">Price: ${h.price} | Fee: ${h.fee}</div>
-</div>
-`).join("");
-document.getElementById("historyList").innerHTML = historyHtml;
-}
 
 function switchTab(tab) {
-document.querySelectorAll("[id^='tab-']").forEach(t => t.style.display = "none");
+document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
 document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-document.getElementById("tab-" + tab).style.display = "block";
+document.getElementById(tab).classList.add("active");
 event.target.classList.add("active");
 }
 
+function setMode(mode) {
+currentMode = mode;
+document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+event.target.classList.add("active");
+notify(`${mode === 'auto' ? '🤖 Auto Mode' : '🎯 Sniper Mode'} Activated!`);
+}
+
+function switchChain() {
+const select = document.getElementById("chainSelect");
+currentChain = select.value;
+notify(`⛓️ Switched to ${currentChain}`);
+}
+
+function toggleTheme() {
+currentTheme = currentTheme === "dark" ? "light" : "dark";
+document.body.style.background = currentTheme === "dark" ? "#0a0e1a" : "#f5f5f5";
+document.body.style.color = currentTheme === "dark" ? "#e0e8f0" : "#000";
+notify(`${currentTheme === 'dark' ? '🌙' : '☀️'} ${currentTheme.toUpperCase()} Mode`);
+}
+
+function openSettings() {
+switchTab('settings');
+notify("⚙️ Settings opened");
+}
+
 function activateAuto() {
-document.getElementById("autoStatus").textContent = "🟢 ACTIVE";
-notify("⚡ AUTO TRADE ACTIVATED!\n💚 BUY & ❤️ SELL = RUNNING");
+notify(`${currentMode === 'auto' ? '🤖 AUTO' : '🎯 SNIPER'} TRADE ACTIVATED!\n⚡ Speed: 50ms | 💰 Fee: 0.2%`);
 }
 
-function deactivateAuto() {
-document.getElementById("autoStatus").textContent = "STOPPED";
-notify("❌ Auto Trade Stopped");
-}
-
-function connectWallet() {
-notify("✅ Phantom Wallet Connected!\n💰 Ready for Auto-Trading");
-}
-
-function copyAddr(addr) {
-navigator.clipboard.writeText(addr);
-notify("📋 Address Copied!");
+function stopAuto() {
+notify("⏹️ Auto Trade Stopped");
 }
 
 function notify(msg) {
@@ -437,7 +442,28 @@ document.body.appendChild(n);
 setTimeout(() => n.remove(), 3000);
 }
 
-loadAllData();
+// Load whales
+const whalesHtml = whaleData.map(w => `
+<div class="whale-item">
+<div class="whale-header">
+<div class="whale-name">${w.name}</div>
+<div class="whale-status">${w.action}</div>
+</div>
+<div class="whale-details">${w.action === 'BUY' ? '💚' : '❤️'} ${w.action} ${w.amount} • ${w.time} ago</div>
+</div>
+`).join("");
+document.getElementById("whalesList").innerHTML = whalesHtml;
+
+const copyHtml = whaleData.slice(0,2).map(w => `
+<div class="whale-item" style="border-left-color:#ff9800">
+<div class="whale-header">
+<div class="whale-name">${w.name}</div>
+<div class="whale-status">Copy</div>
+</div>
+<div class="whale-details">🔄 Following this trader | Copy Enabled</div>
+</div>
+`).join("");
+document.getElementById("copyTradeList").innerHTML = copyHtml;
 </script>
 
 </body>
