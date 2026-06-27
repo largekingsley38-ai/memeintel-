@@ -1,90 +1,135 @@
-document.getElementById("portfolioBalance").textContent = userBalance.toFixed(2) + " SOL ($" + (userBalance * 140).toFixed(2) + ")";
-}, 500);
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MemeIntel - Real Trading</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+.app{display:flex;flex-direction:column;height:100vh}
+.header{background:#0f1629;border-bottom:1px solid #ffffff15;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;height:50px}
+.logo{font-size:13px;font-weight:900;color:#00d4aa}
+.content{flex:1;overflow-y:auto;padding:12px}
+.section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:12px}
+.section-title{font-size:10px;font-weight:700;color:#00d4aa;margin-bottom:8px}
+.search-input{width:100%;padding:8px;background:#0f1629;border:1px solid #00d4aa;border-radius:6px;color:#fff;font-size:10px;margin-bottom:8px}
+.search-btn{padding:8px 12px;background:#00d4aa;color:#000;border:none;border-radius:6px;font-weight:700;cursor:pointer;width:100%}
+.hero{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center}
+.token-logo{font-size:40px;margin-bottom:6px}
+.token-name{font-size:14px;font-weight:700;color:#fff}
+.price-value{font-size:12px;color:#00d4aa;font-weight:700;margin-top:6px}
+.notif{position:fixed;bottom:15px;right:15px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:10px 14px;z-index:999;animation:slideIn 0.3s;font-size:9px}
+@keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
+</style>
+</head>
+<body>
 
-notify(`✅ Wallet Connected!\n📍 ${userWallet.slice(0,6)}...${userWallet.slice(-4)}\n💰 Balance: ${userBalance.toFixed(2)} SOL`);
-} else {
-notify("🔧 ETH/BSC coming soon!");
-}
-} catch(err) {
-notify("❌ Connection failed\n" + err.message);
-}
-}
+<div class="app">
+<div class="header">
+<div class="logo">⚡ MEMEINTEL - Real Trading</div>
+</div>
 
-function switchChain() {
-currentChain = document.getElementById("chainSelect").value;
-if(walletConnected) {
-notify(`⛓️ Switched to ${currentChain}`);
-}
-}
+<div class="content">
+<div class="hero">
+<div class="token-logo">🐸</div>
+<div class="token-name">PEPE2</div>
+<div class="price-value">$0.000042</div>
+</div>
 
-function switchTab(tab) {
-document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
-document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-document.getElementById(tab).classList.add("active");
-event.target.classList.add("active");
-}
+<div class="section">
+<div class="section-title">🔍 Search Tokens (DexScreener)</div>
+<input type="text" class="search-input" id="searchInput" placeholder="Search ticker or CA...">
+<button class="search-btn" onclick="searchTokens()">🔎 Search</button>
+<div id="searchResults" style="margin-top:8px"></div>
+</div>
 
-function previewBuy() {
-if(!walletConnected) return notify("❌ Connect wallet first!");
-const amount = parseFloat(document.getElementById("tradeAmount").value) || 0.5;
-document.getElementById("txAction").textContent = "BUY";
-document.getElementById("txAmount").textContent = amount.toFixed(4);
-document.getElementById("txReceive").textContent = (amount * 283905).toFixed(2) + " PEPE2";
-document.getElementById("txFee").textContent = (amount * 0.002).toFixed(6) + " SOL";
-document.getElementById("txTotal").textContent = (amount + amount * 0.002).toFixed(6) + " SOL";
-document.getElementById("txPreview").style.display = "block";
-}
+<div class="section">
+<div class="section-title">💱 Real Swap (Jupiter)</div>
+<input type="number" class="search-input" id="swapAmount" placeholder="0.5 SOL" value="0.5">
+<button class="search-btn" onclick="getQuote()">📊 Get Quote</button>
+<div id="quoteInfo" style="margin-top:8px;font-size:9px;color:#7a8ba8"></div>
+</div>
 
-function previewSell() {
-if(!walletConnected) return notify("❌ Connect wallet first!");
-const amount = parseFloat(document.getElementById("tradeAmount").value) || 0.5;
-document.getElementById("txAction").textContent = "SELL";
-document.getElementById("txAmount").textContent = (amount * 283905).toFixed(2) + " PEPE2";
-document.getElementById("txReceive").textContent = amount.toFixed(4) + " SOL";
-document.getElementById("txFee").textContent = (amount * 0.002).toFixed(6) + " SOL";
-document.getElementById("txTotal").textContent = (amount - amount * 0.002).toFixed(6) + " SOL";
-document.getElementById("txPreview").style.display = "block";
-}
+<div class="section">
+<div class="section-title">💼 Portfolio</div>
+<div id="portfolio" style="font-size:9px;color:#7a8ba8">
+Connect wallet to see balance
+</div>
+</div>
+</div>
+</div>
 
-async function executeTrade() {
-if(!walletConnected) return notify("❌ Connect wallet first!");
+<script>
+let selectedToken = {name:"PEPE2",ca:"4MqtvREUYfnuWUfsz7N5D6oD6D97a7DyP2FFbHuK9Xyz",price:0.000042};
 
-const action = document.getElementById("txAction").textContent;
-const amount = document.getElementById("txAmount").textContent;
+async function searchTokens() {
+const query = document.getElementById("searchInput").value.trim();
+if(query.length < 2) return notify("Enter token name");
+
+notify("🔍 Searching...");
 
 try {
-// Simulate transaction
-notify(`⏳ Executing ${action} transaction...`);
+const response = await fetch(`https://api.dexscreener.com/latest/dex/search?q=${query}`);
+const data = await response.json();
 
-setTimeout(() => {
-const tx = `${action} ${amount} | ${new Date().toLocaleTimeString()}`;
-tradeHistory.push(tx);
-document.getElementById("historyList").innerHTML = tradeHistory.map(h => `
-<div class="item">
-<div class="item-label">${h}</div>
-<div class="item-value">✅ Confirmed</div>
+if(data.pairs && data.pairs.length > 0) {
+const results = data.pairs.slice(0,5).map((p,i) => `
+<div style="padding:8px;background:#0a0e1a;border-radius:6px;margin-bottom:6px;cursor:pointer" onclick="selectToken('${p.baseToken.symbol}','${p.baseToken.address}','${p.priceUsd}')">
+<div style="color:#fff;font-weight:700">${p.baseToken.symbol}</div>
+<div style="font-size:8px;color:#00d4aa">$${parseFloat(p.priceUsd).toExponential(4)}</div>
 </div>
 `).join("");
-document.getElementById("totalTrades").textContent = tradeHistory.length;
-notify(`✅ ${action} Executed!\n⚡ Speed: 45ms\n💰 Fee: 0.001 SOL`);
-cancelTx();
-}, 1000);
+
+document.getElementById("searchResults").innerHTML = results;
+notify("✅ Found " + data.pairs.length + " tokens");
+} else {
+notify("❌ No tokens found");
+}
 } catch(err) {
-notify("❌ Transaction failed");
+notify("❌ Error: " + err.message);
 }
 }
 
-function cancelTx() {
-document.getElementById("txPreview").style.display = "none";
+function selectToken(name, ca, price) {
+selectedToken = {name, ca, price: parseFloat(price)};
+document.getElementById("searchInput").value = name;
+notify(`✅ Selected ${name}`);
 }
 
-function activateAutoTrade() {
-if(!walletConnected) return notify("❌ Connect wallet first!");
-notify("✅ Auto Trade Activated!\n⚡ Monitoring triggers...");
-}
+async function getQuote() {
+const amount = parseFloat(document.getElementById("swapAmount").value) || 0.5;
+notify("📊 Getting quote...");
 
-function stopAutoTrade() {
-notify("⏹️ Auto Trade Stopped");
+try {
+const response = await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112&outputMint=${selectedToken.ca}&amount=${amount * 1e9}&slippageBps=200`);
+const quote = await response.json();
+
+if(quote.outAmount) {
+const out = quote.outAmount / 1e9;
+document.getElementById("quoteInfo").innerHTML = `
+<div style="padding:8px;background:#0f1629;border-radius:6px">
+<div style="display:flex;justify-content:space-between;margin-bottom:4px">
+<span>Input:</span>
+<span style="color:#00d4aa">${amount} SOL</span>
+</div>
+<div style="display:flex;justify-content:space-between;margin-bottom:4px">
+<span>Output:</span>
+<span style="color:#00d4aa">${out.toFixed(4)} ${selectedToken.name}</span>
+</div>
+<div style="display:flex;justify-content:space-between">
+<span>Fee:</span>
+<span style="color:#00d4aa">${(amount * 0.002).toFixed(6)} SOL</span>
+</div>
+</div>
+`;
+notify(`✅ Quote ready!\n${amount} SOL → ${out.toFixed(4)} tokens`);
+} else {
+notify("❌ Quote failed");
+}
+} catch(err) {
+notify("❌ Error getting quote");
+}
 }
 
 function notify(msg) {
