@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel - Real Trading</title>
+<title>MemeIntel PRO - Copy Whale Trading</title>
 <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -14,39 +14,24 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .wallet-btn{background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;padding:8px 12px;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
 .wallet-info{background:#0f1629;border:1px solid #00d4aa;padding:8px 10px;border-radius:6px;font-size:8px;color:#00d4aa;max-width:120px;overflow:hidden;text-overflow:ellipsis;display:none}
 .content{flex:1;overflow-y:auto;padding:12px}
-.search-section{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:12px;margin-bottom:12px}
-.search-title{font-size:10px;font-weight:700;color:#00d4aa;margin-bottom:8px;text-transform:uppercase}
-.search-container{display:flex;gap:6px}
-.search-input{flex:1;padding:8px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#fff;font-size:10px}
-.search-btn{padding:8px 12px;background:#00d4aa;color:#000;border:none;border-radius:6px;font-weight:700;cursor:pointer;font-size:9px}
-.search-results{display:none;background:#0a0e1a;border:1px solid #00d4aa30;border-radius:6px;margin-top:8px;max-height:150px;overflow-y:auto}
-.result-item{padding:8px;border-bottom:1px solid #ffffff08;cursor:pointer;font-size:8px;display:flex;justify-content:space-between}
-.result-item:hover{background:#1a2847}
-.hero{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center}
-.token-logo{font-size:36px;margin-bottom:6px}
-.token-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
-.token-price{font-size:10px;color:#00d4aa;font-weight:700}
-.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px}
-.metric-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:8px;text-align:center;font-size:8px}
-.metric-label{color:#7a8ba8;margin-bottom:3px}
-.metric-value{color:#00d4aa;font-weight:700;font-size:10px}
-.balance-section{background:linear-gradient(135deg,#00d4aa,#00a885);border-radius:10px;padding:12px;margin-bottom:12px;color:#000;display:none}
-.balance-label{font-size:9px;font-weight:700;margin-bottom:4px}
-.balance-value{font-size:18px;font-weight:900;margin-bottom:4px}
-.balance-meta{font-size:8px;font-weight:700}
 .section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:12px}
 .section-title{font-size:10px;font-weight:700;color:#00d4aa;margin-bottom:8px;text-transform:uppercase}
-.swap-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.swap-field{display:flex;flex-direction:column;gap:4px}
-.swap-label{font-size:8px;color:#fff;font-weight:700}
-.swap-input{padding:8px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#fff;font-size:10px;font-family:monospace}
-.swap-btn{padding:8px;background:#00d4aa;color:#000;border:none;border-radius:6px;font-weight:700;cursor:pointer;font-size:9px;width:100%;margin-top:6px}
-.quote-info{background:#0a0e1a;border:1px solid #00d4aa30;border-radius:8px;padding:8px;margin-bottom:8px;font-size:8px;display:none}
-.quote-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #ffffff08}
-.quote-row:last-child{border:none}
-.item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;margin-bottom:6px;font-size:8px}
-.item-label{color:#7a8ba8;margin-bottom:2px}
-.item-value{color:#fff;font-weight:700}
+.whale-card{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #00d4aa30;border-radius:10px;padding:12px;margin-bottom:10px;border-left:3px solid #00d4aa}
+.whale-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.whale-name{font-size:10px;font-weight:700;color:#fff}
+.whale-status{font-size:8px;padding:3px 8px;background:#00d4aa20;color:#00d4aa;border-radius:4px;font-weight:700}
+.whale-details{font-size:9px;color:#7a8ba8;margin-bottom:8px}
+.whale-action{background:#0a0e1a;padding:8px;border-radius:6px;margin-bottom:6px;font-size:8px;color:#00d4aa}
+.action-label{color:#7a8ba8}
+.copy-btn{width:100%;padding:8px;background:#00d4aa;color:#000;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer;margin-top:6px}
+.copy-btn:hover{background:#00a885}
+.copy-btn.active{background:#ff9800}
+.active-copy{background:#00d4aa20;border:1px solid #00d4aa;border-radius:6px;padding:8px;margin-top:8px;font-size:8px}
+.fee-info{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;margin-bottom:8px;font-size:8px}
+.fee-row{display:flex;justify-content:space-between;padding:3px 0}
+.earnings{background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border-radius:10px;padding:12px;margin-bottom:12px;font-weight:700}
+.earnings-label{font-size:9px;margin-bottom:4px}
+.earnings-value{font-size:18px;font-weight:900}
 .bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-bottom:12px}
 .nav-btn{padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer}
 .nav-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
@@ -62,106 +47,53 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 
 <div class="app">
 <div class="header">
-<div class="logo">⚡ MEMEINTEL PRO</div>
+<div class="logo">⚡ MEMEINTEL PRO - COPY WHALES</div>
 <button class="wallet-btn" id="walletBtn" onclick="connectWallet()">🔗 Connect</button>
 <div class="wallet-info" id="walletInfo"></div>
 </div>
 
 <div class="content">
 
-<!-- SEARCH -->
-<div class="search-section">
-<div class="search-title">🔍 Find Tokens</div>
-<div class="search-container">
-<input type="text" class="search-input" id="searchInput" placeholder="Search ticker...">
-<button class="search-btn" onclick="searchTokens()">Search</button>
-</div>
-<div class="search-results" id="searchResults"></div>
+<!-- EARNINGS SECTION -->
+<div class="earnings" id="earningsSection" style="display:none">
+<div class="earnings-label">💰 YOUR EARNINGS TODAY</div>
+<div class="earnings-value" id="earningsValue">$0.00</div>
+<div style="font-size:9px;margin-top:6px">From 1.5% copy trading fees</div>
 </div>
 
-<!-- TOKEN HERO -->
-<div class="hero">
-<div class="token-logo" id="tokenLogo">🐸</div>
-<div class="token-name" id="tokenName">PEPE2</div>
-<div class="token-price" id="tokenPrice">$0.000042</div>
+<!-- ACTIVE COPIES -->
+<div class="section" id="activeCopiesSection" style="display:none">
+<div class="section-title">🟢 ACTIVE COPY TRADES</div>
+<div id="activeCopiesList"></div>
 </div>
 
-<div class="metrics">
-<div class="metric-box">
-<div class="metric-label">💧 Liq</div>
-<div class="metric-value" id="tokenLiq">$450K</div>
-</div>
-<div class="metric-box">
-<div class="metric-label">📊 MC</div>
-<div class="metric-value" id="tokenMC">$1.2M</div>
-</div>
-<div class="metric-box">
-<div class="metric-label">24H</div>
-<div class="metric-value" id="token24h">+182%</div>
-</div>
-</div>
-
-<!-- BALANCE -->
-<div class="balance-section" id="balanceSection">
-<div class="balance-label">💰 YOUR BALANCE</div>
-<div class="balance-value" id="balanceValue">0 SOL</div>
-<div class="balance-meta">💵 <span id="balanceUSD">$0</span></div>
-</div>
-
-<!-- SWAP SECTION -->
-<div class="section">
-<div class="section-title">💱 Real Swap (Jupiter)</div>
-<div class="swap-row">
-<div class="swap-field">
-<label class="swap-label">📤 From (SOL)</label>
-<input type="number" class="swap-input" id="fromAmount" placeholder="0.1" value="0.1">
-</div>
-<div class="swap-field">
-<label class="swap-label">📥 To (Token)</label>
-<input type="text" class="swap-input" id="toAmount" placeholder="0" disabled>
-</div>
-</div>
-<button class="swap-btn" onclick="getQuote()">📊 Get Quote</button>
-<div class="quote-info" id="quoteInfo">
-<div class="quote-row">
-<span>Input:</span>
-<span id="quoteInput">-</span>
-</div>
-<div class="quote-row">
-<span>Output:</span>
-<span id="quoteOutput">-</span>
-</div>
-<div class="quote-row">
-<span>Fee:</span>
-<span id="quoteFee">-</span>
-</div>
-</div>
-<button class="swap-btn" style="background:#00d4aa;margin-top:8px" onclick="executeSwap()">🚀 EXECUTE</button>
-</div>
-
-<!-- TABS -->
+<!-- WHALES TO COPY -->
 <div class="bottom-nav">
-<button class="nav-btn active" onclick="switchTab('portfolio')">💼 Portfolio</button>
-<button class="nav-btn" onclick="switchTab('history')">📋 History</button>
-<button class="nav-btn" onclick="switchTab('tokens')">🔍 Tokens</button>
-<button class="nav-btn" onclick="switchTab('whales')">🐋 Whales</button>
+<button class="nav-btn active" onclick="switchTab('whales')">🐋 Whales</button>
+<button class="nav-btn" onclick="switchTab('copying')">📋 Copying</button>
+<button class="nav-btn" onclick="switchTab('history')">📊 History</button>
+<button class="nav-btn" onclick="switchTab('earnings')">💰 Earnings</button>
 </div>
 
-<!-- PORTFOLIO TAB -->
-<div id="portfolio" class="tab active">
+<!-- WHALES TAB -->
+<div id="whales" class="tab active">
 <div class="section">
-<div class="section-title">💼 Portfolio</div>
-<div class="item">
-<div class="item-label">Total Balance</div>
-<div class="item-value" id="portfolioBalance">Connect wallet</div>
+<div class="section-title">🐋 TOP WHALE WALLETS - COPY THEIR TRADES!</div>
+<div id="whalesList"></div>
 </div>
-<div class="item">
-<div class="item-label">Total Trades</div>
-<div class="item-value" id="portfolioTrades">0</div>
 </div>
-<div class="item">
-<div class="item-label">Today P&L</div>
-<div class="item-value" id="portfolioPnL">$0</div>
+
+<!-- COPYING TAB -->
+<div id="copying" class="tab">
+<div class="section">
+<div class="section-title">📋 CURRENTLY COPYING</div>
+<div id="copyingList">
+<div class="whale-card">
+<div class="whale-header">
+<div class="whale-name">No active copies</div>
+</div>
+<div class="whale-details">Click "Copy Whale" to start copying trades</div>
+</div>
 </div>
 </div>
 </div>
@@ -169,40 +101,40 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <!-- HISTORY TAB -->
 <div id="history" class="tab">
 <div class="section">
-<div class="section-title">📋 Swap History</div>
+<div class="section-title">📊 COPY TRADE HISTORY</div>
 <div id="historyList">
-<div class="item">
-<div class="item-label">No swaps yet</div>
-<div class="item-value">Your trades appear here</div>
+<div class="whale-card">
+<div class="whale-header">
+<div class="whale-name">No history yet</div>
+</div>
+<div class="whale-details">Your copied trades will appear here</div>
 </div>
 </div>
 </div>
 </div>
 
-<!-- TOKENS TAB -->
-<div id="tokens" class="tab">
+<!-- EARNINGS TAB -->
+<div id="earnings" class="tab">
 <div class="section">
-<div class="section-title">🔍 Discovered</div>
-<div id="tokensList">
-<div class="item">
-<div class="item-label">Search tokens above</div>
-<div class="item-value">Your searches appear here</div>
+<div class="section-title">💰 EARNINGS BREAKDOWN</div>
+<div id="earningsDetails">
+<div class="fee-info">
+<div class="fee-row">
+<span>Today Earnings:</span>
+<span style="color:#00d4aa" id="todayEarnings">$0.00</span>
 </div>
+<div class="fee-row">
+<span>This Week:</span>
+<span style="color:#00d4aa" id="weekEarnings">$0.00</span>
 </div>
+<div class="fee-row">
+<span>This Month:</span>
+<span style="color:#00d4aa" id="monthEarnings">$0.00</span>
 </div>
+<div class="fee-row">
+<span>Total Ever:</span>
+<span style="color:#00d4aa" id="totalEarnings">$0.00</span>
 </div>
-
-<!-- WHALES TAB -->
-<div id="whales" class="tab">
-<div class="section">
-<div class="section-title">🐋 Whale Activity</div>
-<div class="item">
-<div class="item-label">🧠 MegaWhale BUY</div>
-<div class="item-value">$105K • 2m ago</div>
-</div>
-<div class="item">
-<div class="item-label">💎 SolanaBoss SELL</div>
-<div class="item-value">$50.4K • 8m ago</div>
 </div>
 </div>
 </div>
@@ -213,17 +145,25 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <script>
 let walletConnected = false;
 let userWallet = null;
-let userBalance = 0;
-let selectedToken = {name:"PEPE2",logo:"🐸",price:0.000042,ca:"4MqtvREUYfnuWUfsz7N5D6oD6D97a7DyP2FFbHuK9Xyz",mc:1200000,liq:450000};
-let swapHistory = [];
-let discoveredTokens = [];
+let activeCopies = [];
+let copyHistory = [];
+let totalEarnings = 0;
+let todayEarnings = 0;
 
-// CHECK PHANTOM
+// WHALE DATA
+const topWhales = [
+{name:"🧠 MegaWhale",addr:"9B5X...",trades:2450,volume:"$12.5M",winRate:"82%",lastTrade:"BUY 2m ago"},
+{name:"💎 SolanaBoss",addr:"8K7L...",trades:1850,volume:"$8.3M",winRate:"78%",lastTrade:"SELL 5m ago"},
+{name:"👑 CryptoKing",addr:"4P2Q...",trades:1520,volume:"$6.8M",winRate:"85%",lastTrade:"BUY 12m ago"},
+{name:"🔥 Pumper",addr:"3X9Z...",trades:3200,volume:"$15.2M",winRate:"72%",lastTrade:"BUY 8m ago"},
+{name:"⚡ FastTrader",addr:"2M5N...",trades:2100,volume:"$9.7M",winRate:"80%",lastTrade:"SELL 3m ago"},
+{name:"🎯 TargetHunter",addr:"5R8S...",trades:1680,volume:"$7.4M",winRate:"76%",lastTrade:"BUY 15m ago"}
+];
+
 function isPhantomInstalled() {
 return window.solana && window.solana.isPhantom;
 }
 
-// CONNECT WALLET
 async function connectWallet() {
 try {
 if(!isPhantomInstalled()) {
@@ -237,162 +177,148 @@ walletConnected = true;
 document.getElementById("walletBtn").style.display = "none";
 document.getElementById("walletInfo").style.display = "block";
 document.getElementById("walletInfo").textContent = "📍 " + userWallet.slice(0,6) + "..." + userWallet.slice(-4);
-document.getElementById("balanceSection").style.display = "block";
+document.getElementById("earningsSection").style.display = "block";
+document.getElementById("activeCopiesSection").style.display = "block";
 
-// GET REAL BALANCE
-getBalance();
+loadWhales();
 
-notify(`✅ Connected!\n${userWallet.slice(0,6)}...${userWallet.slice(-4)}`);
+notify(`✅ Connected!\n🐋 Copy whale trades now!`);
 } catch(err) {
 notify("❌ " + err.message);
 }
 }
 
-// GET BALANCE FROM SOLANA
-async function getBalance() {
-try {
-const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com");
-const publicKey = new solanaWeb3.PublicKey(userWallet);
-const balance = await connection.getBalance(publicKey);
-const solBalance = balance / solanaWeb3.LAMPORTS_PER_SOL;
-
-userBalance = solBalance;
-document.getElementById("balanceValue").textContent = solBalance.toFixed(2) + " SOL";
-document.getElementById("balanceUSD").textContent = "$" + (solBalance * 140).toFixed(2);
-document.getElementById("portfolioBalance").textContent = solBalance.toFixed(2) + " SOL ($" + (solBalance * 140).toFixed(2) + ")";
-} catch(err) {
-notify("⚠️ Could not fetch balance");
-}
-}
-
-// SEARCH TOKENS (DEXSCREENER)
-async function searchTokens() {
-const query = document.getElementById("searchInput").value.trim();
-if(query.length < 2) return notify("Enter token name");
-
-notify("🔍 Searching...");
-
-try {
-const response = await fetch(`https://api.dexscreener.com/latest/dex/search?q=${query}`);
-const data = await response.json();
-
-if(data.pairs && data.pairs.length > 0) {
-const results = data.pairs.slice(0,5).map(p => `
-<div class="result-item" onclick="selectToken('${p.baseToken.symbol}','${p.baseToken.address}','${p.priceUsd}','${p.liquidity.usd}')">
-<div>${p.baseToken.symbol}</div>
-<div style="color:#00d4aa">$${parseFloat(p.priceUsd).toExponential(4)}</div>
+function loadWhales() {
+const whalesHtml = topWhales.map((w,i) => `
+<div class="whale-card">
+<div class="whale-header">
+<div class="whale-name">${w.name}</div>
+<div class="whale-status">📊 ${w.winRate}</div>
+</div>
+<div class="whale-details">
+📈 Trades: ${w.trades} | 💰 Volume: ${w.volume} | Last: ${w.lastTrade}
+</div>
+<div class="whale-action">
+<div class="action-label">Wallet: ${w.addr}</div>
+</div>
+<button class="copy-btn" onclick="copyWhale(${i},'${w.name}')">
+${activeCopies.find(c => c.index === i) ? '✅ COPYING' : '🐋 COPY THIS WHALE'}
+</button>
 </div>
 `).join("");
 
-document.getElementById("searchResults").innerHTML = results;
-document.getElementById("searchResults").style.display = "block";
-notify("✅ Found " + data.pairs.length + " tokens");
+document.getElementById("whalesList").innerHTML = whalesHtml;
+updateActiveCopies();
+}
+
+function copyWhale(index, name) {
+const isAlreadyCopying = activeCopies.find(c => c.index === index);
+
+if(isAlreadyCopying) {
+// Stop copying
+activeCopies = activeCopies.filter(c => c.index !== index);
+notify(`❌ Stopped copying ${name}`);
 } else {
-notify("❌ No tokens found");
-}
-} catch(err) {
-notify("❌ Search error");
-}
+// Start copying
+activeCopies.push({index, name, startTime: new Date(), trades: 0, earnings: 0});
+notify(`✅ Now copying ${name}!\n🟢 All their trades are yours!`);
 }
 
-// SELECT TOKEN
-function selectToken(name, ca, price, liq) {
-selectedToken = {name, ca, price:parseFloat(price), liq:parseFloat(liq)};
-document.getElementById("tokenName").textContent = name;
-document.getElementById("tokenPrice").textContent = "$" + parseFloat(price).toExponential(6);
-document.getElementById("tokenLiq").textContent = "$" + (parseFloat(liq)/1000000).toFixed(1) + "M";
-document.getElementById("tokenMC").textContent = "$" + (parseFloat(liq) * 2 / 1000000).toFixed(1) + "M";
-document.getElementById("searchResults").style.display = "none";
-
-if(!discoveredTokens.find(t => t.name === name)) {
-discoveredTokens.push({name, price:parseFloat(price)});
-updateTokensList();
+loadWhales();
 }
 
-notify(`✅ Selected ${name}`);
-}
-
-function updateTokensList() {
-document.getElementById("tokensList").innerHTML = discoveredTokens.map(t => `
-<div class="item">
-<div class="item-label">${t.name}</div>
-<div class="item-value">$${t.price.toExponential(4)}</div>
+function updateActiveCopies() {
+if(activeCopies.length === 0) {
+document.getElementById("activeCopiesSection").style.display = "none";
+document.getElementById("copyingList").innerHTML = `
+<div class="whale-card">
+<div class="whale-header">
+<div class="whale-name">No active copies</div>
 </div>
-`).join("");
+<div class="whale-details">Click "Copy Whale" to start copying trades</div>
+</div>
+`;
+return;
 }
 
-// GET QUOTE (JUPITER)
-async function getQuote() {
-if(!walletConnected) return notify("❌ Connect wallet first");
+document.getElementById("activeCopiesSection").style.display = "block";
 
-const amount = parseFloat(document.getElementById("fromAmount").value) || 0.1;
-if(amount <= 0) return;
-
-notify("📊 Getting quote...");
-
-try {
-const response = await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112&outputMint=${selectedToken.ca}&amount=${amount * 1e9}&slippageBps=200`);
-const quote = await response.json();
-
-if(quote.outAmount) {
-const outAmount = quote.outAmount / 1e9;
-const fee = amount * 0.002;
-
-document.getElementById("toAmount").value = outAmount.toFixed(4);
-document.getElementById("quoteInput").textContent = amount.toFixed(4) + " SOL";
-document.getElementById("quoteOutput").textContent = outAmount.toFixed(4) + " " + selectedToken.name;
-document.getElementById("quoteFee").textContent = fee.toFixed(6) + " SOL";
-document.getElementById("quoteInfo").style.display = "block";
-
-notify(`✅ Quote ready!\n${amount} SOL → ${outAmount.toFixed(4)} tokens`);
-} else {
-notify("❌ Quote failed");
-}
-} catch(err) {
-// FALLBACK CALCULATION
-const outAmount = (amount / selectedToken.price) * 0.98;
-document.getElementById("toAmount").value = outAmount.toFixed(4);
-document.getElementById("quoteInput").textContent = amount.toFixed(4) + " SOL";
-document.getElementById("quoteOutput").textContent = outAmount.toFixed(4) + " " + selectedToken.name;
-document.getElementById("quoteFee").textContent = (amount * 0.002).toFixed(6) + " SOL";
-document.getElementById("quoteInfo").style.display = "block";
-notify(`✅ Quote ready (Demo)\n${amount} SOL → ${outAmount.toFixed(4)} tokens`);
-}
-}
-
-// EXECUTE SWAP
-async function executeSwap() {
-if(!walletConnected) return notify("❌ Connect wallet");
-
-const amount = parseFloat(document.getElementById("fromAmount").value);
-const out = parseFloat(document.getElementById("toAmount").value);
-
-if(amount > userBalance) return notify("❌ Not enough SOL");
-
-notify("⏳ Executing swap...");
-
-setTimeout(() => {
-const tx = `SWAP ${amount} SOL → ${out.toFixed(4)} ${selectedToken.name} | ${new Date().toLocaleTimeString()}`;
-swapHistory.push(tx);
-
-document.getElementById("historyList").innerHTML = swapHistory.map(h => `
-<div class="item">
-<div class="item-label">${h}</div>
-<div class="item-value">✅ Success</div>
+const activeCopiesHtml = activeCopies.map(ac => `
+<div class="active-copy">
+<div style="display:flex;justify-content:space-between;margin-bottom:4px">
+<span style="color:#00d4aa;font-weight:700">${ac.name}</span>
+<span style="color:#fff;font-weight:700">Earnings: $${ac.earnings.toFixed(2)}</span>
+</div>
+<div style="color:#7a8ba8">🟢 COPYING | Trades copied: ${ac.trades}</div>
 </div>
 `).join("");
 
-document.getElementById("portfolioTrades").textContent = swapHistory.length;
-
-userBalance -= amount;
-document.getElementById("balanceValue").textContent = userBalance.toFixed(2) + " SOL";
-document.getElementById("balanceUSD").textContent = "$" + (userBalance * 140).toFixed(2);
-
-notify(`✅ SWAP DONE!\n${amount} SOL → ${out.toFixed(4)} ${selectedToken.name}`);
-}, 1500);
+document.getElementById("activeCopiesList").innerHTML = activeCopiesHtml;
+document.getElementById("copyingList").innerHTML = activeCopiesHtml;
 }
 
-// SWITCH TABS
+// SIMULATE WHALE TRADES
+function simulateWhaleTrades() {
+if(activeCopies.length === 0) return;
+
+setInterval(() => {
+activeCopies.forEach(ac => {
+// Random chance whale makes a trade
+if(Math.random() > 0.7) {
+const tradeAmount = Math.random() * 50000 + 10000;
+const fee = tradeAmount * 0.015; // 1.5% fee
+const action = Math.random() > 0.5 ? "BUY" : "SELL";
+
+ac.trades++;
+ac.earnings += fee;
+todayEarnings += fee;
+totalEarnings += fee;
+
+copyHistory.push({
+whale: ac.name,
+action: action,
+amount: tradeAmount.toFixed(0),
+fee: fee.toFixed(2),
+time: new Date().toLocaleTimeString()
+});
+
+updateEarnings();
+updateHistory();
+notify(`🟢 ${ac.name} ${action}!\n📤 Your copy: $${tradeAmount.toFixed(0)}\n💰 Earned: $${fee.toFixed(2)}`);
+}
+});
+}, 5000); // Check every 5 seconds
+}
+
+function updateEarnings() {
+document.getElementById("earningsValue").textContent = "$" + todayEarnings.toFixed(2);
+document.getElementById("todayEarnings").textContent = "$" + todayEarnings.toFixed(2);
+document.getElementById("weekEarnings").textContent = "$" + (todayEarnings * 3).toFixed(2);
+document.getElementById("monthEarnings").textContent = "$" + (todayEarnings * 15).toFixed(2);
+document.getElementById("totalEarnings").textContent = "$" + totalEarnings.toFixed(2);
+updateActiveCopies();
+}
+
+function updateHistory() {
+const historyHtml = copyHistory.slice().reverse().slice(0,10).map(h => `
+<div class="whale-card">
+<div class="whale-header">
+<div class="whale-name">${h.whale} ${h.action}</div>
+<div class="whale-status">+$${h.fee}</div>
+</div>
+<div class="whale-details">
+Amount: $${h.amount} | Fee earned: $${h.fee} | Time: ${h.time}
+</div>
+</div>
+`).join("");
+
+document.getElementById("historyList").innerHTML = historyHtml || `
+<div class="whale-card">
+<div class="whale-name">No history yet</div>
+</div>
+`;
+}
+
 function switchTab(tab) {
 document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
 document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
@@ -400,7 +326,6 @@ document.getElementById(tab).classList.add("active");
 event.target.classList.add("active");
 }
 
-// NOTIFY
 function notify(msg) {
 const n = document.createElement("div");
 n.className = "notif";
@@ -408,6 +333,11 @@ n.innerHTML = msg;
 document.body.appendChild(n);
 setTimeout(() => n.remove(), 3000);
 }
+
+// Start simulating trades
+setTimeout(() => {
+simulateWhaleTrades();
+}, 2000);
 </script>
 
 </body>
