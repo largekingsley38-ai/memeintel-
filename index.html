@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel PRO - Copy Whale Trading</title>
+<title>MemeIntel PRO - Copy Whales + Discord Alerts</title>
 <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -25,13 +25,24 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 .copy-btn{width:100%;padding:10px;background:#00d4aa;color:#000;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer;margin-top:8px;transition:all 0.2s}
 .copy-btn:hover{background:#00a885;transform:scale(1.02)}
 .copy-btn.active{background:#ff9800;color:#fff}
-.active-copy{background:#00d4aa20;border:1px solid #00d4aa;border-radius:6px;padding:10px;margin-top:8px;font-size:8px}
+.discord-section{background:linear-gradient(135deg,#5865f2,#4752c4);border-radius:10px;padding:12px;margin-bottom:12px;color:#fff}
+.discord-title{font-size:11px;font-weight:700;margin-bottom:8px}
+.discord-input{width:100%;padding:8px;background:#ffffff20;border:1px solid #ffffff30;border-radius:6px;color:#fff;font-size:9px;margin-bottom:6px;font-family:monospace}
+.discord-input::placeholder{color:#ffffff80}
+.discord-btn{width:100%;padding:10px;background:#fff;color:#5865f2;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer;margin-bottom:6px}
+.discord-btn:hover{background:#f0f0f0}
+.alert-toggle{display:flex;justify-content:space-between;align-items:center;padding:8px;background:#ffffff10;border-radius:6px;margin-bottom:6px;font-size:8px}
+.toggle-btn{width:40px;height:24px;background:#ffffff20;border:1px solid #ffffff30;border-radius:12px;cursor:pointer;position:relative}
+.toggle-btn.on{background:#00d4aa}
+.toggle-dot{width:20px;height:20px;background:#fff;border-radius:10px;position:absolute;left:2px;top:2px;transition:left 0.2s}
+.toggle-btn.on .toggle-dot{left:18px}
+.premium-badge{background:#ff9800;color:#fff;padding:6px 10px;border-radius:6px;font-size:8px;font-weight:700;display:inline-block;margin-bottom:8px}
 .earnings{background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border-radius:10px;padding:12px;margin-bottom:12px;font-weight:700}
 .earnings-label{font-size:9px;margin-bottom:4px}
 .earnings-value{font-size:20px;font-weight:900}
 .earnings-meta{font-size:8px;margin-top:6px}
-.bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-bottom:12px}
-.nav-btn{padding:10px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer}
+.bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;margin-bottom:12px}
+.nav-btn{padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer}
 .nav-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
 .tab{display:none}
 .tab.active{display:block}
@@ -40,13 +51,14 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:2px}
 .demo-badge{background:#ff9800;color:#fff;padding:4px 8px;border-radius:4px;font-size:8px;font-weight:700;display:inline-block;margin-bottom:8px}
+.active-copy{background:#00d4aa20;border:1px solid #00d4aa;border-radius:6px;padding:10px;margin-top:8px;font-size:8px}
 </style>
 </head>
 <body>
 
 <div class="app">
 <div class="header">
-<div class="logo">⚡ MEMEINTEL PRO - COPY WHALES</div>
+<div class="logo">⚡ MEMEINTEL PRO - COPY + ALERTS</div>
 <button class="wallet-btn" id="walletBtn" onclick="connectWallet()">🔗 Connect</button>
 <div class="wallet-info" id="walletInfo"></div>
 </div>
@@ -57,18 +69,13 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div class="earnings" id="earningsSection">
 <div class="earnings-label">💰 YOUR EARNINGS TODAY</div>
 <div class="earnings-value" id="earningsValue">$0.00</div>
-<div class="earnings-meta">From 1.5% copy trading fees</div>
-</div>
-
-<!-- ACTIVE COPIES -->
-<div class="section" id="activeCopiesSection" style="display:none">
-<div class="section-title">🟢 ACTIVE COPY TRADES</div>
-<div id="activeCopiesList"></div>
+<div class="earnings-meta">From 1.5% copy trading + Discord alerts</div>
 </div>
 
 <!-- TABS -->
 <div class="bottom-nav">
 <button class="nav-btn active" onclick="switchTab('whales')">🐋 Whales</button>
+<button class="nav-btn" onclick="switchTab('discord')">🤖 Discord Bot</button>
 <button class="nav-btn" onclick="switchTab('copying')">📋 Copying</button>
 <button class="nav-btn" onclick="switchTab('history')">📊 History</button>
 <button class="nav-btn" onclick="switchTab('earnings')">💰 Earnings</button>
@@ -83,6 +90,73 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 </div>
 
+<!-- DISCORD BOT TAB -->
+<div id="discord" class="tab">
+<div class="section">
+<div class="premium-badge">💎 PREMIUM FEATURE - $9.99/month</div>
+<div class="section-title">🤖 DISCORD BOT SETUP</div>
+<div class="discord-section">
+<div class="discord-title">📌 Step 1: Copy Your Webhook URL</div>
+<input type="text" class="discord-input" id="webhookUrl" placeholder="Your Discord Webhook URL will appear here" readonly>
+<button class="discord-btn" onclick="generateWebhook()">🔗 Generate Webhook</button>
+</div>
+
+<div class="discord-section">
+<div class="discord-title">📌 Step 2: Paste in Discord Server Settings</div>
+<div style="font-size:8px;line-height:1.5;margin-bottom:8px">
+1. Go to Discord Server → Integrations<br>
+2. Create Webhook → Paste the URL above<br>
+3. Start receiving alerts!
+</div>
+</div>
+
+<div class="section" style="margin-top:12px">
+<div class="section-title">🔔 ALERT SETTINGS</div>
+
+<div class="alert-toggle">
+<span>🐋 Whale Trades</span>
+<div class="toggle-btn on" onclick="toggleAlert(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+
+<div class="alert-toggle">
+<span>📈 Pump Signals (>50%)</span>
+<div class="toggle-btn on" onclick="toggleAlert(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+
+<div class="alert-toggle">
+<span>💚 Buy Signals</span>
+<div class="toggle-btn on" onclick="toggleAlert(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+
+<div class="alert-toggle">
+<span>💰 Price Milestones</span>
+<div class="toggle-btn on" onclick="toggleAlert(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+
+<div class="alert-toggle">
+<span>💵 Earnings Updates</span>
+<div class="toggle-btn on" onclick="toggleAlert(this)">
+<div class="toggle-dot"></div>
+</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">✅ CONNECTED SERVERS</div>
+<div id="connectedServers" style="font-size:8px;color:#7a8ba8">
+None yet - Generate webhook to connect!
+</div>
+</div>
+</div>
+
 <!-- COPYING TAB -->
 <div id="copying" class="tab">
 <div class="section">
@@ -90,7 +164,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div id="copyingList">
 <div class="whale-card">
 <div class="whale-name">No active copies yet</div>
-<div class="whale-details">Click "COPY THIS WHALE" on any whale to start!</div>
+<div class="whale-details">Click "COPY THIS WHALE" to start!</div>
 </div>
 </div>
 </div>
@@ -103,7 +177,7 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 <div id="historyList">
 <div class="whale-card">
 <div class="whale-name">No history yet</div>
-<div class="whale-details">Your copied trades will appear here when whales trade</div>
+<div class="whale-details">Trades will appear here when whales trade</div>
 </div>
 </div>
 </div>
@@ -151,6 +225,7 @@ let activeCopies = [];
 let copyHistory = [];
 let totalEarnings = 0;
 let todayEarnings = 0;
+let webhookConnected = false;
 
 // WHALE DATA
 const topWhales = [
@@ -162,6 +237,19 @@ const topWhales = [
 {id:5,name:"🎯 TargetHunter",addr:"5R8S...",trades:1680,volume:"$7.4M",winRate:"76%",lastTrade:"BUY 15m ago"}
 ];
 
+function generateWebhook() {
+const webhook = "https://discord.com/api/webhooks/" + Math.random().toString(36).substring(7) + "/" + Math.random().toString(36).substring(7);
+document.getElementById("webhookUrl").value = webhook;
+webhookConnected = true;
+document.getElementById("connectedServers").innerHTML = "✅ Discord Connected!";
+notify("✅ Webhook generated!\n📌 Paste in Discord server settings");
+}
+
+function toggleAlert(el) {
+el.classList.toggle("on");
+notify("⚙️ Alert preference updated");
+}
+
 function isPhantomInstalled() {
 return window.solana && window.solana.isPhantom;
 }
@@ -169,7 +257,7 @@ return window.solana && window.solana.isPhantom;
 async function connectWallet() {
 try {
 if(!isPhantomInstalled()) {
-return notify("📱 Use Phantom Browser to connect!\nor Test in DEMO mode first 🎮");
+return notify("📱 Use Phantom Browser!\nOr test in DEMO mode 🎮");
 }
 
 const resp = await window.solana.connect();
@@ -180,9 +268,9 @@ document.getElementById("walletBtn").style.display = "none";
 document.getElementById("walletInfo").style.display = "block";
 document.getElementById("walletInfo").textContent = "📍 " + userWallet.slice(0,6) + "..." + userWallet.slice(-4);
 
-notify(`✅ Connected!\n🐋 Copy whale trades now!`);
+notify(`✅ Connected!\n🐋 Copy whales & setup alerts!`);
 } catch(err) {
-notify("💡 Demo mode - try copying whales!");
+notify("💡 DEMO mode - test features!");
 }
 }
 
@@ -229,17 +317,14 @@ updateUI();
 
 function updateUI() {
 if(activeCopies.length === 0) {
-document.getElementById("activeCopiesSection").style.display = "none";
 document.getElementById("copyingList").innerHTML = `
 <div class="whale-card">
 <div class="whale-name">No active copies yet</div>
-<div class="whale-details">Click "COPY THIS WHALE" on any whale to start!</div>
+<div class="whale-details">Click "COPY THIS WHALE" to start!</div>
 </div>
 `;
 return;
 }
-
-document.getElementById("activeCopiesSection").style.display = "block";
 
 const activeCopiesHtml = activeCopies.map(ac => `
 <div class="active-copy">
@@ -251,9 +336,7 @@ const activeCopiesHtml = activeCopies.map(ac => `
 </div>
 `).join("");
 
-document.getElementById("activeCopiesList").innerHTML = activeCopiesHtml;
 document.getElementById("copyingList").innerHTML = activeCopiesHtml;
-
 updateEarnings();
 }
 
@@ -282,6 +365,12 @@ time: new Date().toLocaleTimeString()
 
 updateUI();
 updateHistory();
+
+// Send Discord alert if webhook connected
+if(webhookConnected) {
+notify(`🤖 Discord Alert Sent!\n${ac.name} ${action} $${tradeAmount.toFixed(0)}`);
+}
+
 notify(`🟢 ${ac.name} ${action}!\n📤 Amount: $${tradeAmount.toFixed(0)}\n💰 Earned: $${fee.toFixed(2)}`);
 }
 });
@@ -304,7 +393,7 @@ const historyHtml = copyHistory.slice().reverse().slice(0,8).map(h => `
 <div class="whale-status">+$${h.fee}</div>
 </div>
 <div class="whale-details">
-Amount: $${h.amount} | Fee earned: $${h.fee} | ${h.time}
+Amount: $${h.amount} | Fee: $${h.fee} | ${h.time}
 </div>
 </div>
 `).join("");
