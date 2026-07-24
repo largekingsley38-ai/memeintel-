@@ -66,7 +66,6 @@ body{overflow:hidden}
 .item-label{color:#7a8ba8;margin-bottom:2px}
 .item-value{color:#fff;font-weight:700}
 .premium-badge{background:#ff9800;color:#fff;padding:4px 8px;border-radius:4px;font-size:8px;font-weight:700;display:inline-block;margin-bottom:8px}
-.demo-badge{background:#ff9800;color:#fff;padding:4px 8px;border-radius:4px;font-size:8px;font-weight:700;display:inline-block;margin-bottom:8px}
 .notif{position:fixed;bottom:15px;right:15px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:10px 12px;z-index:999;animation:slideIn 0.3s;font-size:9px;max-width:200px}
 @keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
 ::-webkit-scrollbar{width:3px}
@@ -76,15 +75,12 @@ body{overflow:hidden}
 <body>
 
 <div class="app">
-
-<!-- HEADER -->
 <div class="header">
 <div class="logo">⚡ MEMEINTEL PRO MAX</div>
 <button class="wallet-btn" id="walletBtn" onclick="connectWallet()">🔗 Connect</button>
 <div class="wallet-info" id="walletInfo"></div>
 </div>
 
-<!-- TABS -->
 <div class="tabs-nav">
 <button class="nav-btn active" onclick="switchTab('main')">📊 Main</button>
 <button class="nav-btn" onclick="switchTab('whales')">🐋 Whales</button>
@@ -93,20 +89,15 @@ body{overflow:hidden}
 <button class="nav-btn" onclick="switchTab('earnings')">💰 Earnings</button>
 </div>
 
-<!-- CONTENT -->
 <div class="content-wrapper">
 
-<!-- MAIN TAB -->
 <div id="main" class="tab-content active">
-
-<!-- EARNINGS -->
 <div class="earnings">
 <div class="earnings-label">💰 YOUR EARNINGS TODAY</div>
 <div class="earnings-value" id="earningsValue">$0.00</div>
 <div class="earnings-meta">From 1.5% copy trading + Discord alerts + auto trades</div>
 </div>
 
-<!-- HERO -->
 <div class="hero">
 <div class="token-logo">🐸</div>
 <div class="token-name">PEPE2</div>
@@ -123,7 +114,6 @@ body{overflow:hidden}
 </div>
 </div>
 
-<!-- METRICS -->
 <div class="metrics">
 <div class="metric-box">
 <div class="metric-label">💧 Liq</div>
@@ -143,7 +133,6 @@ body{overflow:hidden}
 </div>
 </div>
 
-<!-- AUTO TRADE -->
 <div class="auto-trade-hero">
 <div class="auto-title">⚡ AUTO BUY/SELL + SNIPER (0.2% fee)</div>
 <div class="auto-grid">
@@ -175,46 +164,40 @@ body{overflow:hidden}
 </div>
 </div>
 
-<!-- FEATURES INFO -->
 <div class="section">
 <div class="premium-badge">💎 ALL 3 FEATURES ACTIVE</div>
 <div class="item">
-<div class="item-label">🐋 Copy Trading</div>
-<div class="item-value">1.5% fee per trade - Automatic!</div>
+<div class="item-label">🐋 Copy Trading - 1.5% fee per trade</div>
+<div class="item-value">Automatic execution!</div>
 </div>
 <div class="item">
-<div class="item-label">🤖 Discord Alerts</div>
-<div class="item-value">$9.99/month - Real-time alerts!</div>
+<div class="item-label">🤖 Discord Alerts - $9.99/month</div>
+<div class="item-value">Real-time notifications!</div>
 </div>
 <div class="item">
-<div class="item-label">⚡ Auto Buy/Sell</div>
-<div class="item-value">0.2% fee - Set triggers above!</div>
+<div class="item-label">⚡ Auto Buy/Sell - 0.2% fee</div>
+<div class="item-value">Set triggers above!</div>
+</div>
 </div>
 </div>
 
-</div>
-
-<!-- WHALES TAB -->
 <div id="whales" class="tab-content">
 <div class="section">
-<div class="demo-badge">🎮 DEMO MODE - Click Copy to Test!</div>
+<div class="premium-badge">🎮 DEMO MODE - Click Copy to Test!</div>
 <div class="section-title">🐋 TOP WHALE WALLETS - COPY THEIR TRADES!</div>
 <div id="whalesList"></div>
 </div>
 </div>
 
-<!-- DISCORD TAB -->
 <div id="discord" class="tab-content">
 <div class="section">
 <div class="premium-badge">💎 PREMIUM FEATURE - $9.99/month</div>
 <div class="section-title">🤖 DISCORD BOT SETUP</div>
-
 <div class="discord-section">
 <div class="discord-title">📌 Step 1: Generate Webhook</div>
 <input type="text" class="discord-input" id="webhookUrl" placeholder="Your webhook will appear here" readonly>
 <button class="discord-btn" onclick="generateWebhook()">🔗 Generate Webhook</button>
 </div>
-
 <div class="discord-section">
 <div class="discord-title">📌 Step 2: Paste in Discord Server</div>
 <div style="font-size:8px;line-height:1.5">
@@ -223,7 +206,6 @@ body{overflow:hidden}
 3. Start receiving alerts!
 </div>
 </div>
-
 <div class="section" style="margin-top:12px">
 <div class="section-title">🔔 ALERT SETTINGS</div>
 <div class="alert-toggle">
@@ -247,28 +229,25 @@ body{overflow:hidden}
 <div class="toggle-btn on" onclick="toggleAlert(this)"><div class="toggle-dot"></div></div>
 </div>
 </div>
-
 </div>
 
-<!-- COPYING TAB -->
 <div id="copying" class="tab-content">
 <div class="section">
 <div class="section-title">📋 ACTIVELY COPYING WHALES</div>
 <div id="copyingList">
 <div class="item">
 <div class="item-label">No active copies</div>
-<div class="item-value">Go to Whales tab to start copying!</div>
+<div class="item-value">Go to Whales tab to start!</div>
 </div>
 </div>
 </div>
 </div>
 
-<!-- EARNINGS TAB -->
 <div id="earnings" class="tab-content">
 <div class="section">
 <div class="section-title">💰 EARNINGS BREAKDOWN</div>
 <div class="item">
-<div class="item-label">Today Earnings</div>
+<div class="item-label">Today</div>
 <div class="item-value" id="todayEarnings">$0.00</div>
 </div>
 <div class="item">
@@ -287,7 +266,6 @@ body{overflow:hidden}
 </div>
 
 </div>
-
 </div>
 
 <script>
@@ -297,6 +275,7 @@ let copyHistory = [];
 let totalEarnings = 0;
 let todayEarnings = 0;
 let webhookConnected = false;
+let simulationActive = false;
 
 const topWhales = [
 {id:0,name:"🧠 MegaWhale",trades:2450,volume:"$12.5M",winRate:"82%",lastTrade:"BUY 2m"},
@@ -343,8 +322,8 @@ notify(`❌ Stopped copying ${name}`);
 activeCopies.push({id, name, trades: 0, earnings: 0});
 document.getElementById("btn-"+id).textContent = "✅ COPYING";
 document.getElementById("btn-"+id).classList.add("active");
-notify(`✅ Copying ${name}!\n🟢 Auto-following all trades!`);
-startSim();
+notify(`✅ Copying ${name}!\n🟢 Trades starting...`);
+if(!simulationActive) startSimulation();
 }
 updateUI();
 }
@@ -360,25 +339,40 @@ document.getElementById("copyingList").innerHTML = html;
 updateEarnings();
 }
 
-function startSim() {
-setInterval(() => {
-if(activeCopies.length === 0) return;
+function startSimulation() {
+if(simulationActive) return;
+simulationActive = true;
+
+const interval = setInterval(() => {
+if(activeCopies.length === 0) {
+clearInterval(interval);
+simulationActive = false;
+return;
+}
+
 activeCopies.forEach(ac => {
-if(Math.random() > 0.65) {
-const amt = Math.random() * 50000 + 5000;
+if(Math.random() > 0.4) {
+const amt = (Math.random() * 50000) + 5000;
 const fee = amt * 0.015;
 const action = Math.random() > 0.5 ? "BUY" : "SELL";
+
 ac.trades++;
 ac.earnings += fee;
 todayEarnings += fee;
 totalEarnings += fee;
+
 copyHistory.push({whale: ac.name, action, amount: amt.toFixed(0), fee: fee.toFixed(2)});
+
 updateUI();
-if(webhookConnected) notify(`🤖 Discord Alert: ${ac.name} ${action}`);
+
+if(webhookConnected) {
+notify(`🤖 Discord Alert!\n${ac.name} ${action}`);
+}
+
 notify(`🟢 ${ac.name} ${action}!\n💰 +$${fee.toFixed(2)}`);
 }
 });
-}, 6000);
+}, 3000);
 }
 
 function updateEarnings() {
@@ -393,7 +387,7 @@ function generateWebhook() {
 const webhook = "https://discord.com/api/webhooks/" + Math.random().toString(36).substring(7) + "/" + Math.random().toString(36).substring(7);
 document.getElementById("webhookUrl").value = webhook;
 webhookConnected = true;
-notify("✅ Webhook generated!\n📌 Paste in Discord server");
+notify("✅ Webhook generated!\n📌 Paste in Discord");
 }
 
 function toggleAlert(el) {
@@ -403,21 +397,21 @@ el.classList.toggle("on");
 async function connectWallet() {
 try {
 if(!window.solana || !window.solana.isPhantom) {
-return notify("📱 Use Phantom Browser!\nOr test in DEMO 🎮");
+return notify("📱 Use Phantom!\nOr DEMO mode");
 }
 const resp = await window.solana.connect();
 walletConnected = true;
 document.getElementById("walletBtn").style.display = "none";
 document.getElementById("walletInfo").style.display = "block";
 document.getElementById("walletInfo").textContent = "📍 Connected!";
-notify("✅ Wallet connected!\n🚀 Start copying!");
+notify("✅ Wallet connected!");
 } catch(err) {
-notify("💡 DEMO mode active!");
+notify("💡 DEMO mode!");
 }
 }
 
 function activateAuto() {
-notify("✅ Auto Trade Activated!\n⚡ Speed: 50ms | Fee: 0.2%");
+notify("✅ Auto Trade Activated!\n⚡ Speed: 50ms");
 }
 
 function stopAuto() {
@@ -436,4 +430,4 @@ loadWhales();
 </script>
 
 </body>
-  </html>
+</html>
