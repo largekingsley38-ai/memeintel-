@@ -3,86 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemeIntel PRO - Copy Whales + Discord Alerts</title>
+<title>MemeIntel PRO MAX - Ultimate Trading</title>
 <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;overflow:hidden}
-.app{display:flex;flex-direction:column;height:100vh}
-.header{background:#0f1629;border-bottom:1px solid #ffffff15;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;height:50px;z-index:100}
+html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+body{overflow:hidden}
+.app{display:flex;flex-direction:column;height:100vh;width:100%}
+.header{background:#0f1629;border-bottom:1px solid #ffffff15;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;height:50px;flex-shrink:0}
 .logo{font-size:13px;font-weight:900;color:#00d4aa}
 .wallet-btn{background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;padding:8px 12px;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
 .wallet-info{background:#0f1629;border:1px solid #00d4aa;padding:8px 10px;border-radius:6px;font-size:8px;color:#00d4aa;max-width:120px;overflow:hidden;text-overflow:ellipsis;display:none}
-.content{flex:1;overflow-y:auto;padding:12px}
+.tabs-nav{background:#0f1629;border-bottom:1px solid #ffffff15;padding:8px 12px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;flex-shrink:0}
+.nav-btn{padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.nav-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
+.content-wrapper{flex:1;overflow-y:auto;padding:12px;width:100%}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.hero{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center}
+.token-logo{font-size:40px;margin-bottom:6px}
+.token-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.token-price{font-size:11px;color:#00d4aa;font-weight:700;margin-bottom:10px}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.price-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:8px;text-align:center;font-size:8px}
+.price-label{color:#7a8ba8;margin-bottom:3px}
+.price-value{color:#00d4aa;font-weight:700;font-size:10px}
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:12px}
+.metric-box{background:#0f1629;border:1px solid #ffffff10;border-radius:8px;padding:8px;text-align:center;font-size:8px}
+.metric-label{color:#7a8ba8;margin-bottom:3px}
+.metric-value{color:#00d4aa;font-weight:700;font-size:10px}
+.earnings{background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border-radius:10px;padding:12px;margin-bottom:12px;font-weight:700}
+.earnings-label{font-size:9px;margin-bottom:4px}
+.earnings-value{font-size:18px;font-weight:900}
+.earnings-meta{font-size:8px;margin-top:6px}
 .section{background:#0f1629;border:1px solid #ffffff10;border-radius:10px;padding:12px;margin-bottom:12px}
 .section-title{font-size:10px;font-weight:700;color:#00d4aa;margin-bottom:8px;text-transform:uppercase}
+.auto-trade-hero{background:linear-gradient(135deg,#1a2847,#253857);border:2px solid #00d4aa;border-radius:10px;padding:12px;margin-bottom:12px}
+.auto-title{font-size:11px;font-weight:700;color:#00d4aa;margin-bottom:8px}
+.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.auto-field{padding:8px;background:#0f1629;border:1px solid #00d4aa50;border-radius:6px;color:#fff;font-size:10px;font-family:monospace}
+.auto-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.auto-btn{padding:10px;background:#00d4aa;color:#000;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
+.auto-btn:hover{background:#00a885}
 .whale-card{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #00d4aa30;border-radius:10px;padding:12px;margin-bottom:10px;border-left:3px solid #00d4aa}
 .whale-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .whale-name{font-size:10px;font-weight:700;color:#fff}
 .whale-status{font-size:8px;padding:3px 8px;background:#00d4aa20;color:#00d4aa;border-radius:4px;font-weight:700}
-.whale-details{font-size:8px;color:#7a8ba8;margin-bottom:8px;line-height:1.4}
-.whale-detail-row{margin-bottom:3px}
-.copy-btn{width:100%;padding:10px;background:#00d4aa;color:#000;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer;margin-top:8px;transition:all 0.2s}
-.copy-btn:hover{background:#00a885;transform:scale(1.02)}
-.copy-btn.active{background:#ff9800;color:#fff}
-.discord-section{background:linear-gradient(135deg,#5865f2,#4752c4);border-radius:10px;padding:12px;margin-bottom:12px;color:#fff}
+.whale-details{font-size:8px;color:#7a8ba8;margin-bottom:8px}
+.copy-btn{width:100%;padding:10px;background:#00d4aa;color:#000;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
+.copy-btn:hover{background:#00a885}
+.copy-btn.active{background:#ff9800}
+.discord-section{background:linear-gradient(135deg,#5865f2,#4752c4);border-radius:10px;padding:12px;color:#fff;margin-bottom:12px}
 .discord-title{font-size:11px;font-weight:700;margin-bottom:8px}
 .discord-input{width:100%;padding:8px;background:#ffffff20;border:1px solid #ffffff30;border-radius:6px;color:#fff;font-size:9px;margin-bottom:6px;font-family:monospace}
-.discord-input::placeholder{color:#ffffff80}
-.discord-btn{width:100%;padding:10px;background:#fff;color:#5865f2;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer;margin-bottom:6px}
-.discord-btn:hover{background:#f0f0f0}
+.discord-btn{width:100%;padding:10px;background:#fff;color:#5865f2;border:none;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
 .alert-toggle{display:flex;justify-content:space-between;align-items:center;padding:8px;background:#ffffff10;border-radius:6px;margin-bottom:6px;font-size:8px}
-.toggle-btn{width:40px;height:24px;background:#ffffff20;border:1px solid #ffffff30;border-radius:12px;cursor:pointer;position:relative}
+.toggle-btn{width:40px;height:24px;background:#ffffff20;border-radius:12px;cursor:pointer;position:relative}
 .toggle-btn.on{background:#00d4aa}
 .toggle-dot{width:20px;height:20px;background:#fff;border-radius:10px;position:absolute;left:2px;top:2px;transition:left 0.2s}
 .toggle-btn.on .toggle-dot{left:18px}
-.premium-badge{background:#ff9800;color:#fff;padding:6px 10px;border-radius:6px;font-size:8px;font-weight:700;display:inline-block;margin-bottom:8px}
-.earnings{background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border-radius:10px;padding:12px;margin-bottom:12px;font-weight:700}
-.earnings-label{font-size:9px;margin-bottom:4px}
-.earnings-value{font-size:20px;font-weight:900}
-.earnings-meta{font-size:8px;margin-top:6px}
-.bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;margin-bottom:12px}
-.nav-btn{padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer}
-.nav-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
-.tab{display:none}
-.tab.active{display:block}
+.item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;margin-bottom:6px;font-size:8px}
+.item-label{color:#7a8ba8;margin-bottom:2px}
+.item-value{color:#fff;font-weight:700}
+.premium-badge{background:#ff9800;color:#fff;padding:4px 8px;border-radius:4px;font-size:8px;font-weight:700;display:inline-block;margin-bottom:8px}
+.demo-badge{background:#ff9800;color:#fff;padding:4px 8px;border-radius:4px;font-size:8px;font-weight:700;display:inline-block;margin-bottom:8px}
 .notif{position:fixed;bottom:15px;right:15px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:10px 12px;z-index:999;animation:slideIn 0.3s;font-size:9px;max-width:200px}
 @keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-thumb{background:#2a3f5d;border-radius:2px}
-.demo-badge{background:#ff9800;color:#fff;padding:4px 8px;border-radius:4px;font-size:8px;font-weight:700;display:inline-block;margin-bottom:8px}
-.active-copy{background:#00d4aa20;border:1px solid #00d4aa;border-radius:6px;padding:10px;margin-top:8px;font-size:8px}
 </style>
 </head>
 <body>
 
 <div class="app">
+
+<!-- HEADER -->
 <div class="header">
-<div class="logo">⚡ MEMEINTEL PRO - COPY + ALERTS</div>
+<div class="logo">⚡ MEMEINTEL PRO MAX</div>
 <button class="wallet-btn" id="walletBtn" onclick="connectWallet()">🔗 Connect</button>
 <div class="wallet-info" id="walletInfo"></div>
 </div>
 
-<div class="content">
-
-<!-- EARNINGS SECTION -->
-<div class="earnings" id="earningsSection">
-<div class="earnings-label">💰 YOUR EARNINGS TODAY</div>
-<div class="earnings-value" id="earningsValue">$0.00</div>
-<div class="earnings-meta">From 1.5% copy trading + Discord alerts</div>
-</div>
-
 <!-- TABS -->
-<div class="bottom-nav">
-<button class="nav-btn active" onclick="switchTab('whales')">🐋 Whales</button>
-<button class="nav-btn" onclick="switchTab('discord')">🤖 Discord Bot</button>
+<div class="tabs-nav">
+<button class="nav-btn active" onclick="switchTab('main')">📊 Main</button>
+<button class="nav-btn" onclick="switchTab('whales')">🐋 Whales</button>
+<button class="nav-btn" onclick="switchTab('discord')">🤖 Discord</button>
 <button class="nav-btn" onclick="switchTab('copying')">📋 Copying</button>
-<button class="nav-btn" onclick="switchTab('history')">📊 History</button>
 <button class="nav-btn" onclick="switchTab('earnings')">💰 Earnings</button>
 </div>
 
+<!-- CONTENT -->
+<div class="content-wrapper">
+
+<!-- MAIN TAB -->
+<div id="main" class="tab-content active">
+
+<!-- EARNINGS -->
+<div class="earnings">
+<div class="earnings-label">💰 YOUR EARNINGS TODAY</div>
+<div class="earnings-value" id="earningsValue">$0.00</div>
+<div class="earnings-meta">From 1.5% copy trading + Discord alerts + auto trades</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+<div class="token-logo">🐸</div>
+<div class="token-name">PEPE2</div>
+<div class="token-price">$0.000042</div>
+<div class="prices">
+<div class="price-box">
+<div class="price-label">USD</div>
+<div class="price-value">$0.000042</div>
+</div>
+<div class="price-box">
+<div class="price-label">24H</div>
+<div class="price-value">+182.4%</div>
+</div>
+</div>
+</div>
+
+<!-- METRICS -->
+<div class="metrics">
+<div class="metric-box">
+<div class="metric-label">💧 Liq</div>
+<div class="metric-value">$450K</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">📊 MC</div>
+<div class="metric-value">$1.2M</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">📈 Vol</div>
+<div class="metric-value">$2.4M</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">👥 Holders</div>
+<div class="metric-value">12.3K</div>
+</div>
+</div>
+
+<!-- AUTO TRADE -->
+<div class="auto-trade-hero">
+<div class="auto-title">⚡ AUTO BUY/SELL + SNIPER (0.2% fee)</div>
+<div class="auto-grid">
+<div>
+<div style="font-size:8px;color:#00d4aa;font-weight:700;margin-bottom:4px">💚 Buy Trigger</div>
+<select class="auto-field">
+<option>Market Cap: $2M</option>
+<option>Price: $0.00005</option>
+<option>New Token (Sniper)</option>
+</select>
+</div>
+<div>
+<div style="font-size:8px;color:#00d4aa;font-weight:700;margin-bottom:4px">❤️ Sell Trigger</div>
+<select class="auto-field">
+<option>Market Cap: $3M</option>
+<option>Take Profit: 50%</option>
+<option>Stop Loss: 10%</option>
+</select>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;font-size:8px">
+<div style="background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;padding:6px;text-align:center;color:#00d4aa;font-weight:700">⚡ 50ms</div>
+<div style="background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;padding:6px;text-align:center;color:#00d4aa;font-weight:700">💰 0.2%</div>
+<div style="background:#0a0e1a;border:1px solid #00d4aa50;border-radius:6px;padding:6px;text-align:center;color:#00d4aa;font-weight:700">🔐 Safe</div>
+</div>
+<div class="auto-btns">
+<button class="auto-btn" onclick="activateAuto()">🚀 ACTIVATE</button>
+<button class="auto-btn" style="background:#ff4757" onclick="stopAuto()">⏹️ STOP</button>
+</div>
+</div>
+
+<!-- FEATURES INFO -->
+<div class="section">
+<div class="premium-badge">💎 ALL 3 FEATURES ACTIVE</div>
+<div class="item">
+<div class="item-label">🐋 Copy Trading</div>
+<div class="item-value">1.5% fee per trade - Automatic!</div>
+</div>
+<div class="item">
+<div class="item-label">🤖 Discord Alerts</div>
+<div class="item-value">$9.99/month - Real-time alerts!</div>
+</div>
+<div class="item">
+<div class="item-label">⚡ Auto Buy/Sell</div>
+<div class="item-value">0.2% fee - Set triggers above!</div>
+</div>
+</div>
+
+</div>
+
 <!-- WHALES TAB -->
-<div id="whales" class="tab active">
+<div id="whales" class="tab-content">
 <div class="section">
 <div class="demo-badge">🎮 DEMO MODE - Click Copy to Test!</div>
 <div class="section-title">🐋 TOP WHALE WALLETS - COPY THEIR TRADES!</div>
@@ -90,288 +203,179 @@ html,body{width:100%;height:100%;background:#0a0e1a;color:#e0e8f0;font-family:-a
 </div>
 </div>
 
-<!-- DISCORD BOT TAB -->
-<div id="discord" class="tab">
+<!-- DISCORD TAB -->
+<div id="discord" class="tab-content">
 <div class="section">
 <div class="premium-badge">💎 PREMIUM FEATURE - $9.99/month</div>
 <div class="section-title">🤖 DISCORD BOT SETUP</div>
+
 <div class="discord-section">
-<div class="discord-title">📌 Step 1: Copy Your Webhook URL</div>
-<input type="text" class="discord-input" id="webhookUrl" placeholder="Your Discord Webhook URL will appear here" readonly>
+<div class="discord-title">📌 Step 1: Generate Webhook</div>
+<input type="text" class="discord-input" id="webhookUrl" placeholder="Your webhook will appear here" readonly>
 <button class="discord-btn" onclick="generateWebhook()">🔗 Generate Webhook</button>
 </div>
 
 <div class="discord-section">
-<div class="discord-title">📌 Step 2: Paste in Discord Server Settings</div>
-<div style="font-size:8px;line-height:1.5;margin-bottom:8px">
-1. Go to Discord Server → Integrations<br>
-2. Create Webhook → Paste the URL above<br>
+<div class="discord-title">📌 Step 2: Paste in Discord Server</div>
+<div style="font-size:8px;line-height:1.5">
+1. Discord Server → Integrations<br>
+2. Create Webhook → Paste URL above<br>
 3. Start receiving alerts!
 </div>
 </div>
 
 <div class="section" style="margin-top:12px">
 <div class="section-title">🔔 ALERT SETTINGS</div>
-
 <div class="alert-toggle">
 <span>🐋 Whale Trades</span>
-<div class="toggle-btn on" onclick="toggleAlert(this)">
-<div class="toggle-dot"></div>
+<div class="toggle-btn on" onclick="toggleAlert(this)"><div class="toggle-dot"></div></div>
 </div>
-</div>
-
 <div class="alert-toggle">
 <span>📈 Pump Signals (>50%)</span>
-<div class="toggle-btn on" onclick="toggleAlert(this)">
-<div class="toggle-dot"></div>
+<div class="toggle-btn on" onclick="toggleAlert(this)"><div class="toggle-dot"></div></div>
 </div>
-</div>
-
 <div class="alert-toggle">
 <span>💚 Buy Signals</span>
-<div class="toggle-btn on" onclick="toggleAlert(this)">
-<div class="toggle-dot"></div>
+<div class="toggle-btn on" onclick="toggleAlert(this)"><div class="toggle-dot"></div></div>
 </div>
-</div>
-
 <div class="alert-toggle">
 <span>💰 Price Milestones</span>
-<div class="toggle-btn on" onclick="toggleAlert(this)">
-<div class="toggle-dot"></div>
+<div class="toggle-btn on" onclick="toggleAlert(this)"><div class="toggle-dot"></div></div>
 </div>
-</div>
-
 <div class="alert-toggle">
 <span>💵 Earnings Updates</span>
-<div class="toggle-btn on" onclick="toggleAlert(this)">
-<div class="toggle-dot"></div>
-</div>
+<div class="toggle-btn on" onclick="toggleAlert(this)"><div class="toggle-dot"></div></div>
 </div>
 </div>
 
-<div class="section">
-<div class="section-title">✅ CONNECTED SERVERS</div>
-<div id="connectedServers" style="font-size:8px;color:#7a8ba8">
-None yet - Generate webhook to connect!
-</div>
-</div>
 </div>
 
 <!-- COPYING TAB -->
-<div id="copying" class="tab">
+<div id="copying" class="tab-content">
 <div class="section">
-<div class="section-title">📋 CURRENTLY COPYING</div>
+<div class="section-title">📋 ACTIVELY COPYING WHALES</div>
 <div id="copyingList">
-<div class="whale-card">
-<div class="whale-name">No active copies yet</div>
-<div class="whale-details">Click "COPY THIS WHALE" to start!</div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- HISTORY TAB -->
-<div id="history" class="tab">
-<div class="section">
-<div class="section-title">📊 COPY TRADE HISTORY</div>
-<div id="historyList">
-<div class="whale-card">
-<div class="whale-name">No history yet</div>
-<div class="whale-details">Trades will appear here when whales trade</div>
+<div class="item">
+<div class="item-label">No active copies</div>
+<div class="item-value">Go to Whales tab to start copying!</div>
 </div>
 </div>
 </div>
 </div>
 
 <!-- EARNINGS TAB -->
-<div id="earnings" class="tab">
+<div id="earnings" class="tab-content">
 <div class="section">
 <div class="section-title">💰 EARNINGS BREAKDOWN</div>
-<div id="earningsDetails">
-<div class="whale-card">
-<div class="whale-header">
-<span style="font-size:9px">Today Earnings</span>
-<span style="color:#00d4aa;font-weight:700" id="todayEarnings">$0.00</span>
+<div class="item">
+<div class="item-label">Today Earnings</div>
+<div class="item-value" id="todayEarnings">$0.00</div>
 </div>
+<div class="item">
+<div class="item-label">This Week</div>
+<div class="item-value" id="weekEarnings">$0.00</div>
 </div>
-<div class="whale-card">
-<div class="whale-header">
-<span style="font-size:9px">This Week</span>
-<span style="color:#00d4aa;font-weight:700" id="weekEarnings">$0.00</span>
+<div class="item">
+<div class="item-label">This Month</div>
+<div class="item-value" id="monthEarnings">$0.00</div>
 </div>
-</div>
-<div class="whale-card">
-<div class="whale-header">
-<span style="font-size:9px">This Month</span>
-<span style="color:#00d4aa;font-weight:700" id="monthEarnings">$0.00</span>
-</div>
-</div>
-<div class="whale-card">
-<div class="whale-header">
-<span style="font-size:9px">Total Ever</span>
-<span style="color:#00d4aa;font-weight:700" id="totalEarnings">$0.00</span>
-</div>
+<div class="item">
+<div class="item-label">Total Ever</div>
+<div class="item-value" id="totalEarnings">$0.00</div>
 </div>
 </div>
 </div>
 
 </div>
+
 </div>
 
 <script>
 let walletConnected = false;
-let userWallet = null;
 let activeCopies = [];
 let copyHistory = [];
 let totalEarnings = 0;
 let todayEarnings = 0;
 let webhookConnected = false;
 
-// WHALE DATA
 const topWhales = [
-{id:0,name:"🧠 MegaWhale",addr:"9B5X...",trades:2450,volume:"$12.5M",winRate:"82%",lastTrade:"BUY 2m ago"},
-{id:1,name:"💎 SolanaBoss",addr:"8K7L...",trades:1850,volume:"$8.3M",winRate:"78%",lastTrade:"SELL 5m ago"},
-{id:2,name:"👑 CryptoKing",addr:"4P2Q...",trades:1520,volume:"$6.8M",winRate:"85%",lastTrade:"BUY 12m ago"},
-{id:3,name:"🔥 Pumper",addr:"3X9Z...",trades:3200,volume:"$15.2M",winRate:"72%",lastTrade:"BUY 8m ago"},
-{id:4,name:"⚡ FastTrader",addr:"2M5N...",trades:2100,volume:"$9.7M",winRate:"80%",lastTrade:"SELL 3m ago"},
-{id:5,name:"🎯 TargetHunter",addr:"5R8S...",trades:1680,volume:"$7.4M",winRate:"76%",lastTrade:"BUY 15m ago"}
+{id:0,name:"🧠 MegaWhale",trades:2450,volume:"$12.5M",winRate:"82%",lastTrade:"BUY 2m"},
+{id:1,name:"💎 SolanaBoss",trades:1850,volume:"$8.3M",winRate:"78%",lastTrade:"SELL 5m"},
+{id:2,name:"👑 CryptoKing",trades:1520,volume:"$6.8M",winRate:"85%",lastTrade:"BUY 12m"},
+{id:3,name:"🔥 Pumper",trades:3200,volume:"$15.2M",winRate:"72%",lastTrade:"BUY 8m"},
+{id:4,name:"⚡ FastTrader",trades:2100,volume:"$9.7M",winRate:"80%",lastTrade:"SELL 3m"},
+{id:5,name:"🎯 TargetHunter",trades:1680,volume:"$7.4M",winRate:"76%",lastTrade:"BUY 15m"}
 ];
 
-function generateWebhook() {
-const webhook = "https://discord.com/api/webhooks/" + Math.random().toString(36).substring(7) + "/" + Math.random().toString(36).substring(7);
-document.getElementById("webhookUrl").value = webhook;
-webhookConnected = true;
-document.getElementById("connectedServers").innerHTML = "✅ Discord Connected!";
-notify("✅ Webhook generated!\n📌 Paste in Discord server settings");
-}
-
-function toggleAlert(el) {
-el.classList.toggle("on");
-notify("⚙️ Alert preference updated");
-}
-
-function isPhantomInstalled() {
-return window.solana && window.solana.isPhantom;
-}
-
-async function connectWallet() {
-try {
-if(!isPhantomInstalled()) {
-return notify("📱 Use Phantom Browser!\nOr test in DEMO mode 🎮");
-}
-
-const resp = await window.solana.connect();
-userWallet = resp.publicKey.toString();
-walletConnected = true;
-
-document.getElementById("walletBtn").style.display = "none";
-document.getElementById("walletInfo").style.display = "block";
-document.getElementById("walletInfo").textContent = "📍 " + userWallet.slice(0,6) + "..." + userWallet.slice(-4);
-
-notify(`✅ Connected!\n🐋 Copy whales & setup alerts!`);
-} catch(err) {
-notify("💡 DEMO mode - test features!");
-}
+function switchTab(tab) {
+document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+document.getElementById(tab).classList.add("active");
+event.target.classList.add("active");
 }
 
 function loadWhales() {
-const whalesHtml = topWhales.map((w) => `
+const html = topWhales.map(w => `
 <div class="whale-card">
 <div class="whale-header">
 <div class="whale-name">${w.name}</div>
 <div class="whale-status">📊 ${w.winRate}</div>
 </div>
 <div class="whale-details">
-<div class="whale-detail-row">📈 Trades: ${w.trades} | 💰 Volume: ${w.volume}</div>
-<div class="whale-detail-row">🔔 ${w.lastTrade}</div>
-<div class="whale-detail-row">🏠 Wallet: ${w.addr}</div>
+📈 ${w.trades} trades | 💰 ${w.volume} | 🔔 ${w.lastTrade} ago
 </div>
 <button class="copy-btn" id="btn-${w.id}" onclick="copyWhale(${w.id},'${w.name}')">
 🐋 COPY THIS WHALE
 </button>
 </div>
 `).join("");
-
-document.getElementById("whalesList").innerHTML = whalesHtml;
-updateUI();
+document.getElementById("whalesList").innerHTML = html;
 }
 
 function copyWhale(id, name) {
-const isAlreadyCopying = activeCopies.find(c => c.id === id);
-
-if(isAlreadyCopying) {
+const exists = activeCopies.find(c => c.id === id);
+if(exists) {
 activeCopies = activeCopies.filter(c => c.id !== id);
 document.getElementById("btn-"+id).textContent = "🐋 COPY THIS WHALE";
 document.getElementById("btn-"+id).classList.remove("active");
 notify(`❌ Stopped copying ${name}`);
 } else {
-activeCopies.push({id, name, startTime: new Date(), trades: 0, earnings: 0});
+activeCopies.push({id, name, trades: 0, earnings: 0});
 document.getElementById("btn-"+id).textContent = "✅ COPYING";
 document.getElementById("btn-"+id).classList.add("active");
-notify(`✅ Now copying ${name}!\n🟢 All their trades are yours!`);
-startSimulation();
+notify(`✅ Copying ${name}!\n🟢 Auto-following all trades!`);
+startSim();
 }
-
 updateUI();
 }
 
 function updateUI() {
-if(activeCopies.length === 0) {
-document.getElementById("copyingList").innerHTML = `
-<div class="whale-card">
-<div class="whale-name">No active copies yet</div>
-<div class="whale-details">Click "COPY THIS WHALE" to start!</div>
+const html = activeCopies.map(ac => `
+<div class="item">
+<div class="item-label">${ac.name} | Trades: ${ac.trades}</div>
+<div class="item-value">Earnings: $${ac.earnings.toFixed(2)}</div>
 </div>
-`;
-return;
-}
-
-const activeCopiesHtml = activeCopies.map(ac => `
-<div class="active-copy">
-<div style="display:flex;justify-content:space-between;margin-bottom:4px">
-<span style="color:#00d4aa;font-weight:700">${ac.name}</span>
-<span style="color:#fff;font-weight:700">Earnings: $${ac.earnings.toFixed(2)}</span>
-</div>
-<div style="color:#7a8ba8">🟢 COPYING | Trades copied: ${ac.trades}</div>
-</div>
-`).join("");
-
-document.getElementById("copyingList").innerHTML = activeCopiesHtml;
+`).join("") || '<div class="item"><div class="item-label">No active copies</div><div class="item-value">Go to Whales tab!</div></div>';
+document.getElementById("copyingList").innerHTML = html;
 updateEarnings();
 }
 
-function startSimulation() {
+function startSim() {
 setInterval(() => {
 if(activeCopies.length === 0) return;
-
 activeCopies.forEach(ac => {
-if(Math.random() > 0.6) {
-const tradeAmount = Math.random() * 50000 + 5000;
-const fee = tradeAmount * 0.015;
+if(Math.random() > 0.65) {
+const amt = Math.random() * 50000 + 5000;
+const fee = amt * 0.015;
 const action = Math.random() > 0.5 ? "BUY" : "SELL";
-
 ac.trades++;
 ac.earnings += fee;
 todayEarnings += fee;
 totalEarnings += fee;
-
-copyHistory.push({
-whale: ac.name,
-action: action,
-amount: tradeAmount.toFixed(0),
-fee: fee.toFixed(2),
-time: new Date().toLocaleTimeString()
-});
-
+copyHistory.push({whale: ac.name, action, amount: amt.toFixed(0), fee: fee.toFixed(2)});
 updateUI();
-updateHistory();
-
-// Send Discord alert if webhook connected
-if(webhookConnected) {
-notify(`🤖 Discord Alert Sent!\n${ac.name} ${action} $${tradeAmount.toFixed(0)}`);
-}
-
-notify(`🟢 ${ac.name} ${action}!\n📤 Amount: $${tradeAmount.toFixed(0)}\n💰 Earned: $${fee.toFixed(2)}`);
+if(webhookConnected) notify(`🤖 Discord Alert: ${ac.name} ${action}`);
+notify(`🟢 ${ac.name} ${action}!\n💰 +$${fee.toFixed(2)}`);
 }
 });
 }, 6000);
@@ -385,31 +389,39 @@ document.getElementById("monthEarnings").textContent = "$" + (todayEarnings * 15
 document.getElementById("totalEarnings").textContent = "$" + totalEarnings.toFixed(2);
 }
 
-function updateHistory() {
-const historyHtml = copyHistory.slice().reverse().slice(0,8).map(h => `
-<div class="whale-card">
-<div class="whale-header">
-<div class="whale-name">${h.whale} ${h.action}</div>
-<div class="whale-status">+$${h.fee}</div>
-</div>
-<div class="whale-details">
-Amount: $${h.amount} | Fee: $${h.fee} | ${h.time}
-</div>
-</div>
-`).join("");
-
-document.getElementById("historyList").innerHTML = historyHtml || `
-<div class="whale-card">
-<div class="whale-name">No history yet</div>
-</div>
-`;
+function generateWebhook() {
+const webhook = "https://discord.com/api/webhooks/" + Math.random().toString(36).substring(7) + "/" + Math.random().toString(36).substring(7);
+document.getElementById("webhookUrl").value = webhook;
+webhookConnected = true;
+notify("✅ Webhook generated!\n📌 Paste in Discord server");
 }
 
-function switchTab(tab) {
-document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-document.getElementById(tab).classList.add("active");
-event.target.classList.add("active");
+function toggleAlert(el) {
+el.classList.toggle("on");
+}
+
+async function connectWallet() {
+try {
+if(!window.solana || !window.solana.isPhantom) {
+return notify("📱 Use Phantom Browser!\nOr test in DEMO 🎮");
+}
+const resp = await window.solana.connect();
+walletConnected = true;
+document.getElementById("walletBtn").style.display = "none";
+document.getElementById("walletInfo").style.display = "block";
+document.getElementById("walletInfo").textContent = "📍 Connected!";
+notify("✅ Wallet connected!\n🚀 Start copying!");
+} catch(err) {
+notify("💡 DEMO mode active!");
+}
+}
+
+function activateAuto() {
+notify("✅ Auto Trade Activated!\n⚡ Speed: 50ms | Fee: 0.2%");
+}
+
+function stopAuto() {
+notify("⏹️ Auto Trade Stopped");
 }
 
 function notify(msg) {
@@ -420,9 +432,8 @@ document.body.appendChild(n);
 setTimeout(() => n.remove(), 3000);
 }
 
-// Load whales on start
 loadWhales();
 </script>
 
 </body>
-</html>
+  </html>
