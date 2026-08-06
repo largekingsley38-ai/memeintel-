@@ -14,12 +14,12 @@ body{overflow:hidden}
 .logo{font-size:13px;font-weight:900;color:#00d4aa}
 .wallet-btn{background:linear-gradient(135deg,#00d4aa,#00a885);color:#000;border:none;padding:8px 12px;border-radius:6px;font-weight:700;font-size:9px;cursor:pointer}
 .wallet-info{background:#0f1629;border:1px solid #00d4aa;padding:8px 10px;border-radius:6px;font-size:8px;color:#00d4aa;max-width:120px;overflow:hidden;text-overflow:ellipsis;display:none}
-.tabs-nav{background:#0f1629;border-bottom:1px solid #ffffff15;padding:8px 12px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;flex-shrink:0}
-.nav-btn{padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.tabs-nav{background:#0f1629;border-bottom:1px solid #ffffff15;padding:8px 12px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;flex-shrink:0;overflow-x:auto}
+.nav-btn{padding:8px;background:#0f1629;border:1px solid #ffffff15;border-radius:6px;color:#7a8ba8;font-size:8px;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap}
 .nav-btn.active{background:#253857;border-color:#00d4aa;color:#00d4aa}
 .content-wrapper{flex:1;overflow-y:auto;padding:12px;width:100%}
-.tab-content{display:none}
-.tab-content.active{display:block}
+.tab-content{display:none !important}
+.tab-content.active{display:block !important}
 .hero{background:linear-gradient(135deg,#1a2847,#253857);border:1px solid #ffffff15;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center}
 .token-logo{font-size:40px;margin-bottom:6px}
 .token-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
@@ -64,7 +64,7 @@ body{overflow:hidden}
 .toggle-btn.on .toggle-dot{left:18px}
 .item{background:#0a0e1a;border:1px solid #ffffff08;border-radius:6px;padding:8px;margin-bottom:6px;font-size:8px}
 .item-label{color:#7a8ba8;margin-bottom:2px}
-.item-value{color:#fff;font-weight:700}
+.item-value{color:#fff;font-weight:700;font-size:10px}
 .premium-badge{background:#ff9800;color:#fff;padding:4px 8px;border-radius:4px;font-size:8px;font-weight:700;display:inline-block;margin-bottom:8px}
 .notif{position:fixed;bottom:15px;right:15px;background:#1a2847;border:2px solid #00d4aa;border-radius:8px;padding:10px 12px;z-index:999;animation:slideIn 0.3s;font-size:9px;max-width:200px}
 @keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
@@ -82,11 +82,11 @@ body{overflow:hidden}
 </div>
 
 <div class="tabs-nav">
-<button class="nav-btn active" onclick="switchTab('main', this)">📊 Main</button>
-<button class="nav-btn" onclick="switchTab('whales', this)">🐋 Whales</button>
-<button class="nav-btn" onclick="switchTab('discord', this)">🤖 Discord</button>
-<button class="nav-btn" onclick="switchTab('copying', this)">📋 Copying</button>
-<button class="nav-btn" onclick="switchTab('earnings', this)">💰 Earnings</button>
+<button class="nav-btn active" onclick="switchTab('main', event.target)">📊 Main</button>
+<button class="nav-btn" onclick="switchTab('whales', event.target)">🐋 Whales</button>
+<button class="nav-btn" onclick="switchTab('discord', event.target)">🤖 Discord</button>
+<button class="nav-btn" onclick="switchTab('copying', event.target)">📋 Copying</button>
+<button class="nav-btn" onclick="switchTab('earnings', event.target)">💰 Earnings</button>
 </div>
 
 <div class="content-wrapper">
@@ -247,7 +247,7 @@ body{overflow:hidden}
 <div class="section">
 <div class="section-title">💰 EARNINGS BREAKDOWN</div>
 <div class="item">
-<div class="item-label">Today</div>
+<div class="item-label">Today Earnings</div>
 <div class="item-value" id="todayEarnings">$0.00</div>
 </div>
 <div class="item">
@@ -286,11 +286,11 @@ const topWhales = [
 {id:5,name:"🎯 TargetHunter",trades:1680,volume:"$7.4M",winRate:"76%",lastTrade:"BUY 15m"}
 ];
 
-function switchTab(tab, button) {
+function switchTab(tabName, btn) {
 document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
 document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-document.getElementById(tab).classList.add("active");
-button.classList.add("active");
+document.getElementById(tabName).classList.add("active");
+btn.classList.add("active");
 updateUI();
 updateEarnings();
 }
@@ -324,7 +324,7 @@ notify(`❌ Stopped copying ${name}`);
 activeCopies.push({id, name, trades: 0, earnings: 0});
 document.getElementById("btn-"+id).textContent = "✅ COPYING";
 document.getElementById("btn-"+id).classList.add("active");
-notify(`✅ Copying ${name}!\n🟢 Auto-following trades!`);
+notify(`✅ Copying ${name}!\n🟢 Trades starting!`);
 if(!simulationActive) startSimulation();
 }
 updateUI();
@@ -338,18 +338,15 @@ const html = activeCopies.map(ac => `
 </div>
 `).join("") || '<div class="item"><div class="item-label">No active copies</div><div class="item-value">Go to Whales tab!</div></div>';
 document.getElementById("copyingList").innerHTML = html;
+updateEarnings();
 }
 
 function startSimulation() {
 if(simulationActive) return;
 simulationActive = true;
 
-const interval = setInterval(() => {
-if(activeCopies.length === 0) {
-clearInterval(interval);
-simulationActive = false;
-return;
-}
+setInterval(() => {
+if(activeCopies.length === 0) return;
 
 activeCopies.forEach(ac => {
 if(Math.random() > 0.4) {
@@ -367,10 +364,7 @@ copyHistory.push({whale: ac.name, action, amount: amt.toFixed(0), fee: fee.toFix
 updateUI();
 updateEarnings();
 
-if(webhookConnected) {
-notify(`🤖 Discord Alert!\n${ac.name} ${action}`);
-}
-
+if(webhookConnected) notify(`🤖 Discord: ${ac.name} ${action}`);
 notify(`🟢 ${ac.name} ${action}!\n💰 +$${fee.toFixed(2)}`);
 }
 });
